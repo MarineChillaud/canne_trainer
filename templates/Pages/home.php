@@ -35,33 +35,4 @@ if (!Configure::read('debug')) :
 endif;
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $this->fetch('title') ?></title>
-    <link rel="stylesheet" href="/css/homemade/flags.css"/>        
-    <link rel="stylesheet" href="/css/homemade/cannecounter.css"/>   
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
-    <!-- <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'home']) ?>  -->
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
-<body>
-    <header>
-        <h1 style="color:red">test 123</h1>
-    </header>
-    <div>
-        <?= $this->Html->link('Videos', ['controller' => 'Videos', 'action' => 'index']) ?>
-        <?= $this->element('Videos/index'); ?>
-    </div>
-
-    <script src="/js/jquery-3.6.4.min.js"></script>        
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-</body>
-</html>

@@ -10,8 +10,8 @@ $siteVersion = '1.0'
     <title><?= $siteName ?> : <?= $this->fetch('title') ?></title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css("bootstrap.min.css") ?>
-    <?= $this->Html->css("fontawesome") ?>
+    <?= $this->Html->css("bootstrap.min") ?>
+    <!-- <?= $this->Html->css("fontawesome") ?> -->
     <?= $this->Html->css("homemade/flags") ?>
     <?= $this->Html->css("homemade/cannecounter") ?>
 
@@ -64,7 +64,7 @@ $siteVersion = '1.0'
         <div class="row"></div>
         <div class="row">
             <nav class='col d-none d-lg-block navbar navbar-dark bg-dark' id='localnav'></nav>
-            <main class=class='col-12 col-lg-8 p-3'>
+            <main class='col-12 col-lg-8 p-3'>
                     <h1>Bienvenue sur CanneTrainer</h1>
 
                 <div class='row'>
@@ -91,10 +91,10 @@ $siteVersion = '1.0'
             </footer>
     </div>
 
-    <?= $this->Html->script('jquery-3.6.4.min'); ?>       
+    <!-- <?= $this->Html->script('jquery-3.6.4.min'); ?>       
     <?= $this->Html->script('popper.min'); ?>        
     <?= $this->Html->script('js/bootstrap.min'); ?>        
-    <?= $this->Html->script('scriptBottom'); ?>        
+    <?= $this->Html->script('scriptBottom'); ?>         -->
 
 </body>
 </html>
