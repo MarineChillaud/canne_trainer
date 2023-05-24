@@ -1,23 +1,23 @@
 <?php
-
-$cakeDescription = 'Canne Trainer';
+$siteName = 'Canne Trainer';
+$siteVersion = '1.0'
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
+    <title><?= $siteName ?> : <?= $this->fetch('title') ?></title>
     <?= $this->Html->meta('icon') ?>
-    <link rel="stylesheet" href="/css/homemade/flags.css"/>        
-    <link rel="stylesheet" href="/css/homemade/cannecounter.css"/>   
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>  
+
+    <?= $this->Html->css("bootstrap.min.css") ?>
+    <?= $this->Html->css("fontawesome") ?>
+    <?= $this->Html->css("homemade/flags") ?>
+    <?= $this->Html->css("homemade/cannecounter") ?>
+
+
     <script src="https://kit.fontawesome.com/b99a638360.js" crossorigin="anonymous"></script>
 
-    <?php echo $this->Html->css("bootstrap.min.css"); ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -26,6 +26,7 @@ $cakeDescription = 'Canne Trainer';
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+        <?= $this->Html->link($this->Html->image('logo.png') . " " . $siteName, '/', ['class' => 'navbar-brand', 'escapeTitle' => false]); ?>
         <a href="/" class="navbar-brand"><img src="/img/logo.png" alt=""/>CanneTrainer</a>            
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -74,18 +75,26 @@ $cakeDescription = 'Canne Trainer';
             <aside class='col d-none d-lg-block' id='complinfo'></aside>
         </div>
         <footer class="row py-3">
-            <div class='col d-none d-lg-block'></div>
-            <aside class='col-12 col-lg-8 p-3 text-center'>
-                <img src="/img/logo.png" class="mh-25" style="float:left;" alt=""/>                    
-                <address style='float:right'>©Marine Chillaud v1.0</address>
-                Ce site est en production mais des erreurs restent possibles -<a href="/pages/about">Crédits</a>-<a href="/pages/legal">Mentions légales</a>                
-            </aside>
-            <div class='col d-none d-lg-block'></div>
-        </footer>
+                <div class='col d-none d-lg-block'></div>
+                <aside class='col-12 col-lg-8 p-3 text-center'>
+                    <?= $this->Html->image('logo.png', ['class' => 'mh-25', 'style' => 'float:left;']) ?>
+                    <address style='float:right'>©Marine Chillaud - v<?=$siteVersion?></address>
+                    <?=
+                    (\Cake\Core\Configure::read('debug')) ?
+                            __('Ce site est encore en phase de débogage, les données peuvent être effacées à tout moment') :
+                            __('Ce site est en production mais des erreurs restent possibles')
+                    ?> 
+                    - <?= $this->html->link('Crédits', ['controller' => 'pages', 'action' => 'about']) ?>
+                    - <?= $this->html->link('Mentions légales', ['controller' => 'pages', 'action' => 'legal']) ?>
+                </aside>
+                <div class='col d-none d-lg-block'></div>
+            </footer>
     </div>
 
-    <script src="/js/jquery-3.6.4.min.js"></script>        
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>   
+    <?= $this->Html->script('jquery-3.6.4.min'); ?>       
+    <?= $this->Html->script('popper.min'); ?>        
+    <?= $this->Html->script('js/bootstrap.min'); ?>        
+    <?= $this->Html->script('scriptBottom'); ?>        
+
 </body>
 </html>
