@@ -1,0 +1,10 @@
+.languagepicker a{background-repeat: no-repeat; background-position:0.5em center; padding-left: 2em;  }
+.languagepicker a.fr_FR { background-image:url(../../img/flags/fr.png);   }
+.languagepicker a.en    { background-image:url(../../img/flags/uk.png);   }
+.languagepicker a.de    { background-image:url(../../img/flags/de.png);   }
+.languagepicker a.hu    { background-image:url(../../img/flags/hu.png);   }
+.languagepicker a.sl_SI { background-image:url(../../img/flags/si.png);   }
+.languagepicker a.it    { background-image:url(../../img/flags/it.png);   }
+.languagepicker a.es    { background-image:url(../../img/flags/es.png);   }
+
+#localemenu{padding-left: 1.5em;  }

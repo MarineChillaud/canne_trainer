@@ -1,0 +1,51 @@
+body{
+    background: #000;
+    color: #fff;
+}
+.navbar-dark{
+    opacity:0.8
+}
+body a{
+    color:#69b1ff;
+}
+body a:hover{
+    color:#c2ddfb;
+}
+
+main{
+    min-height: 40em;
+}
+
+nav header .dropdown-menu .dropdown-item i.fas,
+nav header .dropdown-menu .dropdown-item i.far{
+    width:21px;
+}
+
+#localnav:empty,#complinfo:empty{
+    background-image:url("../../img/fond1.jpg");
+    background-size:cover;
+    background-position: right;
+    filter: hue-rotate(150deg)saturate(150%);
+}
+#complinfo:empty{
+    transform:scaleX(-1);
+    filter:saturate(150%);
+    z-index: -100;
+}
+#localnav:empty::after,#complinfo:empty::after{
+    position: absolute;
+    content: ' ';
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(225deg, rgba(0,0,250,0.2), #889);
+    box-sizing: border-box;
+}
+
+/*pour que les ancres nommÃ©es tombent bien*/
+html {
+    scroll-padding-top: 60px;
+}
