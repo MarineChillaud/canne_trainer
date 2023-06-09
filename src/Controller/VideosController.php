@@ -19,7 +19,12 @@ class VideosController extends AppController
         // cas de traitement de formulaire
         if ($this->request->is('post')) {
             // ne s'active que s'il recoit des informations d'un formulaire en method POST
-            pr($this->request->getData());
+            $newPoint = $PointsTable->newEmptyEntity();
+            $newPoint->video_id = $this->request->getData('video_id');
+            $newPoint->assessment_id = $this->request->getData('assessment_id');
+            $newPoint->color_point = $this->request->getData('color_point');
+            $newPoint->timing = 0; //@todo: récupérer le vrai timing de la video. 
+            $PointsTable->save($newPoint);
         }
 
         // interroger le model
