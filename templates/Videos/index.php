@@ -1,3 +1,5 @@
+<h1>Bienvenue sur CanneTrainer</h1>
+
 <h1>Vidéos</h1>
 <table>
     <tr>

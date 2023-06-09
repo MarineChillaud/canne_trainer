@@ -1,33 +1,36 @@
 <div class="container text-center">
-    <h1><?= h($video->title) ?></h1>
-    <div class="row align-items-start">            
+    <h1 class='m-5'><?= h($video->title) ?></h1>
+
+    <div class="row align-items-center">
         <div class="col align-self-center">
-            <!-- <?php foreach ($points as $point) : ?> -->
-            <div class="col align-self-center">
+            <?php $color = 'red'; ?>
+            <div class="col">
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Points', 'action' => 'add']]) ?>
-                <?= $this->Form->hidden('color_point', ['value' => 'rouge']) ?>
+                <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                <?= $this->Form->button($redPointsCount, ['class' => "btn btn-danger"]) ?>
+                <?= $this->Form->button('todo', ['class' => 'btn btn-danger']) ?>
                 <?= $this->Form->end() ?>
             </div>
-            <!-- <?php endforeach; ?> -->
-        </div>   
-        <div class="col">
-            <video src="<?= h($video->url) ?>" controls></video>
-            <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/B25BcD8HEGQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
-            <?php foreach ($points as $point) : ?> 
-            <div class="col align-self-center">
+        <div class="col">
+            <!-- <video src="<?= h($video->url) ?>" controls></video> -->
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/B25BcD8HEGQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="col align-self-center">
+            <?php $color = 'blue'; ?>
+            <div class="col">
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Points', 'action' => 'add']]) ?>
-                <?= $this->Form->hidden('color_point', ['value' => 'bleu']) ?>
+                <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                <?= $this->Form->button($bluePointsCount, ['class' => "btn btn-primary"]) ?>
+                <?= $this->Form->button('todo', ['class' => 'btn btn-primary']) ?>
                 <?= $this->Form->end() ?>
-            </div>                
-             <?php endforeach; ?> 
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="container text-center">
-    <?= $this->Html->link('Retour à la liste des vidéos', ['action' => 'index']) ?>
+
+
+
+
+
 </div>

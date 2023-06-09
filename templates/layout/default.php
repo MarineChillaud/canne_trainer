@@ -65,7 +65,6 @@ $siteVersion = '1.0'
         <div class="row">
             <nav class='col d-none d-lg-block navbar navbar-dark bg-dark' id='localnav'></nav>
             <main class='col-12 col-lg-8 p-3'>
-                    <h1>Bienvenue sur CanneTrainer</h1>
 
                 <div class='row'>
                     <?= $this->Flash->render() ?>

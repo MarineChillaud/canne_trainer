@@ -13,7 +13,8 @@ class VideosController extends AppController
     {
         // Récupérer la vidéo correspondant à l'id fourni
         $video = $this->Videos->get($id);
-        $this->set(compact('video'));
-        $this->set('points',[]);
+        $redButtonClickCount = 0;
+        $this->set(compact('video', 'redButtonClickCount'));
+        $this->set('points', []);
     }
 }
