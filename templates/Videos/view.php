@@ -5,9 +5,10 @@
         <div class="col align-self-center">
             <?php $color = 'red'; ?>
             <div class="col">
-                <?= $this->Form->create(null, ['url' => ['controller' => 'Points', 'action' => 'add']]) ?>
+                <?= $this->Form->create() ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
+                <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
                 <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
                 <?= $this->Form->end() ?>
             </div>
@@ -19,9 +20,10 @@
         <div class="col align-self-center">
             <?php $color = 'blue'; ?>
             <div class="col">
-                <?= $this->Form->create(null, ['url' => ['controller' => 'Points', 'action' => 'add']]) ?>
+                <?= $this->Form->create() ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
+                <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
                 <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
                 <?= $this->Form->end() ?>
             </div>
