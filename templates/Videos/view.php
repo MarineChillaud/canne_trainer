@@ -8,7 +8,7 @@
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Points', 'action' => 'add']]) ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                <?= $this->Form->button('todo', ['class' => 'btn btn-danger']) ?>
+                <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
                 <?= $this->Form->end() ?>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Points', 'action' => 'add']]) ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                <?= $this->Form->button('todo', ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
                 <?= $this->Form->end() ?>
             </div>
         </div>

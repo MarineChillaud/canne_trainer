@@ -9,12 +9,17 @@ class VideosController extends AppController
         $videos = $this->Videos->find('all', ['contain' => 'Events']);
         $this->set(compact('videos'));
     }
+    
+    /**
+     * @param int id  l'id de la vidéo à afficher
+     */
     public function view($id)
     {
+        $PointsTable = $this->fetchTable('Points');
+        // interroger le model
         // Récupérer la vidéo correspondant à l'id fourni
         $video = $this->Videos->get($id);
-        $redButtonClickCount = 0;
-        $this->set(compact('video', 'redButtonClickCount'));
-        $this->set('points', []);
+        $points = $PointsTable->findByVideoAndAssessment($id, 1);
+        $this->set(compact('video', 'points'));
     }
 }

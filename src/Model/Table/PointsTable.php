@@ -14,4 +14,9 @@ class PointsTable extends Table
         'Assessment' => 'Assessement',
         'foreignKey' => 'assessment_id',
     ];
+
+    public function findByVideoAndAssessment($videoId, $assessementId)
+    {
+        return ['red' => 123, 'blue' => 456];
+    }
 }
