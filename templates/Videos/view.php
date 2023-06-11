@@ -1,45 +1,37 @@
-<!DOCTYPE html>
-<html>
+<?= $this->Html->script('timer.js') ?>
 
-<head>
-    <?= $this->Html->script('timer.js') ?>
-</head>
+<div class="container text-center">
+    <h1 class='mb-5'><?= h($video->title) ?></h1>
 
-<body>
-
-    <div class="container text-center">
-        <h1 class='m-5'><?= h($video->title) ?></h1>
-
-        <div class="row align-items-center">
-            <div class="col align-self-center">
-                <?php $color = 'red'; ?>
-                <div class="col">
-                    <?= $this->Form->create() ?>
-                    <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
-                    <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                    <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
-                    <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
-                    <?= $this->Form->end() ?>
-                </div>
-            </div>
+    <div class="row align-items-center">
+        <div class="col">
+            <video id="video" src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" controls></video>
+        </div>
+        <div class="col align-self-center">
+            <?php $color = 'red'; ?>
             <div class="col">
-                <!-- <video src="<?= h($video->url) ?>" controls></video> -->
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/B25BcD8HEGQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div class="col align-self-center">
-                <?php $color = 'blue'; ?>
-                <div class="col">
-                    <?= $this->Form->create() ?>
-                    <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
-                    <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                    <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
-                    <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
-                    <?= $this->Form->end() ?>
-                </div>
+                <?= $this->Form->create() ?>
+                <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
+                <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
+                <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
+                <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
+                <?= $this->Form->end() ?>
             </div>
         </div>
-        <div id="timer">00:00</div>
+        <div class="col align-self-center">
+            <?php $color = 'blue'; ?>
+            <div class="col">
+                <?= $this->Form->create() ?>
+                <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
+                <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
+                <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
+                <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
     </div>
-</body>
-
-</html>
+    <div class="progress bg-secondary mx-auto mt-4" style="height: 30px;">
+        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+    </div>
+</div>
