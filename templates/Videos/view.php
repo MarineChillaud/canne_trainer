@@ -9,22 +9,22 @@
         </div>
         <div class="col align-self-center">
             <div type="button" class="btn btn-danger btn-lg">
-                <?= $this->Form->create() ?>
+                <?= $this->Form->create(null, ['id' => 'point_form_red']) ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
-                <?= $this->form->hidden('current_time', ['id' => 'current_time']); ?>
+                <?= $this->form->hidden('current_time', ['id' => 'current_time_red']); ?>
                 <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
                 <?= $this->Form->end() ?>
             </div>
         </div>
         <div class="col align-self-center">
             <div type="button" class="btn btn-primary btn-lg">
-                <?= $this->Form->create() ?>
+                <?= $this->Form->create(null, ['id' => 'point_form_blue']) ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
-                <?= $this->form->hidden('current_time', ['id' => 'current_time']); ?>
+                <?= $this->form->hidden('current_time', ['id' => 'current_time_blue']); ?>
                 <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
                 <?= $this->Form->end() ?>
             </div>

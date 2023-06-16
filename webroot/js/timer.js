@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   let video = document.querySelector('video');
-  let currentTimeInput = document.getElementById('current_time');
   let redButton = document.querySelector('.btn-danger');
   let blueButton = document.querySelector('.btn-primary');
+  let redCurrentTimeInput = document.getElementById('current_time_red');
+  let blueCurrentTimeInput = document.getElementById('current_time_blue');
 
   function updateProgressBar() {
     let progress = (video.currentTime / video.duration) * 100;
@@ -11,9 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function getCurrentTime() {
     console.log(video.currentTime);
-    currentTimeInput.value = video.currentTime;
+    redCurrentTimeInput.value = video.currentTime;
+    blueCurrentTimeInput.value = video.currentTime;
   }
-  
+
   video.addEventListener('play', getCurrentTime);
   video.addEventListener('pause', getCurrentTime);
   video.addEventListener('timeupdate', updateProgressBar);
