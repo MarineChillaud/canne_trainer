@@ -23,7 +23,7 @@ class VideosController extends AppController
             $newPoint->video_id = $this->request->getData('video_id');
             $newPoint->assessment_id = $this->request->getData('assessment_id');
             $newPoint->color_point = $this->request->getData('color_point');
-            $newPoint->timing = 0; //@todo: récupérer le vrai timing de la video. 
+            $newPoint->timing = $this->request->getData('current_time');
             $PointsTable->save($newPoint);
         }
 
@@ -31,6 +31,7 @@ class VideosController extends AppController
         // Récupérer la vidéo correspondant à l'id fourni
         $video = $this->Videos->get($id);
         $points = $PointsTable->findByVideoAndAssessment($id, 1);
+
         $assessmentId = 1; //@todo: un jour avoir le vrai cf session
         $this->set(compact('video', 'points', 'assessmentId'));
     }

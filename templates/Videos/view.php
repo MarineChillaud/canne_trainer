@@ -8,23 +8,23 @@
             <video id="video" src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" controls></video>
         </div>
         <div class="col align-self-center">
-            <?php $color = 'red'; ?>
-            <div class="col">
+            <div type="button" class="btn btn-danger btn-lg">
                 <?= $this->Form->create() ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
+                <?= $this->form->hidden('current_time', ['id' => 'current_time']); ?>
                 <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
                 <?= $this->Form->end() ?>
             </div>
         </div>
         <div class="col align-self-center">
-            <?php $color = 'blue'; ?>
-            <div class="col">
+            <div type="button" class="btn btn-primary btn-lg">
                 <?= $this->Form->create() ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
+                <?= $this->form->hidden('current_time', ['id' => 'current_time']); ?>
                 <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
                 <?= $this->Form->end() ?>
             </div>

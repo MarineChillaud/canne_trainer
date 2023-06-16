@@ -11,7 +11,7 @@ class PointsTable extends Table
     }
 
     public $belongsTo = [
-        'Assessment' => 'Assessement',
+        'Assessment' => 'Assessment',
         'foreignKey' => 'assessment_id',
     ];
 
