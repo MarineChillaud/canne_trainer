@@ -1,3 +1,5 @@
+const csrfToken = document.querySelector('input[name="_csrfToken"]').value;
+
 document.addEventListener('DOMContentLoaded', function() {
   let video = document.querySelector('video');
   let redButton = document.querySelector('.btn-danger');
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function sendAjaxRequest(currentTime, color) {
     xhr.onreadystatechange = alertContent;
     xhr.open('POST', 'videos/view/', true);
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send('color=' + encodeURIComponent(color) + '&currentTime=' + encodeURIComponent(currentTime));
   }

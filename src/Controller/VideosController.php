@@ -2,8 +2,23 @@
 
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
+use App\Controller\Component\CsrfProtectionComponent;
+
 class VideosController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent(CsrfProtectionComponent::class);
+    }
+
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->getRequest()->getAttribute('csrfToken');
+    }
+
     public function index()
     {
         $videos = $this->Videos->find('all', ['contain' => 'Events']);
