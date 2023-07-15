@@ -1,4 +1,10 @@
+<?= $this->Html->scriptBlock(sprintf(
+    'var csrfToken = %s;',
+    json_encode($this->request->getAttribute('csrfToken'))
+)) ?>
+
 <?= $this->Html->script('timer.js') ?>
+
 
 <div class="container text-center">
     <h1 class='mb-5'><?= h($video->title) ?></h1>
@@ -13,8 +19,9 @@
                 <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
-                <?= $this->form->hidden('current_time', ['id' => 'current_time_red']); ?>
+                <?= $this->Form->hidden('current_time', ['id' => 'current_time_red']); ?>
                 <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
+                <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
                 <?= $this->Form->end() ?>
             </div>
         </div>
@@ -24,8 +31,9 @@
                 <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
-                <?= $this->form->hidden('current_time', ['id' => 'current_time_blue']); ?>
+                <?= $this->Form->hidden('current_time', ['id' => 'current_time_blue']); ?>
                 <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
                 <?= $this->Form->end() ?>
             </div>
         </div>

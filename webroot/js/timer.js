@@ -1,11 +1,15 @@
-const csrfToken = document.querySelector('input[name="_csrfToken"]').value;
-
 document.addEventListener('DOMContentLoaded', function() {
   let video = document.querySelector('video');
   let redButton = document.querySelector('.btn-danger');
   let blueButton = document.querySelector('.btn-primary');
   let redCurrentTimeInput = document.getElementById('current_time_red');
   let blueCurrentTimeInput = document.getElementById('current_time_blue');
+
+  console.log('video: ', video);
+  console.log('redButton: ',redButton);
+  console.log('buleButton: ', blueButton);
+  console.log('redCurrentTimeInput: ', redCurrentTimeInput);
+  console.log('blueCurrentTimeInput: ', blueCurrentTimeInput);
 
   function updateProgressBar() {
     let progress = (video.currentTime / video.duration) * 100;
@@ -39,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Il y a eu un soucis avec la requête');
     }
   }
+
     function sendAjaxRequest(currentTime, color) {
     xhr.onreadystatechange = alertContent;
     xhr.open('POST', 'videos/view/', true);
@@ -58,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     getCurrentTime();
     console.log('Timing blueButton : ', video.currentTime);
     const blueCurrentTime = video.currentTime;
-    const color = 'red'
+    const color = 'blue'
     sendAjaxRequest(blueCurrentTime, color);
     });
 
