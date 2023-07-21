@@ -56,7 +56,7 @@ $siteVersion = '1.0'
                     </div>
                 </li>
                 <li class='nav-item'>
-                    <a href="/personals/login" class="nav-link">Connexion</a>
+                    <a href="/canne_trainer/videos/login" class="nav-link">Connexion</a>
                 </li>
             </ul>
         </header>

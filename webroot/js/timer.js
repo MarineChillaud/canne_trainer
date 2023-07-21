@@ -43,28 +43,37 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Il y a eu un soucis avec la requête');
     }
   }
+  var serializeForm = function (form) {
+    var obj = {};
+    var formData = new FormData(form);
+    for (var key of formData.keys()) {
+      obj[key] = formData.get(key);
+    }
+    return obj;
+  };
+  
+  function sendAjaxRequest(event) {
+    event.preventDefault();
+    getCurrentTime(); //??
+    let sourceForm=event.target.parentNode;
+    sourceForm.querySelector("input[name='current_time']").value=video.currentTime;
+    let sourceFormAction=sourceForm.getAttribute('action');
+    let sourceFormData= new FormData(sourceForm);
+    console.log(sourceFormData);
 
-    function sendAjaxRequest(currentTime, color) {
     xhr.onreadystatechange = alertContent;
-    xhr.open('POST', 'videos/view/', true);
+    xhr.open('POST', sourceFormAction, true);
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('color=' + encodeURIComponent(color) + '&currentTime=' + encodeURIComponent(currentTime));
+    //xhr.send(sourceFormData); 
+    xhr.send(JSON.stringify(serializeForm(sourceForm)));
   }
 
-  redButton.addEventListener('click', function() {
-    getCurrentTime();
-    console.log('Timing redButton : ', video.currentTime);
-    const redCurrentTime = video.currentTime;
-    const color = 'red'
-    sendAjaxRequest(redCurrentTime, color);
+  redButton.addEventListener('click', function(event) {
+    sendAjaxRequest(event);
   });
-  blueButton.addEventListener('click', function() {
-    getCurrentTime();
-    console.log('Timing blueButton : ', video.currentTime);
-    const blueCurrentTime = video.currentTime;
-    const color = 'blue'
-    sendAjaxRequest(blueCurrentTime, color);
+  blueButton.addEventListener('click', function(event) {
+    sendAjaxRequest(event);
     });
 
   // Récupére le currentTime lors du chargement de la vidéo
