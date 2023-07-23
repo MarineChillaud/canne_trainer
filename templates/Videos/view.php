@@ -20,7 +20,7 @@
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
                 <?= $this->Form->hidden('current_time', ['id' => 'current_time_red']); ?>
-                <?= $this->Form->button($points['red'], ['class' => 'btn btn-danger']) ?>
+                <?= $this->Form->button($points['red'], ['id' => 'redButton', 'class' => 'btn btn-danger']) ?>
                 <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
                 <?= $this->Form->end() ?>
             </div>
@@ -32,7 +32,7 @@
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
                 <?= $this->Form->hidden('current_time', ['id' => 'current_time_blue']); ?>
-                <?= $this->Form->button($points['blue'], ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button($points['blue'], ['id' => 'blueButton','class' => 'btn btn-primary']) ?>
                 <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
                 <?= $this->Form->end() ?>
             </div>

@@ -41,9 +41,9 @@ class VideosController extends AppController
             $newPoint->video_id = $this->request->getData('video_id');
             $newPoint->assessment_id = $this->request->getData('assessment_id');
             $newPoint->color_point = $this->request->getData('color_point');
-            $newPoint->timing = $this->request->getData('"current_time"');
+            $newPoint->timing = $this->request->getData('current_time');
             pr($newPoint);
-            //$PointsTable->save($newPoint);
+            $PointsTable->save($newPoint);
         }
 
         // interroger le model

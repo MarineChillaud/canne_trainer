@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   let video = document.querySelector('video');
-  let redButton = document.querySelector('.btn-danger');
-  let blueButton = document.querySelector('.btn-primary');
+  let redButton = document.getElementById('redButton');
+  let blueButton = document.getElementById('blueButton');
   let redCurrentTimeInput = document.getElementById('current_time_red');
   let blueCurrentTimeInput = document.getElementById('current_time_blue');
 
@@ -37,21 +37,15 @@ document.addEventListener('DOMContentLoaded', function() {
   let xhr = new XMLHttpRequest();
 
   function alertContent (){
-    if(xhr.readyState === 4 && xhr.status === 200) {
+    if(xhr.readyState === 4){
+      if (xhr.status === 200) {
       console.log(xhr.responseText);
-    } else {
+      } else {
       console.log('Il y a eu un soucis avec la requête');
+      }
     }
   }
-  var serializeForm = function (form) {
-    var obj = {};
-    var formData = new FormData(form);
-    for (var key of formData.keys()) {
-      obj[key] = formData.get(key);
-    }
-    return obj;
-  };
-  
+
   function sendAjaxRequest(event) {
     event.preventDefault();
     getCurrentTime(); //??
@@ -59,14 +53,14 @@ document.addEventListener('DOMContentLoaded', function() {
     sourceForm.querySelector("input[name='current_time']").value=video.currentTime;
     let sourceFormAction=sourceForm.getAttribute('action');
     let sourceFormData= new FormData(sourceForm);
+    let encodedData = new URLSearchParams(sourceFormData).toString();
     console.log(sourceFormData);
 
     xhr.onreadystatechange = alertContent;
     xhr.open('POST', sourceFormAction, true);
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    //xhr.send(sourceFormData); 
-    xhr.send(JSON.stringify(serializeForm(sourceForm)));
+    xhr.send(encodedData); 
   }
 
   redButton.addEventListener('click', function(event) {
