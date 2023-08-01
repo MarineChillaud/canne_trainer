@@ -5,19 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
   let redCurrentTimeInput = document.getElementById('current_time_red');
   let blueCurrentTimeInput = document.getElementById('current_time_blue');
 
-  console.log('video: ', video);
-  console.log('redButton: ',redButton);
-  console.log('buleButton: ', blueButton);
-  console.log('redCurrentTimeInput: ', redCurrentTimeInput);
-  console.log('blueCurrentTimeInput: ', blueCurrentTimeInput);
-
   function updateProgressBar() {
     let progress = (video.currentTime / video.duration) * 100;
     progressBar.style.width = progress + '%';
   }
 
   function getCurrentTime() {
-    console.log(video.currentTime);
     redCurrentTimeInput.value = video.currentTime;
     blueCurrentTimeInput.value = video.currentTime;
   }
@@ -39,20 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function alertContent (){
     if(xhr.readyState === 4){
       if (xhr.status === 200) {
-      console.log(xhr.responseText);
-
-      const response = JSON.parse(xhr.responseText);
-        if (response.points.red) {
-          console.log('redButton :', redButton);
-          console.log('blueButton :', blueButton);
-          // Mettre à jour les boutons rouges et bleus avec les nouveaux points
-          redButton.textContent = response.points.red;
-          blueButton.textContent = response.points.blue;
-        } else {
-          console.log('Erreur lors de l\'enregistrement du point');
-        }
+        const response = JSON.parse(xhr.responseText);
+        // Mettre à jour les boutons rouges et bleus avec les nouveaux points
+        redButton.textContent = response.points.red;
+        blueButton.textContent = response.points.blue;
       } else {
-      console.log('Il y a eu un soucis avec la requête');
+      console.error('Il y a eu un soucis avec la requête');
       }
     }
   }
@@ -64,8 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sourceForm.querySelector("input[name='current_time']").value=video.currentTime;
     let sourceFormAction=sourceForm.getAttribute('action');
     let sourceFormData= new FormData(sourceForm);
-   // let encodedData = new URLSearchParams(sourceFormData).toString();
-   // console.log(sourceFormData);
+ 
 
    let jsonData = {};
    sourceFormData.forEach((value, key) => {
@@ -77,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.setRequestHeader('accept', 'application/json;charset=UTF-8');
-    //xhr.responseType = 'json';    
     xhr.send(JSON.stringify(jsonData)); 
   }
 
