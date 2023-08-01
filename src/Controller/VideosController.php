@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 use App\Controller\Component\CsrfProtectionComponent;
+use SebastianBergmann\Environment\Console;
 
 class VideosController extends AppController
 {
@@ -11,6 +12,7 @@ class VideosController extends AppController
     {
         parent::initialize();
         $this->loadComponent(CsrfProtectionComponent::class);
+        $this->loadComponent('RequestHandler');
     }
 
     public function beforeFilter(EventInterface $event)
@@ -28,6 +30,8 @@ class VideosController extends AppController
     /**
      * @param int id  l'id de la vidéo à afficher
      */
+
+
     public function view($id)
     {
         $sessionId = $this->request->getSession()->id();
@@ -36,13 +40,13 @@ class VideosController extends AppController
         // cas de traitement de formulaire
         if ($this->request->is('post')) {
             // ne s'active que s'il recoit des informations d'un formulaire en method POST
-            print_r($this->request->getData());
+            //print_r($this->request->getData());
             $newPoint = $PointsTable->newEmptyEntity();
             $newPoint->video_id = $this->request->getData('video_id');
             $newPoint->assessment_id = $this->request->getData('assessment_id');
             $newPoint->color_point = $this->request->getData('color_point');
             $newPoint->timing = $this->request->getData('current_time');
-            pr($newPoint);
+            //pr($newPoint);
             $PointsTable->save($newPoint);
         }
 
@@ -50,9 +54,18 @@ class VideosController extends AppController
         // Récupérer la vidéo correspondant à l'id fourni
         $video = $this->Videos->get($id);
         $points = $PointsTable->findByVideoAndAssessment($id, 1);
+        //print_r($points);
+        //pr($points);
 
         $assessmentId = 1; //@todo: un jour avoir le vrai cf session
         $this->set(compact('video', 'points', 'assessmentId'));
+
+        if ($this->request->is('json')) {
+            $this->set(['_serialize' => ['video', 'points', 'assessmentId']]);
+            $this->viewBuilder()->setLayout('ajax');
+            //echo json_encode($points);
+            //die;
+        }
     }
 
     public function login()
