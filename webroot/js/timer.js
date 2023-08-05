@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.open('POST', sourceFormAction, true);
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    // choix de accept pour forcer le serveur à renvoyer du json dans le retour de la requête 
     xhr.setRequestHeader('accept', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify(jsonData)); 
   }

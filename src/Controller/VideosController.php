@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 use App\Controller\Component\CsrfProtectionComponent;
-use SebastianBergmann\Environment\Console;
+use Cake\Utility\Text;
 
 class VideosController extends AppController
 {
@@ -13,6 +13,7 @@ class VideosController extends AppController
         parent::initialize();
         $this->loadComponent(CsrfProtectionComponent::class);
         $this->loadComponent('RequestHandler');
+        $this->loadComponent('Flash');
     }
 
     public function beforeFilter(EventInterface $event)
@@ -34,7 +35,26 @@ class VideosController extends AppController
 
     public function view($id)
     {
-        $sessionId = $this->request->getSession()->id();
+        $session = $this->request->getSession();
+
+        // Vérifier si la session est démarrée, si non la démarrer
+        if (!$session->started()) {
+            $session->start();
+            //Vérifier si le User.id existe dans la session, si non le générer
+            if (!$session->check('User.id')) {
+                $user_id = text::uuid();
+                // sauvegarder l'Id dans la session 
+                $session->write('User.id', $user_id);
+
+                $this->Flash->success('Bienvenue, un User_id' . $user_id . 'a été généré pour vous');
+            }
+        } else {
+            $this->Flash->error('la session est inactive');
+        }
+
+        // Récupérer la valeur de User.id depuis la session
+        $userId = $session->read('User.id');
+        $this->set(compact('userId'));
 
         $PointsTable = $this->fetchTable('Points');
         // cas de traitement de formulaire
@@ -55,9 +75,10 @@ class VideosController extends AppController
 
         $assessmentId = 1; //@todo: un jour avoir le vrai cf session
         $this->set(compact('video', 'points', 'assessmentId'));
-
+        // repose sur le header 'accept' 
         if ($this->request->is('json')) {
             $this->set(['_serialize' => ['video', 'points', 'assessmentId']]);
+            // voir doc pour comprendre exactement 
             $this->viewBuilder()->setLayout('ajax');
         }
     }

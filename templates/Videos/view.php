@@ -5,6 +5,12 @@
 
 <?= $this->Html->script('timer.js') ?>
 
+<!-- Ajout du bloc pour les messages flash -->
+<div class="row">
+    <div class="col">
+        <?= $this->Flash->render() ?>
+    </div>
+</div>
 
 <div class="container text-center">
     <h1 class='mb-5'><?= h($video->title) ?></h1>
@@ -32,7 +38,7 @@
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                 <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
                 <?= $this->Form->hidden('current_time', ['id' => 'current_time_blue']); ?>
-                <?= $this->Form->button($points['blue'], ['id' => 'blueButton','class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button($points['blue'], ['id' => 'blueButton', 'class' => 'btn btn-primary']) ?>
                 <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
                 <?= $this->Form->end() ?>
             </div>
