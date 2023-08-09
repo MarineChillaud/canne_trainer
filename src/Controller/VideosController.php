@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 use App\Controller\Component\CsrfProtectionComponent;
+use Cake\I18n\FrozenTime;
 use Cake\Utility\Text;
 
 class VideosController extends AppController
@@ -40,11 +41,25 @@ class VideosController extends AppController
         // Vérifier si la session est démarrée, si non la démarrer
         if (!$session->started()) {
             $session->start();
+
             //Vérifier si le User.id existe dans la session, si non le générer
             if (!$session->check('User.id')) {
                 $user_id = text::uuid();
                 // sauvegarder l'Id dans la session 
+
                 $session->write('User.id', $user_id);
+
+                $UsersTable = $this->fetchTable('Users');
+
+                $newUser = $UsersTable->newEntity([
+                    'id' => $user_id,
+                    'username' => 'toto',
+                    'password' => bin2hex(random_bytes(8)),
+                    'firstName' => 'firsname_' . substr(md5(uniqid()), 0, 6),
+                    'lastName' => 'lastname_' . substr(md5(uniqid()), 0, 6),
+                    'created' => FrozenTime::now(),
+                ]);
+                $UsersTable->save($newUser);
 
                 $this->Flash->success('Bienvenue, un User_id' . $user_id . 'a été généré pour vous');
             }

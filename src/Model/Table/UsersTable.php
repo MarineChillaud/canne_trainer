@@ -1,15 +1,26 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
+use Cake\Validation\Validator;
 
 class UsersTable extends Table
 {
     public function initialize(array $config): void
     {
-        parent::initialize($config);
+        $this->setTable('users');
+        $this->addBehavior('Timestamp');
+    }
 
-        $this->setEntityClass('App\Model\Entity\user'); // Utilise l'entité User que nous avons créée
-        $this->addBehavior('Timestamp'); // Si tu veux ajouter des timestamps created et modified
+    public function validationDefault(Validator $validator): Validator
+    {
+        $validator
+            ->notEmptyString('username')
+            ->notEmptyString('password')
+            ->notEmptyString('firstName')
+            ->notEmptyString('lastName');
+
+        return $validator;
     }
 }
