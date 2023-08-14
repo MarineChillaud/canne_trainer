@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
   let blueButton = document.getElementById('blueButton');
   let redCurrentTimeInput = document.getElementById('current_time_red');
   let blueCurrentTimeInput = document.getElementById('current_time_blue');
+  let redTimeFlag = null;
+  let blueTimeFlag = null;
 
   function updateProgressBar() {
     let progress = (video.currentTime / video.duration) * 100;
@@ -27,6 +29,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  function updateTimeFlags() {
+    if (redTimeFlag !== null) {
+      const redFlag = document.createElement('div');
+      redFlag.className = 'vr bg-danger';
+      redFlag.style.left = `${redTimeFlag}%`;
+      redFlag.style.height = '100%';
+      progressBar.appendChild(redFlag);
+    }
+
+    if (blueTimeFlag !== null) {
+      const blueFlag = document.createElement('div');
+      blueFlag.className = 'vr bg-primary';
+      blueFlag.style.left = `${blueTimeFlag}%`;
+      blueFlag.style.height = '100%';
+      progressBar.appendChild(blueFlag);
+    }
+  }
+
   let xhr = new XMLHttpRequest();
 
   function alertContent (){
@@ -36,6 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Mettre à jour les boutons rouges et bleus avec les nouveaux points
         redButton.textContent = response.points.red;
         blueButton.textContent = response.points.blue;
+
+        //Mettre à jours les indicateurs de temps/point
+        redTimeFlag = response.points.red;
+        blueTimeFlag = response.points.blue;
+
+        // Mettre à jours les flags sur la progressBar 
+        updateTimeFlags();
+
       } else {
       console.error('Il y a eu un soucis avec la requête');
       }

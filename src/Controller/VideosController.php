@@ -53,7 +53,7 @@ class VideosController extends AppController
 
                 $newUser = $UsersTable->newEntity([
                     'id' => $user_id,
-                    'username' => 'toto',
+                    'username' => 'username_' . substr(md5(uniqid()), 0, 6),
                     'password' => bin2hex(random_bytes(8)),
                     'firstName' => 'firsname_' . substr(md5(uniqid()), 0, 6),
                     'lastName' => 'lastname_' . substr(md5(uniqid()), 0, 6),

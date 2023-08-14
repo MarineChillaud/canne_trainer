@@ -46,6 +46,8 @@
     </div>
     <div class="progress bg-secondary mx-auto mt-4" style="height: 30px;">
         <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="vr bg-danger" style="width: 2px;"></div>
+            <div class="vr bg-primary" style="width: 2px;"></div>
         </div>
     </div>
 </div>
