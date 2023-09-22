@@ -21,6 +21,11 @@ nav header .dropdown-menu .dropdown-item i.far{
     width:21px;
 }
 
+/*pour que les ancres nommÃ©es tombent bien*/
+html {
+    scroll-padding-top: 60px;
+}
+
 #localnav:empty,#complinfo:empty{
     background-image:url("../../img/fond1.jpg");
     background-size:cover;
@@ -45,7 +50,18 @@ nav header .dropdown-menu .dropdown-item i.far{
     box-sizing: border-box;
 }
 
-/*pour que les ancres nommÃ©es tombent bien*/
-html {
-    scroll-padding-top: 60px;
-}
+.point-flag {
+    position: absolute;
+    border-left: 2px solid;
+    display: inline-block;
+    height: 35px;
+    margin: 0;
+  }
+.red-point-flag {
+    border-color: #007bff;
+    left: 0;
+  }
+.red-point-flag {
+    border-color: #dc3545;
+    left: 0;
+  }
