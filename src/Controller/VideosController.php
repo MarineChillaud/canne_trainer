@@ -33,7 +33,7 @@ class VideosController extends AppController
      * @param int id  l'id de la vidéo à afficher
      */
 
-    private function fakeDevUser()
+    private function fakeDevUser($videoId)
     {
         $session = $this->request->getSession();
         // Vérifier si la session est démarrée, si non la démarrer
@@ -44,7 +44,6 @@ class VideosController extends AppController
                 //Vérifier si le User.id existe dans la session, si non le créer
                 $UsersTable = $this->fetchTable('Users');
                 $newUser = $UsersTable->newEntity([
-                    'id' => text::uuid(),
                     'username' => 'username_' . substr(md5(uniqid()), 0, 6),
                     'password' => bin2hex(random_bytes(8)),
                     'firstName' => 'firsname_' . substr(md5(uniqid()), 0, 6),
@@ -53,9 +52,21 @@ class VideosController extends AppController
                 ]);
                 $UsersTable->save($newUser);
 
+                // si on crée un utilisateur anonyme, il faut un nouvel assessement
+                $assessementsTable = $this->fetchTable('Assessments');
+                $newAssessment = $assessementsTable->newEntity(
+                    [
+                        'user_id' => $newUser->id,
+                        'video_id' => $videoId,
+                        'date' => FrozenTime::now(),
+                    ]
+                );
+                $assessementsTable->save($newAssessment);
+
+
                 // sauvegarder l'Id dans la session 
                 $session->write('User.id', $newUser->id);
-                $session->write('Assessment.id', 1);
+                $session->write('Assessment.id', $newAssessment->id);
 
                 $this->Flash->success('Bienvenue, un User_id' . $newUser->id . 'a été généré pour vous');
             }
@@ -68,7 +79,7 @@ class VideosController extends AppController
     public function view($id)
     {
         // pour pas avoir à s'inscrire/se connecter.
-        $session = $this->fakeDevUser();
+        $session = $this->fakeDevUser($id);
 
         // Récupérer la valeur de User.id depuis la session
         $userId = $session->read('User.id');
