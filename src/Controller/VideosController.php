@@ -55,6 +55,7 @@ class VideosController extends AppController
 
                 // sauvegarder l'Id dans la session 
                 $session->write('User.id', $newUser->id);
+                $session->write('Assessment.id', 1);
 
                 $this->Flash->success('Bienvenue, un User_id' . $newUser->id . 'a été généré pour vous');
             }
@@ -66,36 +67,30 @@ class VideosController extends AppController
 
     public function view($id)
     {
-
         // pour pas avoir à s'inscrire/se connecter.
         $session = $this->fakeDevUser();
 
         // Récupérer la valeur de User.id depuis la session
         $userId = $session->read('User.id');
-        $this->set(compact('userId'));
+        $assessmentId = $session->read('Assessment.id');
+        // il faudrait vérifier les droits du user sur l'assessemnt
 
-        // cas de traitement de formulaire
         if ($this->request->is('post')) {
+            // cas de traitement de formulaire
             // ne s'active que s'il recoit des informations d'un formulaire en method POST
-            $pointsTable = $this->fetchTable('Points');
-            $newPoint = $pointsTable->newEmptyEntity();
-            $newPoint->video_id = $this->request->getData('video_id');
-            $newPoint->assessment_id = $this->request->getData('assessment_id');
-            $newPoint->color_point = $this->request->getData('color_point');
-            $newPoint->timing = $this->request->getData('current_time');
-            $pointsTable->save($newPoint);
+            $this->fetchTable('Points')->addColorPoint(
+                $this->request->getData('video_id'),
+                $this->request->getData('assessment_id'),
+                $this->request->getData('color_point'),
+                $this->request->getData('current_time')
+            );
         }
 
-        // interroger le model
-        // Récupérer la vidéo correspondant à l'id fourni
+        // interroger le model 
         $video = $this->Videos->get($id);
-        $assessmentId = 1; //@todo: un jour avoir le vrai cf session
+        $points = $this->Videos->Assessments->getScores($assessmentId);
 
-        $assessmentTable = $this->fetchTable('Assessments');
-
-        $points = $assessmentTable->getScores($assessmentId);
-
-        $this->set(compact('video', 'points', 'assessmentId'));
+        $this->set(compact('userId', 'assessmentId', 'video', 'points'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
             $this->set(['_serialize' => ['video', 'points', 'assessmentId']]);

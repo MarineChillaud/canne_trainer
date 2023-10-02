@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -86,5 +87,17 @@ class PointsTable extends Table
         $rules->add($rules->existsIn('assessment_id', 'Assessments'), ['errorField' => 'assessment_id']);
 
         return $rules;
+    }
+    /**
+     * add a point in database
+     */
+    public function addColorPoint($videoId, $assessmentId, $color, $timing)
+    {
+        $newPoint = $this->newEmptyEntity();
+        $newPoint->video_id = $videoId;
+        $newPoint->assessment_id = $assessmentId;
+        $newPoint->color_point = $color;
+        $newPoint->timing = $timing;
+        $this->save($newPoint);
     }
 }
