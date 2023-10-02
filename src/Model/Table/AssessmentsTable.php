@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -99,5 +100,14 @@ class AssessmentsTable extends Table
         $rules->add($rules->existsIn('video_id', 'Videos'), ['errorField' => 'video_id']);
 
         return $rules;
+    }
+
+    public function getScores($assessment_id)
+    {
+        return [
+            'red' => 134,
+            'blue' => 'todo',
+
+        ];
     }
 }

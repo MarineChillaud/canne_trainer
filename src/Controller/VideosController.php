@@ -33,26 +33,18 @@ class VideosController extends AppController
      * @param int id  l'id de la vidéo à afficher
      */
 
-
-    public function view($id)
+    private function fakeDevUser()
     {
         $session = $this->request->getSession();
-
         // Vérifier si la session est démarrée, si non la démarrer
         if (!$session->started()) {
             $session->start();
 
-            //Vérifier si le User.id existe dans la session, si non le générer
             if (!$session->check('User.id')) {
-                $user_id = text::uuid();
-                // sauvegarder l'Id dans la session 
-
-                $session->write('User.id', $user_id);
-
+                //Vérifier si le User.id existe dans la session, si non le créer
                 $UsersTable = $this->fetchTable('Users');
-
                 $newUser = $UsersTable->newEntity([
-                    'id' => $user_id,
+                    'id' => text::uuid(),
                     'username' => 'username_' . substr(md5(uniqid()), 0, 6),
                     'password' => bin2hex(random_bytes(8)),
                     'firstName' => 'firsname_' . substr(md5(uniqid()), 0, 6),
@@ -61,32 +53,45 @@ class VideosController extends AppController
                 ]);
                 $UsersTable->save($newUser);
 
-                $this->Flash->success('Bienvenue, un User_id' . $user_id . 'a été généré pour vous');
+                // sauvegarder l'Id dans la session 
+                $session->write('User.id', $newUser->id);
+
+                $this->Flash->success('Bienvenue, un User_id' . $newUser->id . 'a été généré pour vous');
             }
         } else {
-            $this->Flash->error('la session est inactive');
+            $this->Flash->error('la session est deja active');
         }
+        return $session;
+    }
+
+    public function view($id)
+    {
+
+        // pour pas avoir à s'inscrire/se connecter.
+        $session = $this->fakeDevUser();
 
         // Récupérer la valeur de User.id depuis la session
         $userId = $session->read('User.id');
         $this->set(compact('userId'));
 
-        $PointsTable = $this->fetchTable('Points');
         // cas de traitement de formulaire
         if ($this->request->is('post')) {
             // ne s'active que s'il recoit des informations d'un formulaire en method POST
-            $newPoint = $PointsTable->newEmptyEntity();
+            $pointsTable = $this->fetchTable('Points');
+            $newPoint = $pointsTable->newEmptyEntity();
             $newPoint->video_id = $this->request->getData('video_id');
             $newPoint->assessment_id = $this->request->getData('assessment_id');
             $newPoint->color_point = $this->request->getData('color_point');
             $newPoint->timing = $this->request->getData('current_time');
-            $PointsTable->save($newPoint);
+            $pointsTable->save($newPoint);
         }
 
         // interroger le model
         // Récupérer la vidéo correspondant à l'id fourni
         $video = $this->Videos->get($id);
-        $points = $PointsTable->findByVideoAndAssessment($id, 1);
+        $assessmentTable = $this->fetchTable('Assessments');
+
+        $points = $assessmentTable->getScores(1);
 
         $assessmentId = 1; //@todo: un jour avoir le vrai cf session
         $this->set(compact('video', 'points', 'assessmentId'));
