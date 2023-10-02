@@ -1,8 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\I18n\FrozenTime;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -99,5 +101,18 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
 
         return $rules;
+    }
+
+    public function addAnonymous()
+    {
+        $newUser = $this->newEntity([
+            'username' => 'username_' . substr(md5(uniqid()), 0, 6),
+            'password' => bin2hex(random_bytes(8)),
+            'firstName' => 'firsname_' . substr(md5(uniqid()), 0, 6),
+            'lastName' => 'lastname_' . substr(md5(uniqid()), 0, 6),
+            'created' => FrozenTime::now(),
+        ]);
+        $this->save($newUser);
+        return $newUser;
     }
 }

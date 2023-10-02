@@ -41,29 +41,9 @@ class VideosController extends AppController
             $session->start();
 
             if (!$session->check('User.id')) {
-                //Vérifier si le User.id existe dans la session, si non le créer
-                $UsersTable = $this->fetchTable('Users');
-                $newUser = $UsersTable->newEntity([
-                    'username' => 'username_' . substr(md5(uniqid()), 0, 6),
-                    'password' => bin2hex(random_bytes(8)),
-                    'firstName' => 'firsname_' . substr(md5(uniqid()), 0, 6),
-                    'lastName' => 'lastname_' . substr(md5(uniqid()), 0, 6),
-                    'created' => FrozenTime::now(),
-                ]);
-                $UsersTable->save($newUser);
-
-                // si on crée un utilisateur anonyme, il faut un nouvel assessement
-                $assessementsTable = $this->fetchTable('Assessments');
-                $newAssessment = $assessementsTable->newEntity(
-                    [
-                        'user_id' => $newUser->id,
-                        'video_id' => $videoId,
-                        'date' => FrozenTime::now(),
-                    ]
-                );
-                $assessementsTable->save($newAssessment);
-
-
+                //Vérifier si le User.id existe dans la session, si non le créer et un assessement
+                $newUser = $this->fetchTable('Users')->addAnonymous();
+                $newAssessment = $this->fetchTable('Assessments')->add($newUser->id, $videoId);
                 // sauvegarder l'Id dans la session 
                 $session->write('User.id', $newUser->id);
                 $session->write('Assessment.id', $newAssessment->id);

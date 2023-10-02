@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\I18n\FrozenTime;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -113,5 +114,17 @@ class AssessmentsTable extends Table
             'red' => $redPoints->count(),
             'blue' => $bluePoints->count(),
         ];
+    }
+    public function add($userId, $videoId)
+    {
+        $newAssessment = $this->newEntity(
+            [
+                'user_id' => $userId,
+                'video_id' => $videoId,
+                'date' => FrozenTime::now(),
+            ]
+        );
+        $this->save($newAssessment);
+        return $newAssessment;
     }
 }
