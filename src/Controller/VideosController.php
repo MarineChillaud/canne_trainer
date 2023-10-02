@@ -37,20 +37,24 @@ class VideosController extends AppController
     {
         $session = $this->request->getSession();
         $session->start();
+
         if (!$session->check('User.id')) {
             // si pas d'utilisateur connecté on passe en mode anonyme
             $newUser = $this->fetchTable('Users')->addAnonymous();
-            $newAssessment = $this->fetchTable('Assessments')->add($newUser->id, $id);
+            $this->Flash->success('Mode Anonnyme (' . $newUser->id  . ')');
             // ... et on écrit dans la session pour faire comme si il s'était connecté.
             $session->write('User.id', $newUser->id);
-            $session->write('Assessment.id', $newAssessment->id);
-            $this->Flash->success('Mode Anonnyme (' . $newUser->id . ',' . $newAssessment->id . ')');
         }
-
-        // Récupérer la valeur de User.id depuis la session
         $userId = $session->read('User.id');
+        if (!$session->check('Assessment.id')) {
+            // si pas d'évaluation en cours, on en crée une
+            $newAssessment = $this->fetchTable('Assessments')->add($newUser->id, $id);
+            $this->Flash->success('Nouvelle tentative ('  . $newAssessment->id . ')');
+            $session->write('Assessment.id', $newAssessment->id);
+        }
         $assessmentId = $session->read('Assessment.id');
-        // il faudrait vérifier les droits du user sur l'assessemnt
+
+        //@todo: sécurité : il faudra vérifier les droits du user sur l'assessemnt
 
         if ($this->request->is('post')) {
             // cas de traitement de formulaire
