@@ -104,10 +104,11 @@ class AssessmentsTable extends Table
 
     public function getScores($assessment_id)
     {
+        $redPoints = $this->Points->findByAssessmentIdAndColor($assessment_id, 'red');
+        $bluePoints = $this->Points->findByAssessmentIdAndColor($assessment_id, 'blue');
         return [
-            'red' => 134,
-            'blue' => 'todo',
-
+            'red' => $redPoints->count(),
+            'blue' => $bluePoints->count(),
         ];
     }
 }
