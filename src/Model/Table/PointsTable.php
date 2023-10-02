@@ -96,7 +96,7 @@ class PointsTable extends Table
         $newPoint = $this->newEmptyEntity();
         $newPoint->video_id = $videoId;
         $newPoint->assessment_id = $assessmentId;
-        $newPoint->color_point = $color;
+        $newPoint->color = $color;
         $newPoint->timing = $timing;
         $this->save($newPoint);
     }
