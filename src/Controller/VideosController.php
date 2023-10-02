@@ -33,33 +33,19 @@ class VideosController extends AppController
      * @param int id  l'id de la vidéo à afficher
      */
 
-    private function fakeDevUser($videoId)
-    {
-        $session = $this->request->getSession();
-        // Vérifier si la session est démarrée, si non la démarrer
-        if (!$session->started()) {
-            $session->start();
-
-            if (!$session->check('User.id')) {
-                //Vérifier si le User.id existe dans la session, si non le créer et un assessement
-                $newUser = $this->fetchTable('Users')->addAnonymous();
-                $newAssessment = $this->fetchTable('Assessments')->add($newUser->id, $videoId);
-                // sauvegarder l'Id dans la session 
-                $session->write('User.id', $newUser->id);
-                $session->write('Assessment.id', $newAssessment->id);
-
-                $this->Flash->success('Bienvenue, un User_id' . $newUser->id . 'a été généré pour vous');
-            }
-        } else {
-            $this->Flash->error('la session est deja active');
-        }
-        return $session;
-    }
-
     public function view($id)
     {
-        // pour pas avoir à s'inscrire/se connecter.
-        $session = $this->fakeDevUser($id);
+        $session = $this->request->getSession();
+        $session->start();
+        if (!$session->check('User.id')) {
+            // si pas d'utilisateur connecté on passe en mode anonyme
+            $newUser = $this->fetchTable('Users')->addAnonymous();
+            $newAssessment = $this->fetchTable('Assessments')->add($newUser->id, $id);
+            // ... et on écrit dans la session pour faire comme si il s'était connecté.
+            $session->write('User.id', $newUser->id);
+            $session->write('Assessment.id', $newAssessment->id);
+            $this->Flash->success('Mode Anonnyme (' . $newUser->id . ',' . $newAssessment->id . ')');
+        }
 
         // Récupérer la valeur de User.id depuis la session
         $userId = $session->read('User.id');
