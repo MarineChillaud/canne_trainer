@@ -22,7 +22,7 @@ class AssessmentsFixture extends TestFixture
                 'id' => 1,
                 'user_id' => 1,
                 'video_id' => 1,
-                'date' => '2023-09-22 10:55:34',
+                'date' => '2023-10-02 12:23:23',
             ],
         ];
         parent::init();

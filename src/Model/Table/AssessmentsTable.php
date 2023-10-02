@@ -15,7 +15,6 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\VideosTable&\Cake\ORM\Association\BelongsTo $Videos
  * @property \App\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
  * @property \App\Model\Table\PointsTable&\Cake\ORM\Association\HasMany $Points
- * @property \App\Model\Table\VideosTable&\Cake\ORM\Association\HasMany $Videos
  *
  * @method \App\Model\Entity\Assessment newEmptyEntity()
  * @method \App\Model\Entity\Assessment newEntity(array $data, array $options = [])
@@ -59,9 +58,6 @@ class AssessmentsTable extends Table
             'foreignKey' => 'assessment_id',
         ]);
         $this->hasMany('Points', [
-            'foreignKey' => 'assessment_id',
-        ]);
-        $this->hasMany('Videos', [
             'foreignKey' => 'assessment_id',
         ]);
     }

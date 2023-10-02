@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * Videos Model
  *
  * @property \App\Model\Table\EventsTable&\Cake\ORM\Association\BelongsTo $Events
+ * @property \App\Model\Table\AssessmentsTable&\Cake\ORM\Association\HasMany $Assessments
  *
  * @method \App\Model\Entity\Video newEmptyEntity()
  * @method \App\Model\Entity\Video newEntity(array $data, array $options = [])
@@ -47,10 +48,6 @@ class VideosTable extends Table
             'foreignKey' => 'event_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Assessments', [
-            'foreignKey' => 'assessment_id',
-            'joinType' => 'INNER',
-        ]);
         $this->hasMany('Assessments', [
             'foreignKey' => 'video_id',
         ]);
@@ -67,10 +64,6 @@ class VideosTable extends Table
         $validator
             ->integer('event_id')
             ->notEmptyString('event_id');
-
-        $validator
-            ->integer('assessment_id')
-            ->notEmptyString('assessment_id');
 
         $validator
             ->scalar('title')
@@ -101,7 +94,6 @@ class VideosTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn('event_id', 'Events'), ['errorField' => 'event_id']);
-        $rules->add($rules->existsIn('assessment_id', 'Assessments'), ['errorField' => 'assessment_id']);
 
         return $rules;
     }

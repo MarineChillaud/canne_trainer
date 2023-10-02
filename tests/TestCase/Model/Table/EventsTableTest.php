@@ -25,6 +25,7 @@ class EventsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Events',
+        'app.Videos',
     ];
 
     /**
@@ -49,5 +50,16 @@ class EventsTableTest extends TestCase
         unset($this->Events);
 
         parent::tearDown();
+    }
+
+    /**
+     * Test validationDefault method
+     *
+     * @return void
+     * @uses \App\Model\Table\EventsTable::validationDefault()
+     */
+    public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
     }
 }

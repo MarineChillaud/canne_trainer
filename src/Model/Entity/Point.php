@@ -10,9 +10,10 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $assessment_id
- * @property \Cake\I18n\FrozenTime $created
- * @property string $color_point
+ * @property string $color
  * @property float|null $timing
+ *
+ * @property \App\Model\Entity\Assessment $assessment
  */
 class Point extends Entity
 {
@@ -27,8 +28,8 @@ class Point extends Entity
      */
     protected $_accessible = [
         'assessment_id' => true,
-        'created' => true,
-        'color_point' => true,
+        'color' => true,
         'timing' => true,
+        'assessment' => true,
     ];
 }

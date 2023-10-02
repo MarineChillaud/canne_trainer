@@ -62,19 +62,14 @@ class CommentsTable extends Table
             ->notEmptyString('assessment_id');
 
         $validator
-            ->dateTime('date')
-            ->requirePresence('date', 'create')
-            ->notEmptyDateTime('date');
-
-        $validator
             ->scalar('comment')
             ->requirePresence('comment', 'create')
             ->notEmptyString('comment');
 
         $validator
-            ->time('timestamp')
-            ->requirePresence('timestamp', 'create')
-            ->notEmptyTime('timestamp');
+            ->numeric('timing')
+            ->requirePresence('timing', 'create')
+            ->notEmptyString('timing');
 
         return $validator;
     }

@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Points Model
  *
+ * @property \App\Model\Table\AssessmentsTable&\Cake\ORM\Association\BelongsTo $Assessments
+ *
  * @method \App\Model\Entity\Point newEmptyEntity()
  * @method \App\Model\Entity\Point newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Point[] newEntities(array $data, array $options = [])
@@ -24,8 +26,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Point[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Point[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Point[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class PointsTable extends Table
 {
@@ -42,8 +42,6 @@ class PointsTable extends Table
         $this->setTable('points');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-
-        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Assessments', [
             'foreignKey' => 'assessment_id',
@@ -64,10 +62,10 @@ class PointsTable extends Table
             ->notEmptyString('assessment_id');
 
         $validator
-            ->scalar('color_point')
-            ->maxLength('color_point', 255)
-            ->requirePresence('color_point', 'create')
-            ->notEmptyString('color_point');
+            ->scalar('color')
+            ->maxLength('color', 255)
+            ->requirePresence('color', 'create')
+            ->notEmptyString('color');
 
         $validator
             ->numeric('timing')

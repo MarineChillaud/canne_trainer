@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property string $lastName
  * @property string $firstName
  * @property \Cake\I18n\FrozenTime $created
+ *
+ * @property \App\Model\Entity\Assessment[] $assessments
  */
 class User extends Entity
 {
@@ -32,6 +34,7 @@ class User extends Entity
         'lastName' => true,
         'firstName' => true,
         'created' => true,
+        'assessments' => true,
     ];
 
     /**

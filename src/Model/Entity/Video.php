@@ -10,12 +10,12 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $event_id
- * @property int $assessment_id
  * @property string $title
  * @property string $url
  * @property \Cake\I18n\FrozenTime $date
  *
  * @property \App\Model\Entity\Event $event
+ * @property \App\Model\Entity\Assessment[] $assessments
  */
 class Video extends Entity
 {
@@ -30,10 +30,10 @@ class Video extends Entity
      */
     protected $_accessible = [
         'event_id' => true,
-        'assessment_id' => true,
         'title' => true,
         'url' => true,
         'date' => true,
         'event' => true,
+        'assessments' => true,
     ];
 }

@@ -10,9 +10,8 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $assessment_id
- * @property \Cake\I18n\FrozenTime $date
  * @property string $comment
- * @property \Cake\I18n\Time $timestamp
+ * @property float $timing
  *
  * @property \App\Model\Entity\Assessment $assessment
  */
@@ -29,9 +28,8 @@ class Comment extends Entity
      */
     protected $_accessible = [
         'assessment_id' => true,
-        'date' => true,
         'comment' => true,
-        'timestamp' => true,
+        'timing' => true,
         'assessment' => true,
     ];
 }

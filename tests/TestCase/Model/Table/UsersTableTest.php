@@ -25,6 +25,7 @@ class UsersTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Users',
+        'app.Assessments',
     ];
 
     /**
@@ -58,6 +59,17 @@ class UsersTableTest extends TestCase
      * @uses \App\Model\Table\UsersTable::validationDefault()
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\UsersTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

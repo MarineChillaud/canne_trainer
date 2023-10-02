@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Events Model
  *
+ * @property \App\Model\Table\VideosTable&\Cake\ORM\Association\HasMany $Videos
+ *
  * @method \App\Model\Entity\Event newEmptyEntity()
  * @method \App\Model\Entity\Event newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Event[] newEntities(array $data, array $options = [])

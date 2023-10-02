@@ -11,6 +11,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $title
  * @property \Cake\I18n\FrozenTime $date
+ *
+ * @property \App\Model\Entity\Video[] $videos
  */
 class Event extends Entity
 {
@@ -26,5 +28,6 @@ class Event extends Entity
     protected $_accessible = [
         'title' => true,
         'date' => true,
+        'videos' => true,
     ];
 }

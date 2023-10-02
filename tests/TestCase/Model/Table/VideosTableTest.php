@@ -26,6 +26,7 @@ class VideosTableTest extends TestCase
     protected $fixtures = [
         'app.Videos',
         'app.Events',
+        'app.Assessments',
     ];
 
     /**
@@ -50,5 +51,27 @@ class VideosTableTest extends TestCase
         unset($this->Videos);
 
         parent::tearDown();
+    }
+
+    /**
+     * Test validationDefault method
+     *
+     * @return void
+     * @uses \App\Model\Table\VideosTable::validationDefault()
+     */
+    public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\VideosTable::buildRules()
+     */
+    public function testBuildRules(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
     }
 }

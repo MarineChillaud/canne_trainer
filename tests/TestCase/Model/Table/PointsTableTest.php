@@ -25,6 +25,7 @@ class PointsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Points',
+        'app.Assessments',
     ];
 
     /**
@@ -52,12 +53,23 @@ class PointsTableTest extends TestCase
     }
 
     /**
-     * Test findByVideoAndAssessment method
+     * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\PointsTable::findByVideoAndAssessment()
+     * @uses \App\Model\Table\PointsTable::validationDefault()
      */
-    public function testFindByVideoAndAssessment(): void
+    public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\PointsTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

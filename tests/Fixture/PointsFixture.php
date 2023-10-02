@@ -21,8 +21,7 @@ class PointsFixture extends TestFixture
             [
                 'id' => 1,
                 'assessment_id' => 1,
-                'created' => '2023-09-22 10:55:47',
-                'color_point' => 'Lorem ipsum dolor sit amet',
+                'color' => 'Lorem ipsum dolor sit amet',
                 'timing' => 1,
             ],
         ];
