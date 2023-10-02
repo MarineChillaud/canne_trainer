@@ -102,6 +102,9 @@ class AssessmentsTable extends Table
         return $rules;
     }
 
+    /**
+     * returns an array of scores of the requested assessment with keys: red / blue
+     */
     public function getScores($assessment_id)
     {
         $redPoints = $this->Points->findByAssessmentIdAndColor($assessment_id, 'red');

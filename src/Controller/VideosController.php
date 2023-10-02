@@ -89,11 +89,12 @@ class VideosController extends AppController
         // interroger le model
         // Récupérer la vidéo correspondant à l'id fourni
         $video = $this->Videos->get($id);
+        $assessmentId = 1; //@todo: un jour avoir le vrai cf session
+
         $assessmentTable = $this->fetchTable('Assessments');
 
-        $points = $assessmentTable->getScores(1);
+        $points = $assessmentTable->getScores($assessmentId);
 
-        $assessmentId = 1; //@todo: un jour avoir le vrai cf session
         $this->set(compact('video', 'points', 'assessmentId'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
