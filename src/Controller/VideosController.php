@@ -61,7 +61,7 @@ class VideosController extends AppController
             // ne s'active que s'il recoit des informations d'un formulaire en method POST
             $this->fetchTable('Points')->addColorPoint(
                 $this->request->getData('video_id'),
-                $this->request->getData('assessment_id'),
+                $assessmentId,
                 $this->request->getData('color_point'),
                 $this->request->getData('current_time')
             );
@@ -71,10 +71,10 @@ class VideosController extends AppController
         $video = $this->Videos->get($id);
         $points = $this->Videos->Assessments->getScores($assessmentId);
 
-        $this->set(compact('userId', 'assessmentId', 'video', 'points'));
+        $this->set(compact('video', 'points'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
-            $this->set(['_serialize' => ['video', 'points', 'assessmentId']]);
+            $this->set(['_serialize' => ['video', 'points']]);
             // voir doc pour comprendre exactement 
             $this->viewBuilder()->setLayout('ajax');
         }

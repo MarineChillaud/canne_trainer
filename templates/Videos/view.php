@@ -24,7 +24,6 @@
                 <?= $this->Form->create(null, ['id' => 'point_form_red']) ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
                 <?= $this->Form->hidden('current_time', ['id' => 'current_time_red']); ?>
                 <?= $this->Form->button($points['red'], ['id' => 'redButton', 'class' => 'btn btn-danger']) ?>
                 <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
@@ -36,7 +35,6 @@
                 <?= $this->Form->create(null, ['id' => 'point_form_blue']) ?>
                 <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                 <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
-                <?= $this->Form->hidden('assessment_id', ['value' => $assessmentId]) ?>
                 <?= $this->Form->hidden('current_time', ['id' => 'current_time_blue']); ?>
                 <?= $this->Form->button($points['blue'], ['id' => 'blueButton', 'class' => 'btn btn-primary']) ?>
                 <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
