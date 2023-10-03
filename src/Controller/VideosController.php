@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 use App\Controller\Component\CsrfProtectionComponent;
-use Cake\I18n\FrozenTime;
-use Cake\Utility\Text;
 
 class VideosController extends AppController
 {
@@ -78,11 +76,5 @@ class VideosController extends AppController
             // voir doc pour comprendre exactement 
             $this->viewBuilder()->setLayout('ajax');
         }
-    }
-
-    public function login()
-    {
-
-        $this->render('login');
     }
 }

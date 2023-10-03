@@ -35,10 +35,10 @@ $siteVersion = '1.0'
         <header class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a href="/publics/calendar" class="nav-link" title="Compétitions"><i class="fas fa-user-plus"></i>Compétitions</a>
+                    <?= $this->Html->link('Compétitions', '/Videos/index', ['class' => 'nav-link', 'title' => 'Compétitions']) ?>
                 </li>
                 <li class="nav-item ">
-                    <a href="/publics/statistics" class="nav-link" title="Statistiques"><i class="fas fa-graduation-cap"></i>Statistiques</a>
+                    <?= $this->Html->link('Statistiques', '/publics/statistics', ['class' => 'nav-link', 'title' => 'Statistiques']) ?>
                 </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
@@ -48,15 +48,15 @@ $siteVersion = '1.0'
                         <span class="d-lg-none">Changer la langue de l'interface</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="localemenu">
-                        <a href="/publics/locale/fr_FR" class="dropdown-item fr_FR">Français</a>
-                        <a href="/publics/locale/de" class="dropdown-item de">Deutsch</a>
-                        <a href="/publics/locale/en" class="dropdown-item en">English</a>
-                        <a href="/publics/locale/hu" class="dropdown-item hu">Magyar</a>
-                        <a href="/publics/locale/sl_SI" class="dropdown-item sl_SI">Slovenščina</a>
+                        <?= $this->Html->link('Français', '/publics/locale/fr_FR', ['class' => 'dropdown-item fr_FR']) ?>
+                        <?= $this->Html->link('Deutsch', '/publics/locale/de', ['class' => 'dropdown-item de']) ?>
+                        <?= $this->Html->link('English', '/publics/locale/en', ['class' => 'dropdown-item en']) ?>
+                        <?= $this->Html->link('Magyar', '/publics/locale/hu', ['class' => 'dropdown-item hu']) ?>
+                        <?= $this->Html->link('Slovenščina', '/publics/locale/sl_SI', ['class' => 'dropdown-item sl_SI']) ?>
                     </div>
                 </li>
                 <li class='nav-item'>
-                    <a href="/canne_trainer/videos/login" class="nav-link">Connexion</a>
+                    <?= $this->Html->link('Connexion', ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>
         </header>
