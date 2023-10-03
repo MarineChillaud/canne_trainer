@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\EventInterface;
+use App\Model\Entity\User;
 
 /**
  * Users Controller
@@ -15,12 +17,12 @@ use Cake\Event\EventInterface;
 class UsersController extends AppController
 {
 
-    // public function beforeFilter(EventInterface $event)
-    // {
-    //     parent::beforeFilter($event);
-    //     // Autoriser l'accès aux actions "login" et "registration" même pour les utilisateurs non authentifiés.
-    //     $this->Auth->allow(['login', 'registration']);
-    // }
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->Authentication->allowUnauthenticated(['login', 'register', 'recover']);
+    }
 
     /**
      * Index method
@@ -50,37 +52,72 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function login()
-    {
-
-        $this->render('login');
-    }
-    
-    public function registration()
-    {
-
-        $this->render('registration');
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
+    public function register()
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success('Votre compte a été créé avec succès.');
+                return $this->redirect(['action' => 'login']); // Redirige vers la page de connexion après l'inscription.
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error('Impossible de créer votre compte. Veuillez réessayer.');
         }
         $this->set(compact('user'));
     }
+
+    public function login()
+    {
+        $result = $this->Authentication->getResult();
+        // if user is logged, send him elsewhere
+        if ($result->isValid()) {
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Videos',
+                'action' => 'index',
+            ]);
+            return $this->redirect($redirect);
+        }
+        if ($this->request->is('post')) {
+            $this->Flash->error('Identifiant ou mot de passe invalide');
+        }
+    }
+
+    public function logout()
+    {
+        $this->Authentication->logout();
+        return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+    }
+
+    public function recover()
+    {
+
+        $this->render('recover');
+    }
+
+    public function update()
+    {
+
+        $this->render('update');
+    }
+    // /**
+    //  * Add method
+    //  *
+    //  * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+    //  */
+    // public function add()
+    // {
+    //     $user = $this->Users->newEmptyEntity();
+    //     if ($this->request->is('post')) {
+    //         $user = $this->Users->patchEntity($user, $this->request->getData());
+    //         if ($this->Users->save($user)) {
+    //             $this->Flash->success(__('The user has been saved.'));
+
+    //             return $this->redirect(['action' => 'index']);
+    //         }
+    //         $this->Flash->error(__('The user could not be saved. Please, try again.'));
+    //     }
+    //     $this->set(compact('user'));
+    // }
 
     /**
      * Edit method

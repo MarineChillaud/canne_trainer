@@ -19,6 +19,7 @@ class VideosController extends AppController
     {
         parent::beforeFilter($event);
         $this->getRequest()->getAttribute('csrfToken');
+        $this->Authentication->allowUnauthenticated(['view', 'index']);
     }
 
     public function index()

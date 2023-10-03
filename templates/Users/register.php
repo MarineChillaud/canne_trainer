@@ -6,8 +6,7 @@
         <main class='col-12 col-lg-8 p-3'>
             <h1><?= __('S\'inscrire') ?></h1>
 
-            <!-- <?= $this->Form->create($user) ?> -->
-            <?= $this->Form->create(null, ['class' => 'my-form-class']) ?>
+            <?= $this->Form->create($user) ?>
             <div class="form-group">
                 <?= $this->Form->control('username', [
                     'label' => __('Adresse électronique'),
@@ -20,13 +19,13 @@
                     'required' => true,
                     'class' => 'form-control'
                 ]); ?>
-                <?= $this->Form->control('first_name', [
-                    'label' => __('Prénom'),
+                <?= $this->Form->control('lastName', [
+                    'label' => __('Nom de famille'),
                     'required' => true,
                     'class' => 'form-control'
                 ]); ?>
-                <?= $this->Form->control('last_name', [
-                    'label' => __('Nom de famille'),
+                <?= $this->Form->control('firstName', [
+                    'label' => __('Prénom'),
                     'required' => true,
                     'class' => 'form-control'
                 ]); ?>
