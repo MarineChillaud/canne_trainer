@@ -22,6 +22,11 @@ class UsersController extends AppController
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['login', 'register', 'recover']);
+        $authenticationResult = $this->Authentication->getResult();
+
+        if ($authenticationResult->isValid()) {
+            $this->viewBuilder()->setLayout('connected');
+        }
     }
 
     /**
