@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -14,9 +15,11 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -50,5 +53,19 @@ class AppController extends Controller
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        $authenticationService = $this->getRequest()->getAttribute('authentication');
+        
+        if ($authenticationService->getResult()->isValid()) {
+            // récupère le username si connnecté
+            $user = $authenticationService->getIdentity()->get('username');
+            // Stocke le nom d'utilisateur dans une variable pour une utilisation ultérieure
+            $this->set('logged_username', $user);
+        }
     }
 }

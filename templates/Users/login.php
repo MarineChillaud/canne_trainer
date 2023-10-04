@@ -31,12 +31,22 @@
                     ?>
                 </div>
             </div>
-            <?= $this->Form->submit(__('Connexion'), ['class' => 'btn btn-outline-primary'])?>
+            <?= $this->Form->submit(__('Connexion'), ['class' => 'btn btn-outline-primary']) ?>
             <?= $this->Form->end() ?>
 
             <div class='button-group text-right'>
-                <?= $this->Html->link(__('Récupérer son mot de passe'), ['controller' => 'users', 'action' => 'recover'], ['class' => 'btn btn-outline-info']) ?>
-                <?= $this->Html->link(__('Inscription'), ['controller' => 'users', 'action' => 'register'], ['class' => 'btn btn-outline-light']) ?>
+                <?= $this->Html->link(__('Récupérer son mot de passe'), [
+                    'controller' => 'users',
+                    'action' => 'recover'
+                ], [
+                    'class' => 'btn btn-outline-info'
+                ]) ?>
+                <?= $this->Html->link(__('Inscription'), [
+                    'controller' => 'users',
+                    'action' => 'register'
+                ], [
+                    'class' => 'btn btn-outline-light'
+                ]) ?>
             </div>
         </main>
     </div>

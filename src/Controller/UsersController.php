@@ -6,7 +6,6 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\EventInterface;
-use App\Model\Entity\User;
 
 /**
  * Users Controller
@@ -17,16 +16,11 @@ use App\Model\Entity\User;
 class UsersController extends AppController
 {
 
-    public function beforeFilter(\Cake\Event\EventInterface $event)
+    public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['login', 'register', 'recover']);
-        $authenticationResult = $this->Authentication->getResult();
-
-        if ($authenticationResult->isValid()) {
-            $this->viewBuilder()->setLayout('connected');
-        }
     }
 
     /**
@@ -101,8 +95,25 @@ class UsersController extends AppController
 
     public function update()
     {
+        $user = $this->Users->get($this->Authentication->getIdentity()->get('id'));
 
-        $this->render('update');
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $this->Users->save($user);
+            $this->Flash->success('Votre profil a été mis à jour.');
+            return $this->redirect(['action' => 'profile']);
+        }
+
+        $this->set(compact('user'));
+    }
+
+    public function profile()
+    {
+        // Récupére les informations de l'utilisateur connecté
+        $user = $this->Authentication->getIdentity();
+
+        // Passe les données de l'utilisateur à la vue
+        $this->set(compact('user'));
     }
     // /**
     //  * Add method

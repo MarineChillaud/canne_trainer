@@ -55,9 +55,48 @@ $siteVersion = '1.0'
                         <?= $this->Html->link('Slovenščina', '/publics/locale/sl_SI', ['class' => 'dropdown-item sl_SI']) ?>
                     </div>
                 </li>
-                <li class='nav-item'>
-                    <?= $this->Html->link('Connexion', ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link']) ?>
-                </li>
+
+                <?php if (isset($logged_username)) : ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profilemenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-user-circle" title="<?= __('Mon Compte') ?>"></i>
+                            <span class="sr-only"><?= __('Mon Compte') ?>..</span>
+                            <span class="d-lg-none"><?= __('Mon Compte') ?></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profilemenu">
+                            <?= $this->Html->link('<i class="fas fa-bell"></i> ' . __('Mes évaluations'), [
+                                'controller' => 'Users',
+                                'action' => '' // TODO ajouter l'action vers les stats individuelles
+                            ], [
+                                'class' => 'dropdown-item',
+                                'escape' => false,
+                                'title' => __('Les vidéos que j\'ai évalué')
+                            ]);
+                            ?>
+                            <?= $this->Html->link('<i class="fas fa-info-circle"></i> ' . __('Profil'), [
+                                'controller' => 'Users',
+                                'action' => 'profile'
+                            ], [
+                                'class' => 'dropdown-item',
+                                'escape' => false,
+                                'title' => __('Mes paramètres')
+                            ]);
+                            ?>
+                            <div class="dropdown-divider"></div>
+                            <?= $this->Html->link(__('Déconnexion'), [
+                                'controller' => 'Users',
+                                'action' => 'logout'
+                            ], [
+                                'class' => 'dropdown-item'
+                            ]);
+                            ?>
+                        </div>
+                    </li>
+                <?php else : ?>
+                    <li class='nav-item'>
+                        <?= $this->Html->link(__('Connexion'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link']); ?>
+                    </li>
+                <?php endif; ?>
             </ul>
         </header>
     </nav>
