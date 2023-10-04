@@ -23,3 +23,22 @@
         </table>
     </div>
 </div>
+
+
+ <!-- Afficher les compétitions récupérées depuis l'API CanneTV -->
+ <div class="col-md-12 text-center">
+        <h2>Compétitions CanneTV</h2>
+        <table class="table">
+            <tr>
+                <th>Nom</th>
+                <th>Date</th>
+            </tr>
+            <?php foreach ($tournaments as $tournament) : ?>
+                <tr>
+                    <td><?= h($tournament['name']) ?></td>
+                    <td><?= h($tournament['date']) ?></td>
+                </tr>
+            <?php endforeach ?>
+        </table>
+    </div>
+</div>
