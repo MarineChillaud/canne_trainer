@@ -22,11 +22,11 @@
             <?php endforeach ?>
         </table>
     </div>
-</div>
 
 
- <!-- Afficher les compétitions récupérées depuis l'API CanneTV -->
- <div class="col-md-12 text-center">
+
+    <!-- Afficher les compétitions récupérées depuis l'API CanneTV -->
+    <div class="col-md-12 text-center">
         <h2>Compétitions CanneTV</h2>
         <table class="table">
             <tr>
