@@ -77,7 +77,7 @@ class UsersController extends AppController
                 // Envoi le nouveau password par mail au user
                 $this->sendPasswordEmail($user->email, $newPassword);
 
-                $this->Flash->success('Un nouveau mot de passe a été envoyé à votre adresse e-mail si celle-ci existe bien.', ['class' => 'flash-message success']);
+                $this->Flash->success('Un nouveau mot de passe a été envoyé à votre adresse e-mail si celle-ci existe bien.' . $newPassword, ['class' => 'flash-message success']);
                 return $this->redirect(['controller' => 'Users', 'action' => 'login']);
             } else {
                 $this->Flash->error('Une erreur est survenue lors de la récupération du mot de passe. Veuillez réessayer ultérieurement.', ['class' => 'flash-message error']);
@@ -85,7 +85,7 @@ class UsersController extends AppController
         }
     }
 
-// Doit passer dans le model (table)
+    // Doit passer dans le model (table)
     private function generateRandomPassword()
     {
         $length = 10; // Longueur du mot de passe
@@ -99,7 +99,7 @@ class UsersController extends AppController
         return $password;
     }
 
-// Doit passer dans le model (table)
+    // Doit passer dans le model (table)
     private function sendPasswordEmail($recipientEmail, $newPassword)
     {
         if (!empty($recipientEmail)) {
@@ -124,6 +124,7 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $this->Users->save($user);
+            $this->Authentication->setIdentity($user);
             $this->Flash->success('Votre profil a été mis à jour.', ['class' => 'flash-message success']);
             return $this->redirect(['action' => 'profile']);
         }
@@ -137,49 +138,6 @@ class UsersController extends AppController
         $user = $this->Authentication->getIdentity();
 
         // Passe les données de l'utilisateur à la vue
-        $this->set(compact('user'));
-    }
-    // /**
-    //  * Add method
-    //  *
-    //  * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-    //  */
-    // public function add()
-    // {
-    //     $user = $this->Users->newEmptyEntity();
-    //     if ($this->request->is('post')) {
-    //         $user = $this->Users->patchEntity($user, $this->request->getData());
-    //         if ($this->Users->save($user)) {
-    //             $this->Flash->success(__('The user has been saved.'));
-
-    //             return $this->redirect(['action' => 'index']);
-    //         }
-    //         $this->Flash->error(__('The user could not be saved. Please, try again.'));
-    //     }
-    //     $this->set(compact('user'));
-    // }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.', ['class' => 'flash-message success']));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.', ['class' => 'flash-message error']));
-        }
         $this->set(compact('user'));
     }
 
