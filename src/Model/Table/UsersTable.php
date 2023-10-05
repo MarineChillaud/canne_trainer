@@ -8,7 +8,8 @@ use Cake\I18n\FrozenTime;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Validation\Validator;
+use Cake\Validation\Validator;use Cake\Mailer\Mailer;
+
 
 /**
  * Users Model
@@ -114,5 +115,35 @@ class UsersTable extends Table
         ]);
         $this->save($newUser);
         return $newUser;
+    }
+
+    private function generateRandomPassword()
+    {
+        $length = 10; // Longueur du mot de passe
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#?;:!';
+        $password = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $password;
+    }
+
+    private function sendPasswordEmail($recipientEmail, $newPassword)
+    {
+        if (!empty($recipientEmail)) {
+            $mailer = new Mailer('default');
+            $mailer
+                ->setTo($recipientEmail)
+                ->setSubject('Nouveau mot de passe')
+                ->setEmailFormat('text')
+                ->deliver(
+                    'Bonjour, \n\n' .
+                        'Votre nouveau mot de passe est : ' . $newPassword . '\n' .
+                        'Merci de vous connecter avec ce nouveau mot de passe et de le changer dès que possible. \n\n' .
+                        'Canne Trainer'
+                );
+        }
     }
 }

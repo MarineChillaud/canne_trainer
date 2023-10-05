@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\EventInterface;
-use Cake\Mailer\Mailer;
+use App\Model\Table\UsersTable;
 
 /**
  * Users Controller
@@ -68,52 +68,20 @@ class UsersController extends AppController
 
             if ($user) {
                 // génère un nouveau MdP
-                $newPassword = $this->generateRandomPassword();
+                $newPassword = $this->Users->generateRandomPassword();
 
                 // Met à jour le MdP du user dans la bdd
                 $user->password = $newPassword;
                 $this->Users->save($user);
 
                 // Envoi le nouveau password par mail au user
-                $this->sendPasswordEmail($user->email, $newPassword);
+                $this->ssers->sendPasswordEmail($user->email, $newPassword);
 
                 $this->Flash->success('Un nouveau mot de passe a été envoyé à votre adresse e-mail si celle-ci existe bien.' . $newPassword, ['class' => 'flash-message success']);
                 return $this->redirect(['controller' => 'Users', 'action' => 'login']);
             } else {
                 $this->Flash->error('Une erreur est survenue lors de la récupération du mot de passe. Veuillez réessayer ultérieurement.', ['class' => 'flash-message error']);
             }
-        }
-    }
-
-    // Doit passer dans le model (table)
-    private function generateRandomPassword()
-    {
-        $length = 10; // Longueur du mot de passe
-        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#?;:!';
-        $password = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $password .= $characters[rand(0, strlen($characters) - 1)];
-        }
-
-        return $password;
-    }
-
-    // Doit passer dans le model (table)
-    private function sendPasswordEmail($recipientEmail, $newPassword)
-    {
-        if (!empty($recipientEmail)) {
-            $mailer = new Mailer('default');
-            $mailer
-                ->setTo($recipientEmail)
-                ->setSubject('Nouveau mot de passe')
-                ->setEmailFormat('text')
-                ->deliver(
-                    'Bonjour, \n\n' .
-                        'Votre nouveau mot de passe est : ' . $newPassword . '\n' .
-                        'Merci de vous connecter avec ce nouveau mot de passe et de le changer dès que possible. \n\n' .
-                        'Canne Trainer'
-                );
         }
     }
 
