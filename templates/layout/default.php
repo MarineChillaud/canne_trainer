@@ -130,10 +130,10 @@ $siteVersion = '1.0'
         </footer>
     </div>
 
-    <!-- <?= $this->Html->script('jquery-3.6.4.min'); ?>       
-    <?= $this->Html->script('popper.min'); ?>        
-    <?= $this->Html->script('bootstrap.min'); ?>        
-    <?= $this->Html->script('scriptBottom'); ?>         -->
+    <?= $this->Html->script('jquery-3.4.1.min'); ?>
+    <?= $this->Html->script('popper.min'); ?>
+    <?= $this->Html->script('bootstrap.min'); ?>
+    <!-- <?= $this->Html->script('scriptBottom'); ?>          -->
 
 </body>
 
