@@ -24,34 +24,6 @@ class UsersController extends AppController
         $this->Authentication->allowUnauthenticated(['login', 'register', 'recover']);
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function index()
-    {
-        $users = $this->paginate($this->Users);
-
-        $this->set(compact('users'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => ['Assessments'],
-        ]);
-
-        $this->set(compact('user'));
-    }
-
     public function register()
     {
         $user = $this->Users->newEmptyEntity();
@@ -113,6 +85,7 @@ class UsersController extends AppController
         }
     }
 
+// Doit passer dans le model (table)
     private function generateRandomPassword()
     {
         $length = 10; // Longueur du mot de passe
@@ -126,6 +99,7 @@ class UsersController extends AppController
         return $password;
     }
 
+// Doit passer dans le model (table)
     private function sendPasswordEmail($recipientEmail, $newPassword)
     {
         if (!empty($recipientEmail)) {
