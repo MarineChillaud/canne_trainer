@@ -35,7 +35,7 @@ $siteVersion = '1.0'
         <header class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <?= $this->Html->link('Compétitions', '/Videos/index', ['class' => 'nav-link', 'title' => 'Compétitions']) ?>
+                    <?= $this->Html->link('Compétitions', '/Events/index', ['class' => 'nav-link', 'title' => 'Compétitions']) ?>
                 </li>
                 <li class="nav-item ">
                     <?= $this->Html->link('Statistiques', '/publics/statistics', ['class' => 'nav-link', 'title' => 'Statistiques']) ?>
