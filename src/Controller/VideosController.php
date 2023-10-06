@@ -36,22 +36,29 @@ class VideosController extends AppController
     {
         $session = $this->request->getSession();
         $session->start();
+        $userId = $session->read('User.id');
+        $newAssessmentParam = $this->request->getQuery('newAssessment');
+        $assessmentId = $this->request->getQuery('assessmentId');
 
-        if (!$session->check('User.id')) {
             // si pas d'utilisateur connecté on passe en mode anonyme
+            if (!$userId){
             $newUser = $this->fetchTable('Users')->addAnonymous();
             $this->Flash->success('Mode Anonnyme (' . $newUser->id  . ')');
             // ... et on écrit dans la session pour faire comme si il s'était connecté.
             $session->write('User.id', $newUser->id);
         }
-        $userId = $session->read('User.id');
-        if (!$session->check('Assessment.id')) {
-            // si pas d'évaluation en cours, on en crée une
-            $newAssessment = $this->fetchTable('Assessments')->add($newUser->id, $id);
-            $this->Flash->success('Nouvelle tentative ('  . $newAssessment->id . ')');
-            $session->write('Assessment.id', $newAssessment->id);
+        
+        if ($newAssessmentParam) {
+            $newAssessment = $this->fetchTable('Assessments')->add($userId, $id);
+            $this->Flash->success('Nouvelle évaluation (' . $newAssessment->id . ')');
+
+            return $this->redirect([
+                'controller' => 'Videos',
+                'action' => 'view',
+                $id,
+                '?' => ['assessmentId' => $newAssessment->id]
+            ]);
         }
-        $assessmentId = $session->read('Assessment.id');
 
         //@todo: sécurité : il faudra vérifier les droits du user sur l'assessemnt
 

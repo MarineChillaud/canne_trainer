@@ -27,7 +27,9 @@
                     <td class='button-group'>
                         <?= $this->Html->Link(__('Lancer une nouvelle évaluation'), [
                             'controller' => 'Videos',
-                            'action' => 'view', $video->id
+                            'action' => 'view',
+                            $video->id, 
+                            '?' => ['newAssessment' => 1]
                         ], [
                             'class' => 'btn btn-outline-primary'
                         ]) ?>
