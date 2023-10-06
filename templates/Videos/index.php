@@ -3,21 +3,35 @@
         <h1>Bienvenue sur CanneTrainer</h1>
     </div>
     <div class="col-md-12 text-center">
-        <h2>Vidéos</h2>
+        <?php foreach ($videos as $video) : ?>
+            <h2><?= h($video->event->title) ?></h2>
+        <?php endforeach ?>
+
     </div>
     <div class="col-md-12 text-center">
         <table class="table">
-            <tr>
-                <th>Titre</th>
-                <th>Compétitions</th>
+            <tr class="text-white">
                 <th>Date</th>
+                <th>Rencontre</th>
+                <th>Evaluations joueur</th>
+                <th>Toutes les évaluations </th>
+                <th>Lancer une nouvelle évaluation</th>
             </tr>
 
             <?php foreach ($videos as $video) : ?>
-                <tr>
-                    <td><?= $this->Html->link($video->title, ['controller' => 'Videos', 'action' => 'view', $video->id]) ?></td>
-                    <td><?= h($video->event->title) ?></td>
+                <tr class="text-white">
                     <td><?= h($video->date) ?></td>
+                    <td><?= h($video->title) ?></td>
+                    <td>Todo</td>
+                    <td>Todo</td>
+                    <td class='button-group'>
+                        <?= $this->Html->Link(__('Lancer une nouvelle évaluation'), [
+                            'controller' => 'Videos',
+                            'action' => 'view', $video->id
+                        ], [
+                            'class' => 'btn btn-outline-primary'
+                        ]) ?>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </table>
@@ -26,7 +40,7 @@
 
 
     <!-- Afficher les compétitions récupérées depuis l'API CanneTV -->
-    <div class="col-md-12 text-center">
+    <!-- <div class="col-md-12 text-center">
         <h2>Compétitions CanneTV</h2>
         <table class="table">
             <tr>
@@ -40,5 +54,5 @@
                 </tr>
             <?php endforeach ?>
         </table>
-    </div>
+    </div> -->
 </div>

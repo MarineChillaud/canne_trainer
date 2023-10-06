@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Table\EventsTable;
 use Cake\Event\EventInterface;
 use App\Controller\Component\CsrfProtectionComponent;
 
@@ -39,24 +38,11 @@ class EventsController extends AppController
     public function index()
     {
         $events = $this->Events->find('all')->toArray();
+
         $this->set(compact('events'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Event id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $event = $this->Events->get($id, [
-            'contain' => ['Videos'],
-        ]);
 
-        $this->set(compact('event'));
-    }
 
     /**
      * Add method
