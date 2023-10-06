@@ -6,7 +6,7 @@ use Cake\Http\Middleware\CsrfProtectionMiddleware;
 
 return static function (RouteBuilder $routes) {
     $routes->setRouteClass(DashedRoute::class);
-    $routes->connect('/', ['controller' => 'Videos', 'action' => 'index']);
+    $routes->connect('/', ['controller' => 'Events', 'action' => 'index']);
 
     $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
         'httponly' => false,
