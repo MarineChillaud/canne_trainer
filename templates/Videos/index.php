@@ -22,13 +22,13 @@
                 <tr class="text-white">
                     <td><?= h($video->date) ?></td>
                     <td><?= h($video->title) ?></td>
-                    <td>Todo</td>
-                    <td>Todo</td>
+                    <td><?= h($video->userAssessments) ?></td>
+                    <td><?= h($video->allAssessments) ?></td>
                     <td class='button-group'>
                         <?= $this->Html->Link(__('Lancer une nouvelle évaluation'), [
                             'controller' => 'Videos',
                             'action' => 'view',
-                            $video->id, 
+                            $video->id,
                             '?' => ['newAssessment' => 1]
                         ], [
                             'class' => 'btn btn-outline-primary'

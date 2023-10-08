@@ -24,7 +24,27 @@ class VideosController extends AppController
 
     public function index()
     {
+        $assessmentsTable = $this->fetchTable('Assessments');
+
         $videos = $this->Videos->find('all', ['contain' => 'Events']);
+
+        foreach ($videos as $video) {
+            //récupère le nombre d'assessement pour 1 vidéo et 1 user
+            $userAssessments = $assessmentsTable->find()
+                ->select(['user_id'])
+                ->where(['video_id' => $video->id])
+                ->group(['user_id'])
+                ->count();
+
+            // récupère tous les assessments pour 1 vidéo
+            $allAssessments = $assessmentsTable->find()
+                ->where(['video_id' => $video->id])
+                ->count();
+
+            $video->userAssessments = $userAssessments;
+            $video->allAssessments = $allAssessments;
+        }
+
         $this->set(compact('videos'));
     }
 

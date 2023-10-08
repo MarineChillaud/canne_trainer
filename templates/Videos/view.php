@@ -15,7 +15,9 @@
 <div class="container text-center">
     <h1 class='mb-5'><?= h($video->title) ?></h1>
     <div class="row align-items-center">
-        <video id="video" src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" controls style='width:100%'></video>
+        <video id="video" autoplay="true">
+            <source src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" style='width:100%' />
+        </video>
     </div>
 
     <div class="row align-items-center">
