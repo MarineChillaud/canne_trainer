@@ -20,7 +20,7 @@
 
             <?php foreach ($videos as $video) : ?>
                 <tr class="text-white">
-                    <td><?= h($video->date) ?></td>
+                    <td><?= date('d/m/y H:i', strtotime($video->date)) ?></td>
                     <td><?= h($video->title) ?></td>
                     <td><?= h($video->userAssessments) ?></td>
                     <td><?= h($video->allAssessments) ?></td>
