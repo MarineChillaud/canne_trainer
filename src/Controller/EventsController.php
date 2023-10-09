@@ -42,8 +42,6 @@ class EventsController extends AppController
         $this->set(compact('events'));
     }
 
-
-
     /**
      * Add method
      *

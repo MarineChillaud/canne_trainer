@@ -54,11 +54,17 @@ class VideosController extends AppController
 
     public function view($id)
     {
+        $user = $this->Authentication->getIdentity();
         $session = $this->request->getSession();
         $session->start();
-        $userId = $this->Authentication->getIdentity()->get('id');
         $newAssessmentParam = $this->request->getQuery('newAssessment');
         $assessmentId = $this->request->getQuery('assessmentId');
+
+        if ($user) {
+            $userId = $user->id;
+        } else {
+            $userId = $session->read('User.id');
+        }
 
         // si pas d'utilisateur connecté on passe en mode anonyme
         if (!$userId) {
@@ -66,6 +72,7 @@ class VideosController extends AppController
             $this->Flash->success('Mode Anonnyme (' . $newUser->id  . ')');
             // ... et on écrit dans la session pour faire comme si il s'était connecté.
             $session->write('User.id', $newUser->id);
+            $userId = $newUser->id;
         }
 
         if ($newAssessmentParam) {

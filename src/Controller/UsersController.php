@@ -60,6 +60,8 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Authentication->logout();
+        $this->request->getSession()->delete('User.id');
+
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
 
