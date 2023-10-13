@@ -115,6 +115,22 @@ class AssessmentsTable extends Table
             'blue' => $bluePoints->count(),
         ];
     }
+
+    /**
+     * Collects all points (red and blue) with their timing for a given assessment.
+     *
+     * @param int $assessmentId L'ID de l'assessment
+     * @return \Cake\Datasource\ResultSetInterface Les points avec leur timing
+     */
+    public function getAllPointsWithTiming($assessmentId)
+    {
+        return $this->Points
+            ->find()
+            ->select(['color', 'timing'])
+            ->where(['assessment_id' => $assessmentId])
+            ->all();
+    }
+
     public function add($userId, $videoId)
     {
         $newAssessment = $this->newEntity(
