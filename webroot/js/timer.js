@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let blueButton = document.getElementById('blueButton');
   let redCurrentTimeInput = document.getElementById('current_time_red');
   let blueCurrentTimeInput = document.getElementById('current_time_blue');
+  let progressBar = document.getElementById('progressBar')
 
   function updateProgressBar() {
     let progress = (video.currentTime / video.duration) * 100;
@@ -33,9 +34,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if(xhr.readyState === 4){
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
+        console.log(response);
         // Mettre à jour les boutons rouges et bleus avec les nouveaux points
         redButton.textContent = response.points.red;
         blueButton.textContent = response.points.blue;
+
+        progressBar.innerHTML = '';
+
+        for (let point of response.flagPoints) {
+          let flag = document.createElement('div');
+          flag.className = point.color === 'red' ? 'red-point-flag' : 'blue-point-flag';
+          let flagPosition = (point.timing / video.duration) *100;
+          flag.style.left = flagPosition + '%' ;
+          progressBar.appendChild(flag);
+        }
+
       } else {
       console.error('Il y a eu un soucis avec la requête');
       }

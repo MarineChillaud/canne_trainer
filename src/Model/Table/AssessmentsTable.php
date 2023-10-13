@@ -124,11 +124,22 @@ class AssessmentsTable extends Table
      */
     public function getAllPointsWithTiming($assessmentId)
     {
-        return $this->Points
+        $points = $this->Points
             ->find()
             ->select(['color', 'timing'])
             ->where(['assessment_id' => $assessmentId])
             ->all();
+
+        $pointsData = [];
+
+        foreach ($points as $point) {
+            $pointsData[] = [
+                'color' => $point->color,
+                'timing' => $point->timing
+            ];
+        }
+        
+        return $pointsData;
     }
 
     public function add($userId, $videoId)

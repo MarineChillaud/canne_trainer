@@ -57,13 +57,21 @@ html {
     height: 35px;
     margin: 0;
   }
-.blue-point-flag {
-    border-color: #007bff;
-    left: 0;
-  }
 .red-point-flag {
-    border-color: #dc3545;
-    left: 0;
+    background-color: red;
+    width: 1px; 
+    height: 15px; 
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+  }
+.blue-point-flag {
+    background-color: blue;
+    width: 1px; 
+    height: 15px; 
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
   }
 
   /* flash-messages.css */

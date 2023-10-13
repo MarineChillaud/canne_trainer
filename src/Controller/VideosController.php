@@ -90,8 +90,7 @@ class VideosController extends AppController
         //@todo: sécurité : il faudra vérifier les droits du user sur l'assessemnt
 
         if ($this->request->is('post')) {
-            // cas de traitement de formulaire
-            // ne s'active que s'il recoit des informations d'un formulaire en method POST
+            // cas de traitement de formulaire - ne s'active que s'il recoit des informations d'un formulaire en method POST
             $this->fetchTable('Points')->addColorPoint(
                 $this->request->getData('video_id'),
                 $assessmentId,
@@ -103,11 +102,12 @@ class VideosController extends AppController
         // interroger le model 
         $video = $this->Videos->get($id);
         $points = $this->Videos->Assessments->getScores($assessmentId);
-
-        $this->set(compact('video', 'points'));
+        $flagPoints = $this->Videos->Assessments->getAllPointsWithTiming($assessmentId);
+        
+        $this->set(compact('video', 'points', 'flagPoints'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
-            $this->set(['_serialize' => ['video', 'points']]);
+            $this->set(['_serialize' => ['video', 'points', 'flagPoints']]);
             // voir doc pour comprendre exactement 
             $this->viewBuilder()->setLayout('ajax');
         }
