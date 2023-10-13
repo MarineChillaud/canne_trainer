@@ -55,7 +55,7 @@ html {
     background-color: red;
     width: 2px; 
     height: 15px; 
-    position: absolute;
+    position: relative;
     top: 100%;
     transform: translateY(-50%);
   }
@@ -63,7 +63,7 @@ html {
     background-color: blue;
     width: 2px; 
     height: 15px; 
-    position: absolute;
+    position: relative;
     top: 100%;
     transform: translateY(-50%);
   }

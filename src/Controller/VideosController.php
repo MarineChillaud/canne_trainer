@@ -28,12 +28,29 @@ class VideosController extends AppController
 
         $videos = $this->Videos->find('all', ['contain' => 'Events']);
 
+        $user = $this->Authentication->getIdentity();
+        $session = $this->request->getSession();
+        $session->start();
+
+        if ($user) {
+            $userId = $user->id;
+        } else {
+            $userId = $session->read('User.id');
+        }
+
+        // si pas d'utilisateur connecté on passe en mode anonyme
+        if (!$userId) {
+            $newUser = $this->fetchTable('Users')->addAnonymous();
+            $this->Flash->success('Mode Anonnyme (' . $newUser->id  . ')');
+            // ... et on écrit dans la session pour faire comme si il s'était connecté.
+            $session->write('User.id', $newUser->id);
+            $userId = $newUser->id;
+        }
+
         foreach ($videos as $video) {
             //récupère le nombre d'assessement pour 1 vidéo et 1 user
             $userAssessments = $assessmentsTable->find()
-                ->select(['user_id'])
-                ->where(['video_id' => $video->id])
-                ->group(['user_id'])
+                ->where(['video_id' => $video->id, 'user_id' => $userId])
                 ->count();
 
             // récupère tous les assessments pour 1 vidéo
@@ -57,8 +74,6 @@ class VideosController extends AppController
         $user = $this->Authentication->getIdentity();
         $session = $this->request->getSession();
         $session->start();
-        $newAssessmentParam = $this->request->getQuery('newAssessment');
-        $assessmentId = $this->request->getQuery('assessmentId');
 
         if ($user) {
             $userId = $user->id;
@@ -66,14 +81,9 @@ class VideosController extends AppController
             $userId = $session->read('User.id');
         }
 
-        // si pas d'utilisateur connecté on passe en mode anonyme
-        if (!$userId) {
-            $newUser = $this->fetchTable('Users')->addAnonymous();
-            $this->Flash->success('Mode Anonnyme (' . $newUser->id  . ')');
-            // ... et on écrit dans la session pour faire comme si il s'était connecté.
-            $session->write('User.id', $newUser->id);
-            $userId = $newUser->id;
-        }
+
+        $newAssessmentParam = $this->request->getQuery('newAssessment');
+        $assessmentId = $this->request->getQuery('assessmentId');
 
         if ($newAssessmentParam) {
             $newAssessment = $this->fetchTable('Assessments')->add($userId, $id);
@@ -103,7 +113,7 @@ class VideosController extends AppController
         $video = $this->Videos->get($id);
         $points = $this->Videos->Assessments->getScores($assessmentId);
         $flagPoints = $this->Videos->Assessments->getAllPointsWithTiming($assessmentId);
-        
+
         $this->set(compact('video', 'points', 'flagPoints'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
