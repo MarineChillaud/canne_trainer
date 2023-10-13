@@ -50,27 +50,21 @@ html {
     box-sizing: border-box;
 }
 
-.point-flag {
-    position: absolute;
-    border-left: 2px solid;
-    display: inline-block;
-    height: 35px;
-    margin: 0;
-  }
+
 .red-point-flag {
     background-color: red;
-    width: 1px; 
+    width: 2px; 
     height: 15px; 
     position: absolute;
-    top: 0;
+    top: 100%;
     transform: translateY(-50%);
   }
 .blue-point-flag {
     background-color: blue;
-    width: 1px; 
+    width: 2px; 
     height: 15px; 
     position: absolute;
-    top: 0;
+    top: 100%;
     transform: translateY(-50%);
   }
 
