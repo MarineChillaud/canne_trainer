@@ -39,8 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
         redButton.textContent = response.points.red;
         blueButton.textContent = response.points.blue;
 
-        progressBar.innerHTML = '';
-
+        const flagContainer = document.getElementById('flagContainer');
+        flagContainer.innerHTML = '';
+        
         for (let point of response.flagPoints) {
           let flag = document.createElement('div');
           flag.className = point.color === 'red' ? 'red-point-flag' : 'blue-point-flag';
