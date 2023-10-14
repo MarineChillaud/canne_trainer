@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let blueButton = document.getElementById('blueButton');
   let redCurrentTimeInput = document.getElementById('current_time_red');
   let blueCurrentTimeInput = document.getElementById('current_time_blue');
-  let progressBar = document.getElementById('progressBar')
+  let progressBar = document.getElementById('progressBar');
 
   function updateProgressBar() {
     let progress = (video.currentTime / video.duration) * 100;
@@ -16,10 +16,36 @@ document.addEventListener('DOMContentLoaded', function() {
     blueCurrentTimeInput.value = video.currentTime;
   }
 
-  video.addEventListener('play', getCurrentTime);
-  video.addEventListener('pause', getCurrentTime);
-  video.addEventListener('timeupdate', updateProgressBar);
+    if (localStorage.getItem('videoData')) {
+    const savedVideoData = JSON.parse(localStorage.getItem('videoData'));
+    
+    // Restaure la position de lecture
+    video.currentTime = savedVideoData.currentTime;
+  }
 
+  // Sauvegarde les données dans localStorage lorsqu'elles sont mises à jour
+  function saveDataToLocalStorage() {
+    const videoData = {
+      currentTime: video.currentTime,
+    };
+
+    localStorage.setItem('videoData', JSON.stringify(videoData));
+  }
+
+  function handlePlayerEvent() {
+    getCurrentTime();
+    saveDataToLocalStorage();
+  }
+
+  function handleTimeUpdateEvent() {
+    updateProgressBar();
+    saveDataToLocalStorage();
+  }
+
+  // Écoute les événements pour mettre à jour et sauvegarder les données
+  video.addEventListener('play', handlePlayerEvent);
+  video.addEventListener('pause', handlePlayerEvent);
+  video.addEventListener('timeupdate', handleTimeUpdateEvent);
   video.addEventListener('click', function() {
     if (video.paused) {
       video.play();
@@ -41,13 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const flagContainer = document.getElementById('flagContainer');
         flagContainer.innerHTML = '';
-        
+        // flagContainer.style.width = progressBar.style.width;
+        // flagContainer.style.height = '15px';
+
         for (let point of response.flagPoints) {
           let flag = document.createElement('div');
           flag.className = point.color === 'red' ? 'red-point-flag' : 'blue-point-flag';
           let flagPosition = (point.timing / video.duration) *100;
           flag.style.left = flagPosition + '%' ;
-          progressBar.appendChild(flag);
+          flagContainer.appendChild(flag);
         }
 
       } else {

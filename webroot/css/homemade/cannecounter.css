@@ -53,17 +53,17 @@ html {
 
 .red-point-flag {
     background-color: red;
-    width: 2px; 
-    height: 15px; 
-    position: relative;
+    width: 3px; 
+    height: 20px; 
+    position: absolute;
     top: 100%;
     transform: translateY(-50%);
   }
 .blue-point-flag {
     background-color: blue;
-    width: 2px; 
-    height: 15px; 
-    position: relative;
+    width: 3px; 
+    height: 20px; 
+    position: absolute;
     top: 100%;
     transform: translateY(-50%);
   }
