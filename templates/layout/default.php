@@ -15,6 +15,8 @@ $siteVersion = '1.0'
     <!-- <?= $this->Html->css("fontawesome") ?> -->
     <?= $this->Html->css("homemade/flags") ?>
     <?= $this->Html->css("homemade/cannecounter") ?>
+    <?= $this->Html->script("jquery.min") ?>
+
 
 
     <script src="https://kit.fontawesome.com/b99a638360.js" crossorigin="anonymous"></script>
