@@ -32,11 +32,7 @@ class VideosController extends AppController
         $session = $this->request->getSession();
         $session->start();
 
-        if ($user) {
-            $userId = $user->id;
-        } else {
-            $userId = $session->read('User.id');
-        }
+        $userId = $user ? $user->id : $session->read('User.id');
 
         // si pas d'utilisateur connecté on passe en mode anonyme
         if (!$userId) {
@@ -47,7 +43,6 @@ class VideosController extends AppController
             $userId = $newUser->id;
         }
 
-        // A déplacer dans le model
         foreach ($videos as $video) {
             $assessmentsCount = $this->Videos->Assessments->getAssessmentsCount($video->id, $userId);
             $video->userAssessments = $assessmentsCount['userAssessments'];
@@ -67,12 +62,7 @@ class VideosController extends AppController
         $session = $this->request->getSession();
         $session->start();
 
-        if ($user) {
-            $userId = $user->id;
-        } else {
-            $userId = $session->read('User.id');
-        }
-
+        $userId = $user ? $user->id : $session->read('User.id');
 
         $newAssessmentParam = $this->request->getQuery('newAssessment');
         $assessmentId = $this->request->getQuery('assessmentId');

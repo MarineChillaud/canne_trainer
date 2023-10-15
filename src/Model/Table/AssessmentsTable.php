@@ -142,37 +142,31 @@ class AssessmentsTable extends Table
         return $pointsData;
     }
 
-    public function getAssessmentsData($assessments)
+    public function getAssessmentsData($video)
     {
-        $data = [];
-        foreach ($assessments as $assessment) {
-            $eventTitle = $assessment->video->event->title;
-            $eventDate = $assessment->video->event->date;
-            $videoTitle = $assessment->video->title;
-        }
-
-        $data[] = [
-            'eventTitle' => $eventTitle,
-            'eventDate' => $eventDate,
-            'videoTitle' => $videoTitle
+        $data = [
+            'eventTitle' => $video->event->title,
+            'eventDate' => $video->event->date,
+            'videoTitle' => $video->title
         ];
+    
         return $data;
     }
 
-    public function getAssessmentsCount($videoId, $userId) 
+    public function getAssessmentsCount($videoId, $userId)
     {
         $userAssessments = $this->find()
-        ->where(['video_id' => $videoId, 'user_id' => $userId])
-        ->count();
-        
-        $allAssessments = $this->find()
-        ->where(['video_id' => $videoId])
-        ->count();
+            ->where(['video_id' => $videoId, 'user_id' => $userId])
+            ->count();
 
-    return [
-        'userAssessments' => $userAssessments,
-        'allAssessments' => $allAssessments,
-    ];
+        $allAssessments = $this->find()
+            ->where(['video_id' => $videoId])
+            ->count();
+
+        return [
+            'userAssessments' => $userAssessments,
+            'allAssessments' => $allAssessments,
+        ];
     }
 
     public function add($userId, $videoId)

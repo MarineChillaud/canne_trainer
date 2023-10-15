@@ -65,8 +65,8 @@ $siteVersion = '1.0'
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profilemenu">
                             <?= $this->Html->link('<i class="fas fa-bell"></i> ' . __('Mes évaluations'), [
-                                'controller' => 'Users',
-                                'action' => '' // TODO ajouter l'action vers les stats individuelles
+                                'controller' => 'Assessments',
+                                'action' => 'index' // TODO ajouter l'action vers les stats individuelles
                             ], [
                                 'class' => 'dropdown-item',
                                 'escape' => false,
