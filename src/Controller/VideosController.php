@@ -47,19 +47,11 @@ class VideosController extends AppController
             $userId = $newUser->id;
         }
 
+        // A déplacer dans le model
         foreach ($videos as $video) {
-            //récupère le nombre d'assessement pour 1 vidéo et 1 user
-            $userAssessments = $assessmentsTable->find()
-                ->where(['video_id' => $video->id, 'user_id' => $userId])
-                ->count();
-
-            // récupère tous les assessments pour 1 vidéo
-            $allAssessments = $assessmentsTable->find()
-                ->where(['video_id' => $video->id])
-                ->count();
-
-            $video->userAssessments = $userAssessments;
-            $video->allAssessments = $allAssessments;
+            $assessmentsCount = $this->Videos->Assessments->getAssessmentsCount($video->id, $userId);
+            $video->userAssessments = $assessmentsCount['userAssessments'];
+            $video->allAssessments = $assessmentsCount['allAssessments'];
         }
 
         $this->set(compact('videos'));
