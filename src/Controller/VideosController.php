@@ -56,7 +56,7 @@ class VideosController extends AppController
      * @param int id  l'id de la vidéo à afficher
      */
 
-    public function view($id)
+    public function view($id, $assessmentId = 0)
     {
         $user = $this->Authentication->getIdentity();
         $session = $this->request->getSession();
@@ -64,10 +64,7 @@ class VideosController extends AppController
 
         $userId = $user ? $user->id : $session->read('User.id');
 
-        $newAssessmentParam = $this->request->getQuery('newAssessment');
-        $assessmentId = $this->request->getQuery('assessmentId');
-
-        if ($newAssessmentParam) {
+        if ($assessmentId === 0) {
             $newAssessment = $this->fetchTable('Assessments')->add($userId, $id);
             $this->Flash->success('Nouvelle évaluation (' . $newAssessment->id . ')');
 
@@ -75,7 +72,7 @@ class VideosController extends AppController
                 'controller' => 'Videos',
                 'action' => 'view',
                 $id,
-                '?' => ['assessmentId' => $newAssessment->id]
+                $newAssessment->id,
             ]);
         }
 

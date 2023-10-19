@@ -9,7 +9,7 @@
 
     </div>
     <div class="col-md-12 text-center">
-    <table class="table table-dark table-hover table-striped">
+        <table class="table table-dark table-hover table-striped">
             <tr class="text-white">
                 <th>Date</th>
                 <th>Rencontre</th>
@@ -28,8 +28,7 @@
                         <?= $this->Html->Link(__('Lancer une nouvelle évaluation'), [
                             'controller' => 'Videos',
                             'action' => 'view',
-                            $video->id,
-                            '?' => ['newAssessment' => 1]
+                            $video->id
                         ], [
                             'class' => 'btn btn-outline-primary'
                         ]) ?>
