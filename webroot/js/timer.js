@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         for (let point of response.flagPoints) {
           let flag = document.createElement('div');
-          flag.className = point.color === 'red' ? 'red-point-flag' : 'blue-point-flag';
+          flag.className = point.color === 'red' ? 'red point-flag' : 'blue point-flag';
           let flagPosition = (point.timing / video.duration) *100;
           flag.style.left = flagPosition + '%' ;
           flagContainer.appendChild(flag);
