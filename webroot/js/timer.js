@@ -67,8 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const flagContainer = document.getElementById('flagContainer');
         flagContainer.innerHTML = '';
-        // flagContainer.style.width = progressBar.style.width;
-        // flagContainer.style.height = '15px';
 
         for (let point of response.flagPoints) {
           let flag = document.createElement('div');
