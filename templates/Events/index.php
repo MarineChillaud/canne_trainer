@@ -6,11 +6,13 @@
         <h2>Vidéos</h2>
     </div>
     <div class="col-md-12 text-center">
-        <table class="table mx-auto">
-            <tr class="text-white">
-                <th>Date</th>
-                <th>Compétitions</th>
-            </tr>
+        <table class="table table-dark table-hover table-striped">
+            <thead>
+                <tr class="text-white">
+                    <th>Date</th>
+                    <th>Compétitions</th>
+                </tr>
+            </thead>
 
             <?php foreach ($events as $event) : ?>
                 <tr class="text-white">

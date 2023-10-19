@@ -9,7 +9,7 @@
 
     </div>
     <div class="col-md-12 text-center">
-        <table class="table">
+    <table class="table table-dark table-hover table-striped">
             <tr class="text-white">
                 <th>Date</th>
                 <th>Rencontre</th>
