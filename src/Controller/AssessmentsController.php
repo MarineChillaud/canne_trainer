@@ -22,22 +22,23 @@ class AssessmentsController extends AppController
     public function index()
     {
         $videos = $this->Assessments->Videos->find('all', ['contain' => 'Events']);
-        
+
         $user = $this->Authentication->getIdentity();
-        $session = $this->request->getSession();
-        
-        $userId = $user ? $user->id: $session->read('User.id');
+        $session = $this->request->getSession();        //@todo: utiliser displayFilter pour filtrer les vidéos.
 
-    foreach ($videos as $video) {
-        $assessmentsCount = $this->Assessments->getAssessmentsCount($video->id, $userId);
-        $video->userAssessments = $assessmentsCount['userAssessments'];
-        $video->allAssessments = $assessmentsCount['allAssessments'];
 
-        $dataVideo = $this->Assessments->getAssessmentsData($video);
-        $video->eventTitle = $dataVideo['eventTitle'];        
-        $video->eventDate = $dataVideo['eventDate'];
-        $video->videoTitle = $dataVideo['videoTitle'];
-    }
+        $userId = $user ? $user->id : $session->read('User.id');
+
+        foreach ($videos as $video) {
+            $assessmentsCount = $this->Assessments->getAssessmentsCount($video->id, $userId);
+            $video->userAssessments = $assessmentsCount['userAssessments'];
+            $video->allAssessments = $assessmentsCount['allAssessments'];
+
+            $dataVideo = $this->Assessments->getAssessmentsData($video);
+            $video->eventTitle = $dataVideo['eventTitle'];
+            $video->eventDate = $dataVideo['eventDate'];
+            $video->videoTitle = $dataVideo['videoTitle'];
+        }
 
         $this->set(compact('videos'));
     }
@@ -54,5 +55,15 @@ class AssessmentsController extends AppController
         $assessment = $this->Assessments->get($id);
         $scores = $this->Assessments->getScores($id);
         $this->set(compact('assessment', 'scores'));
+    }
+
+    public function review($videoId, $displayFilter)
+    {
+        $assessments = $this->Assessments->findByVideoId($videoId);
+        if ($displayFilter === 'own') {
+            $userId = $session = $this->request->getSession()->read('User.id');
+            $assessments = $this->Assessments->findByVideoIdAndUserId($videoId, $userId);
+        }
+        $this->set(compact('assessments'));
     }
 }
