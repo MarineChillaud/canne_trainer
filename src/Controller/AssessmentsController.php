@@ -57,13 +57,27 @@ class AssessmentsController extends AppController
         $this->set(compact('assessment', 'scores'));
     }
 
-    public function review($videoId, $displayFilter)
+    public function review($videoId, $displayFilter = 'own')
     {
-        $assessments = $this->Assessments->findByVideoId($videoId);
-        if ($displayFilter === 'own') {
-            $userId = $session = $this->request->getSession()->read('User.id');
+
+        $userId = $session = $this->request->getSession()->read('User.id');
+        $videos = $this->Assessments->Videos->find('all');
+
+        if (is_numeric($displayFilter)) {
+            // display just one
+            $displayFilter = (int)$displayFilter;
+            $assessments = $this->Assessments->findByIdAndVideoId($displayFilter, $videoId);
+            $points = $this->Assessments->getScores($displayFilter);
+        } elseif ($displayFilter === 'all') {
+            // display all assessment
+            $assessments = $this->Assessments->findByVideoId($videoId);
+        } else {
+            // display all personal assessments
+            //if ($displayFilter === 'own')
             $assessments = $this->Assessments->findByVideoIdAndUserId($videoId, $userId);
         }
-        $this->set(compact('assessments'));
+
+
+        $this->set(compact('assessments', 'videos'));
     }
 }

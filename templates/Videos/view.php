@@ -20,12 +20,12 @@
     </div> -->
 
     <div class="row align-items-center">
-        <video id="video" autoplay>
+        <video id="video" autoplay controls>
             <source src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" style='width:100%' />
         </video>
     </div>
 
-    <div class="row align-items-center">
+    <div id="points-button" class="row align-items-center">
         <div class="col align-self-center">
             <div type="button" class="btn btn-danger btn-lg">
                 <?= $this->Form->create(null, ['id' => 'point_form_red']) ?>
