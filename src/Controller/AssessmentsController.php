@@ -78,6 +78,6 @@ class AssessmentsController extends AppController
         }
 
 
-        $this->set(compact('assessments', 'videos'));
+        $this->set(compact('assessments', 'videos', 'points'));
     }
 }
