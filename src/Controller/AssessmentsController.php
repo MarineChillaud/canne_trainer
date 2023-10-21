@@ -68,6 +68,8 @@ class AssessmentsController extends AppController
             $displayFilter = (int)$displayFilter;
             $assessments = $this->Assessments->findByIdAndVideoId($displayFilter, $videoId);
             $points = $this->Assessments->getScores($displayFilter);
+            $flagPoints = $this->Assessments->getAllPointsWithTiming($displayFilter);
+
         } elseif ($displayFilter === 'all') {
             // display all assessment
             $assessments = $this->Assessments->findByVideoId($videoId);
@@ -78,6 +80,6 @@ class AssessmentsController extends AppController
         }
 
 
-        $this->set(compact('assessments', 'videos', 'points'));
+        $this->set(compact('assessments', 'videos', 'points', 'flagPoints'));
     }
 }

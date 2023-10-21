@@ -1,5 +1,5 @@
 <?php
-pr($assessments->toArray());
+// pr($assessments->toArray());
 
 $this->Html->scriptBlock(sprintf(
     'var csrfToken = %s;',
@@ -45,9 +45,13 @@ $this->Html->scriptBlock(sprintf(
         </div>
     </div>
     <div>
-        <div id="flagContainer"></div>
-        <div id="timeProgress" class="progress bg-secondary mx-auto mt-4"">
-            <div id=" progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <div id="flagContainer">
+            <?php foreach ($flagPoints as $point) : ?>
+                <div class="point-flag <?= h($point['color']) ?>" style="left: <? $point['position'] ?>%"></div>
+            <?php endforeach; ?>
         </div>
+        <div id="timeProgress" class="progress bg-secondary mx-auto mt-4"">
+            <div id=" progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 100%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
+</div>
 </div>
