@@ -27,10 +27,24 @@ $this->Html->scriptBlock(sprintf(
             <?php if (count($flagPoints) > 0) : ?>
                 <div id="assessment-<?= $assessmentId ?>" class="flagDisplayContainer" title="<?= $assessmentId ?>">
                     <?php foreach ($flagPoints as $point) : ?>
-                        <div class="point-flag <?= h($point['color']) ?>" style="left: <?= $point['timing'] ?>%" title="<?= $assessmentId . ":" . floor($point['timing']) . 's' ?>" data-time=" <?= $point['timing'] ?>"></div>
+                        <div class="point-flag <?= h($point['color']) ?>" title="<?= $assessmentId . ":" . floor($point['timing']) . 's' ?>" data-time="<?= $point['timing'] ?>"></div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
 </div>
+
+
+<script>
+    $("#video").on("loadedmetadata", function() {
+        let video = document.querySelector('video');
+        $('.point-flag').each(function(index, element) {
+            let time = $(element).data('time');
+            let duration = video.duration;
+            let pc = Math.floor(100 * time / duration);
+            $(element).css('left', pc + "%");
+        });
+        console.log("ready!");
+    });
+</script>
