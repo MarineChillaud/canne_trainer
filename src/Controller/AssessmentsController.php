@@ -60,7 +60,10 @@ class AssessmentsController extends AppController
     public function review($videoId, $displayFilter = 'own')
     {
 
-        $userId = $session = $this->request->getSession()->read('User.id');
+        $user = $this->Authentication->getIdentity();
+        $session = $this->request->getSession();        //@todo: utiliser displayFilter pour filtrer les vidéos.
+        $userId = $user ? $user->id : $session->read('User.id');
+
         $videos = $this->Assessments->Videos->find('all');
 
         if (is_numeric($displayFilter)) {
