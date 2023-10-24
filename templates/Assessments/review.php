@@ -24,26 +24,6 @@ $this->Html->scriptBlock(sprintf(
         </video>
     </div>
 
-    <div id="points-button" class="row align-items-center">
-        <div class="col align-self-center">
-            <div type="button" class="btn btn-danger btn-lg">
-                <?= $this->Form->create(null, ['id' => 'point_form_red']) ?>
-                <!-- <?= $this->Form->hidden('video_id', ['value' => $assessment->video_id]) ?> -->
-                <?= $this->Form->button($points['red'], ['id' => 'redButton', 'class' => 'btn btn-danger']) ?>
-                <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
-                <?= $this->Form->end() ?>
-            </div>
-        </div>
-        <div class="col align-self-center">
-            <div type="button" class="btn btn-primary btn-lg">
-                <?= $this->Form->create(null, ['id' => 'point_form_blue']) ?>
-                <!-- <?= $this->Form->hidden('video_id', ['value' => $assessment->video_id]) ?> -->
-                <?= $this->Form->button($points['blue'], ['id' => 'blueButton', 'class' => 'btn btn-primary']) ?>
-                <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
-                <?= $this->Form->end() ?>
-            </div>
-        </div>
-    </div>
     <div>
         <div id="flagContainer">
             <?php foreach ($flagPoints as $point) : ?>

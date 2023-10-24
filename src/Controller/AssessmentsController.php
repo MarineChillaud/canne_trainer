@@ -64,14 +64,13 @@ class AssessmentsController extends AppController
         $session = $this->request->getSession();        //@todo: utiliser displayFilter pour filtrer les vidéos.
         $userId = $user ? $user->id : $session->read('User.id');
 
-        $videos = $this->Assessments->Videos->find('all');
+        $video = $this->Assessments->Videos->find('all');
 
         if (is_numeric($displayFilter)) {
             // display just one
-            $selectedVideoId = (int)$displayFilter;
-            $assessments = $this->Assessments->findByIdAndVideoId($selectedVideoId, $videoId);
-            $points = $this->Assessments->getScores($selectedVideoId);
-            $flagPoints = $this->Assessments->getAllPointsWithTiming($selectedVideoId);
+            $assessementId = (int)$displayFilter;
+            $assessments = $this->Assessments->findByIdAndVideoId($assessementId, $videoId);
+            // $flagPoints = $this->Assessments->getAllPointsWithTiming($assessementId);
         } elseif ($displayFilter === 'all') {
             // display all assessment
             $assessments = $this->Assessments->findByVideoId($videoId);
@@ -81,7 +80,10 @@ class AssessmentsController extends AppController
             $assessments = $this->Assessments->findByVideoIdAndUserId($videoId, $userId);
         }
 
-
-        $this->set(compact('assessments', 'videos', 'points', 'flagPoints'));
+        $pointsPerAssessments = [];
+        foreach ($assessments as $assessment) {
+            $pointsPerAssessments[$assessment->id] = $this->Assessments->getAllPointsWithTiming($assessment->id);
+        }
+        $this->set(compact('assessments', 'video', 'pointsPerAssessments'));
     }
 }
