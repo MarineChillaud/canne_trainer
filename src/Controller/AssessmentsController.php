@@ -64,7 +64,7 @@ class AssessmentsController extends AppController
         $session = $this->request->getSession();        //@todo: utiliser displayFilter pour filtrer les vidéos.
         $userId = $user ? $user->id : $session->read('User.id');
 
-        $video = $this->Assessments->Videos->find('all');
+        $video = $this->Assessments->Videos->get($videoId);
 
         if (is_numeric($displayFilter)) {
             // display just one

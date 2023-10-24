@@ -14,9 +14,7 @@ $this->Html->scriptBlock(sprintf(
 </div>
 
 <div class="container text-center">
-    <?php foreach ($videos as $video) : ?>
-        <h1><?= h($video->title) ?></h1>
-    <?php endforeach ?>
+    <h1><?= h($video->title) ?></h1>
 
     <div class="row align-items-center">
         <video id="video" autoplay controls>
@@ -25,13 +23,14 @@ $this->Html->scriptBlock(sprintf(
     </div>
 
     <div>
-        <div id="flagContainer">
-            <?php foreach ($flagPoints as $point) : ?>
-                <div class="point-flag <?= h($point['color']) ?>" style="left: <? $point['position'] ?>%"></div>
-            <?php endforeach; ?>
-        </div>
-        <div id="timeProgress" class="progress bg-secondary mx-auto mt-4"">
-            <div id=" progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 100%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <?php foreach ($pointsPerAssessments as $assessmentId => $flagPoints) : ?>
+            <?php if (count($flagPoints) > 0) : ?>
+                <div id="assessment-<?= $assessmentId ?>" class="flagDisplayContainer" title="<?= $assessmentId ?>">
+                    <?php foreach ($flagPoints as $point) : ?>
+                        <div class="point-flag <?= h($point['color']) ?>" style="left: <?= $point['timing'] ?>%" title="<?= $assessmentId . ":" . floor($point['timing']) . 's' ?>" data-time=" <?= $point['timing'] ?>"></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
     </div>
-</div>
 </div>
