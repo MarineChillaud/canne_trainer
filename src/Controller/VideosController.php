@@ -93,7 +93,7 @@ class VideosController extends AppController
         $points = $this->Videos->Assessments->getScores($assessmentId);
         $flagPoints = $this->Videos->Assessments->getAllPointsWithTiming($assessmentId);
 
-        $this->set(compact('video', 'points', 'flagPoints'));
+        $this->set(compact('video', 'points', 'flagPoints', 'assessmentId'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
             $this->set(['_serialize' => ['video', 'points', 'flagPoints']]);

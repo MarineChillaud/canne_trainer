@@ -20,7 +20,7 @@
     </div> -->
 
     <div class="row align-items-center">
-        <video id="video" autoplay controls>
+        <video id="video" autoplay controls data-next-video="<?= $this->Url->build(['controller' => 'Assessments', 'action' => 'review', $video->id, $assessmentId]); ?>">
             <source src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" style='width:100%' />
         </video>
     </div>
@@ -52,7 +52,7 @@
     <div>
         <div id="flagContainer"></div>
         <div id="timeProgress" class="progress bg-secondary mx-auto mt-4"">
-            <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
+            <div id=" progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
+</div>
 </div>

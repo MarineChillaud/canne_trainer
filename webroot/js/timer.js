@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
     saveDataToLocalStorage();
   }
 
+  function handleEndedEvent() {
+    document.location.href=video.dataset.nextVideo;
+  }
+
   // Écoute les événements pour mettre à jour et sauvegarder les données
   video.addEventListener('play', handlePlayerEvent);
   video.addEventListener('pause', handlePlayerEvent);
@@ -53,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       video.pause();
     }
   });
+  video.addEventListener('ended', handleEndedEvent)
 
   let xhr = new XMLHttpRequest();
 
