@@ -17,7 +17,7 @@ $this->Html->scriptBlock(sprintf(
     <h1><?= h($video->title) ?></h1>
 
     <div class="row align-items-center">
-        <video id="video" autoplay controls>
+        <video id="video" controls='true'>
             <source src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" style='width:100%' />
         </video>
     </div>
@@ -45,6 +45,9 @@ $this->Html->scriptBlock(sprintf(
             let pc = Math.floor(100 * time / duration);
             $(element).css('left', pc + "%");
         });
+        $('.point-flag').on('click', function() {
+            video.currentTime = Math.floor($(this).data('time'));
+        })
         console.log("ready!");
     });
 </script>
