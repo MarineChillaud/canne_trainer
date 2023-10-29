@@ -52,7 +52,7 @@
     <div>
         <div id="flagContainer"></div>
         <div id="timeProgress" class="progress bg-secondary mx-auto mt-4"">
-            <div id=" progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 </div>
 </div>
