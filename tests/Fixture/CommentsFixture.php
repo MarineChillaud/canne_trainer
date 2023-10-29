@@ -10,6 +10,8 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class CommentsFixture extends TestFixture
 {
+    public $import = ['table' => 'comments'];
+
     /**
      * Init method
      *
@@ -22,7 +24,13 @@ class CommentsFixture extends TestFixture
                 'id' => 1,
                 'assessment_id' => 1,
                 'comment' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'timing' => 1,
+                'timing' => 159.453,
+            ],
+            [
+                'id' => 2,
+                'assessment_id' => 2,
+                'comment' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'timing' => 229.350,
             ],
         ];
         parent::init();

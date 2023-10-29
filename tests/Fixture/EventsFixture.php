@@ -10,6 +10,8 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class EventsFixture extends TestFixture
 {
+    public $import = ['table' => 'events'];
+
     /**
      * Init method
      *
@@ -22,6 +24,11 @@ class EventsFixture extends TestFixture
                 'id' => 1,
                 'title' => 'Lorem ipsum dolor sit amet',
                 'date' => '2023-10-02 12:23:41',
+            ],
+            [
+                'id' => 2,
+                'title' => 'Lorem ipsum dolor sit amet',
+                'date' => '2023-10-05 12:35:46',
             ],
         ];
         parent::init();

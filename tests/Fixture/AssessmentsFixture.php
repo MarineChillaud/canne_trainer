@@ -10,6 +10,7 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class AssessmentsFixture extends TestFixture
 {
+    public $import = ['table' => 'assessments'];
     /**
      * Init method
      *
@@ -23,6 +24,12 @@ class AssessmentsFixture extends TestFixture
                 'user_id' => 1,
                 'video_id' => 1,
                 'date' => '2023-10-02 12:23:23',
+            ],
+            [
+                'id' => 2,
+                'user_id' => 2,
+                'video_id' => 2,
+                'date' => '2023-10-02 13:45:00',
             ],
         ];
         parent::init();
