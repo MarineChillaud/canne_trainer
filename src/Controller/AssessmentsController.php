@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Entity\Assessment;
+use Cake\Event\EventInterface;
+
 
 /**
  * Assessments Controller
@@ -14,6 +16,13 @@ use App\Model\Entity\Assessment;
  */
 class AssessmentsController extends AppController
 {
+
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->getRequest()->getAttribute('csrfToken');
+        $this->Authentication->allowUnauthenticated(['review']);
+    }
     /**
      * Index method
      *

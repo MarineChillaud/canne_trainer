@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Http\Client;
-use Cake\Http\Client\JsonParser;
-
+use Cake\Utility\Xml;
 /**
  * CanneTvApi Controller
  *
@@ -19,7 +18,8 @@ class CanneTvApiController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    
+     public function index()
     {
         $canneTvApi = $this->paginate($this->CanneTvApi);
         $client = new Client();
@@ -29,13 +29,16 @@ class CanneTvApiController extends AppController
             $response = $client->get($url);
 
             if ($response->getStatusCode() === 200) {
-                $jsonData = $response->getJson();
+                $htmlData = $response->getBody()->getContents();
+
+                $xmlData = Xml::build($htmlData);
+                $tournamentList = $xmlData->xpath('//ul[@class="tournament-list"]/li/a');
 
                 $tournaments = [];
 
-                foreach ($jsonData as $tournamentData) {
-                    $tournamentName = $tournamentData['link'];
-                    $tournamentDate = $tournamentData['date'];
+                foreach ($tournamentList as $tournament) {
+                    $tournamentName = (string)$tournament;
+                    $tournamentDate = $tournament->attributes()['href']; // extraire la date de l'url
 
                     $tournaments[] = [
                         'Link' => $tournamentName,
