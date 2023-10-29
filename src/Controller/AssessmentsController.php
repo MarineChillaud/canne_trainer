@@ -52,20 +52,6 @@ class AssessmentsController extends AppController
         $this->set(compact('videos'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Assessment id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id)
-    {
-        $assessment = $this->Assessments->get($id);
-        $scores = $this->Assessments->getScores($id);
-        $this->set(compact('assessment', 'scores'));
-    }
-
     public function review($videoId, $displayFilter = 'own')
     {
 

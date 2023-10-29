@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function handleEndedEvent() {
-    localStorage.removeItem('videoData');
     document.location.href=video.dataset.nextVideo;
   }
 
