@@ -21,7 +21,7 @@ class AssessmentsControllerTest extends TestCase
      *
      * @var array<string>
      */
-    protected $fixtures = [
+    public $fixtures = [
         'app.Assessments',
         'app.Users',
         'app.Videos',
@@ -29,27 +29,48 @@ class AssessmentsControllerTest extends TestCase
         'app.Points',
     ];
 
-    /**
+        /**
      * Test index method
      *
      * @return void
      * @uses \App\Controller\AssessmentsController::index()
      */
-    public function testIndex(): void
+    public function testAddUnauthenticatedFailsIndex(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/assessments');
+        $this->assertRedirectContains('/users/login');
+    }
+
+    public function testAddUnauthenticatedIndex(): void
+    {
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'testing',
+                    'password' => 'testing1234*',
+                    "firstName" => 'Testing',
+                    "lastName" => 'Testing',
+                    "created" => '2023-10-29 15:37:46',
+                ]
+            ]
+        ]);
+        $this->get('assessments');
+
+        $this->assertResponseOk();
     }
 
     /**
-     * Test view method
+     * Test review method
      *
      * @return void
      * @uses \App\Controller\AssessmentsController::view()
      */
-    public function testView(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testReview(): void
+    // {
+    //     $this->get('/assessments/review/1/own');
+    //     $this->assertResponseOk();
+    // }
 
     /**
      * Test add method
