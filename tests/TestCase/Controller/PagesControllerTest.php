@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use Cake\Core\Configure;
-use Cake\TestSuite\Constraint\Response\StatusCode;App\Test\TestCase\Controller\CanneTvApiControllerTest::testIndex
+use Cake\TestSuite\Constraint\Response\StatusCode;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -38,9 +38,9 @@ class PagesControllerTest extends TestCase
     public function testDisplay()
     {
         Configure::write('debug', true);
-        $this->get('/pages/home');
+        $this->get('/pages/about');
         $this->assertResponseOk();
-        $this->assertResponseContains('CakePHP');
+        $this->assertResponseContains('Canne Trainer');
         $this->assertResponseContains('<html>');
     }
 
