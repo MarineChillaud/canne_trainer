@@ -16,7 +16,7 @@ class PagesController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated('*');
+        $this->Authentication->allowUnauthenticated(['display']);
     }
 
     public function display(string ...$path): ?Response
