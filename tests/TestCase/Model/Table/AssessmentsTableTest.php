@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
+use App\Model\Entity\Assessment;
 use App\Model\Table\AssessmentsTable;
 use Cake\TestSuite\TestCase;
+use SebastianBergmann\Type\VoidType;
 
 /**
  * App\Model\Table\AssessmentsTable Test Case
@@ -77,7 +79,7 @@ class AssessmentsTableTest extends TestCase
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-    public function testCreateAssessment(): void
+    public function testCreateAndSaveAssessmentSuccess(): void
     {
         $data = [
             'user_id' => 1, 
@@ -93,5 +95,121 @@ class AssessmentsTableTest extends TestCase
        $this->assertInstanceOf('App\Model\Entity\Assessment', $result);
        $this->assertEquals(1, $result->user_id);
        $this->assertEquals($data['video_id'], $result->video_id);
+    }
+
+    public function testCreateAndSaveAssessmentFail(): void
+    {
+    $data = [
+        'user_id' => 10, 
+        'video_id' => 10, 
+        'date' => '23-10-02 12:23', 
+    ];
+
+    $assessment = $this->Assessments->newEmptyEntity();
+    $assessment = $this->Assessments->patchEntity($assessment, $data);
+
+    $result = $this->Assessments->save($assessment);
+
+    $this->assertFalse($result); 
+    }
+
+    public function testAssociations(): void
+    {
+        $userId = 1;
+        $videoId = 1;
+        
+        $user = $this->Assessments->Users->get($userId);
+        $this->assertInstanceOf('App\Model\Entity\User', $user);
+
+        $video = $this->Assessments->Videos->get($videoId);
+        $this->assertInstanceOf('App\Model\Entity\Video', $video);
+    }
+    
+    public function testGetScores(): void
+    {
+        $assessmentId = 1;
+    
+        $pointsTable = $this->getTableLocator()->get('Points');
+    
+        $data = [
+            [
+                'id' => 1,
+                'assessment_id' => $assessmentId,
+                'color' => 'red',
+                'timing' => 225.124,
+            ],
+            [
+                'id' => 2,
+                'assessment_id' => $assessmentId,
+                'color' => 'red',
+                'timing' => 525.127,
+            ],
+            [
+                'id' => 3,
+                'assessment_id' => $assessmentId,
+                'color' => 'blue',
+                'timing' => 265.114,
+            ],
+            [
+                'id' => 4,
+                'assessment_id' => $assessmentId,
+                'color' => 'blue',
+                'timing' => 365.324,
+            ],
+        ];
+    
+        $savedEntities = $pointsTable->saveMany($pointsTable->newEntities($data));
+
+        $this->assertNotEmpty($savedEntities);
+
+        $result = $this->Assessments->getScores($assessmentId);
+    
+        $expected = ['red' => 2, 'blue' => 2];
+    
+        $this->assertEquals($expected, $result);
+    }
+    
+
+    public function testGetAllPointsWithTiming(): void
+    {
+        $assessmentId = 1;
+
+        $pointsWithTiming = $this->Assessments->getAllPointsWithTiming($assessmentId);
+
+        $this->assertIsArray($pointsWithTiming);
+        $this->assertNotEmpty($pointsWithTiming);
+    }
+
+    public function testGetAssessmentsData(): void
+    {
+        $videoId = 1;
+
+        $video = new \App\Model\Entity\Video([
+            'id' => $videoId,
+            'title' => 'Video Title',
+            'event' => new \App\Model\Entity\Event([
+                'title' => 'Event Title',
+                'date' => new \Cake\I18n\FrozenTime('2023-11-03 12:00:00') // Remplacez par la date appropriée
+            ])
+        ]);
+    
+        $assessmentsData = $this->Assessments->getAssessmentsData($video);
+
+        $this->assertIsArray($assessmentsData);
+    }
+
+    public function testGetAssessmentsCount(): void
+    {
+        $userId = 1;
+        $videoId = 1;
+
+       $result = $this->Assessments->getAssessmentsCount($videoId, $userId);
+
+       $expected = [
+        'userAssessments' => 2,
+        'allAssessments' => 2,
+       ];
+
+        $this->assertEquals($expected, $result);
     }
 }

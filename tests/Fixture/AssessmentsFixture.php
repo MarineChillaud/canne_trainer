@@ -27,11 +27,12 @@ class AssessmentsFixture extends TestFixture
             ],
             [
                 'id' => 2,
-                'user_id' => 2,
-                'video_id' => 2,
+                'user_id' => 1,
+                'video_id' => 1,
                 'date' => '2023-10-02 13:45:00',
             ],
         ];
+
         parent::init();
     }
 }
