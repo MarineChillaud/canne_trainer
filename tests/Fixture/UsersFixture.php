@@ -29,7 +29,7 @@ class UsersFixture extends TestFixture
                 'created' => '2023-10-02 12:23:56',
             ],
             [
-                'id' => 1,
+                'id' => 2,
                 'username' => 'Lorem ipsum dolor sit amet',
                 'password' => 'Lorem ipsum dolor sit amet',
                 'lastName' => 'Lorem ipsum dolor sit amet',
