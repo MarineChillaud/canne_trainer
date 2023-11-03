@@ -43,8 +43,6 @@ class UsersController extends AppController
         $result = $this->Authentication->getResult();
         // if user is logged, send him elsewhere
         if ($result->isValid()) {
-            // récupère le userId et le stocke dans la session
-            $this->request->getSession()->write('user.id', $result->getData('id'));
 
             $redirect = $this->request->getQuery('redirect', [
                 'controller' => 'Events',
@@ -60,7 +58,6 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Authentication->logout();
-        $this->request->getSession()->delete('User.id');
 
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }

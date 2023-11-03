@@ -28,20 +28,15 @@ class VideosController extends AppController
 
         $videos = $this->Videos->find('all', ['contain' => 'Events']);
 
-        $user = $this->Authentication->getIdentity();
-        $session = $this->request->getSession();
-        $session->start();
 
-        $userId = $user ? $user->id : $session->read('User.id');
-
-        // si pas d'utilisateur connecté on passe en mode anonyme
-        if (!$userId) {
+        if ( ! $this->Authentication->getIdentity()) {
+            // si pas d'utilisateur connecté on passe en mode anonyme
             $newUser = $this->fetchTable('Users')->addAnonymous();
             $this->Flash->success('Mode Anonnyme (' . $newUser->id  . ')');
-            // ... et on écrit dans la session pour faire comme si il s'était connecté.
-            $session->write('User.id', $newUser->id);
-            $userId = $newUser->id;
+            // ... et on le connecte
+            $this->Authentication->setIdentity($newUser);
         }
+        $userId = $this->Authentication->getIdentity()->id;
 
         foreach ($videos as $video) {
             $assessmentsCount = $this->Videos->Assessments->getAssessmentsCount($video->id, $userId);
@@ -59,10 +54,8 @@ class VideosController extends AppController
     public function view($id, $assessmentId = 0)
     {
         $user = $this->Authentication->getIdentity();
-        $session = $this->request->getSession();
-        $session->start();
 
-        $userId = $user ? $user->id : $session->read('User.id');
+        $userId =  $user->id ;
 
         if ($assessmentId === 0) {
             $newAssessment = $this->fetchTable('Assessments')->add($userId, $id);
@@ -79,7 +72,6 @@ class VideosController extends AppController
         //@todo: sécurité : il faudra vérifier les droits du user sur l'assessemnt
 
         if ($this->request->is('post')) {
-            // cas de traitement de formulaire - ne s'active que s'il recoit des informations d'un formulaire en method POST
             $this->fetchTable('Points')->addColorPoint(
                 $this->request->getData('video_id'),
                 $assessmentId,
@@ -88,7 +80,7 @@ class VideosController extends AppController
             );
         }
 
-        // interroger le model 
+        // Query the model
         $video = $this->Videos->get($id);
         $points = $this->Videos->Assessments->getScores($assessmentId);
         $flagPoints = $this->Videos->Assessments->getAllPointsWithTiming($assessmentId);

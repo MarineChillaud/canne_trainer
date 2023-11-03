@@ -33,10 +33,7 @@ class AssessmentsController extends AppController
         $videos = $this->Assessments->Videos->find('all', ['contain' => 'Events']);
 
         $user = $this->Authentication->getIdentity();
-        $session = $this->request->getSession();        //@todo: utiliser displayFilter pour filtrer les vidéos.
-
-
-        $userId = $user ? $user->id : $session->read('User.id');
+        $userId=$user->id;
 
         foreach ($videos as $video) {
             $assessmentsCount = $this->Assessments->getAssessmentsCount($video->id, $userId);
@@ -56,8 +53,7 @@ class AssessmentsController extends AppController
     {
 
         $user = $this->Authentication->getIdentity();
-        $session = $this->request->getSession();        //@todo: utiliser displayFilter pour filtrer les vidéos.
-        $userId = $user ? $user->id : $session->read('User.id');
+        $userId=$user->id;
 
         $video = $this->Assessments->Videos->get($videoId);
 
