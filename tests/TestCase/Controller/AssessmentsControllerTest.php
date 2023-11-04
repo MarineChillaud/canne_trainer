@@ -64,13 +64,83 @@ class AssessmentsControllerTest extends TestCase
      * Test review method
      *
      * @return void
-     * @uses \App\Controller\AssessmentsController::view()
+     * @uses \App\Controller\AssessmentsController::review()
      */
-    // public function testReview(): void
+    public function testReview(): void
+    {
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'testing',
+                    'password' => 'testing1234*',
+                    "firstName" => 'Testing',
+                    "lastName" => 'Testing',
+                    "created" => '2023-10-29 15:37:46',
+                ]
+            ]
+        ]);
+
+        $this->get('/assessments/review/1/all');
+        $this->assertResponseOk();
+
+        $this->get('/assessments/review/1/1');
+        $this->assertResponseOk();
+
+        // $this->get('/assessments/review/1/own');
+        // $this->assertResponseOk();
+    }
+
+    // public function testAddUnauthenticatedFailsReview(): void
     // {
     //     $this->get('/assessments/review/1/own');
-    //     $this->assertResponseOk();
+    //     $this->assertRedirectContains('/users/login');
     // }
+
+
+    public function testVideoNotFound(): void
+{
+    $this->session([
+        'Auth' => [
+            'User' => [
+                'id' => 1,
+                'username' => 'testing',
+                'password' => 'testing1234*',
+                'firstName' => 'Testing',
+                'lastName' => 'Testing',
+                'created' => '2023-10-29 15:37:46',
+            ]
+        ]
+    ]);
+
+    // Utilisez un ID de vidéo qui n'existe pas (par exemple, 99999).
+    $this->get('/assessments/review/99999/all');
+    $this->assertResponseCode(404); // Assurez-vous que l'action renvoie une réponse 404 Not Found.
+}
+
+public function testPerformance(): void
+{
+   $this->session([
+       'Auth' => [
+           'User' => [
+               'id' => 1,
+               'username' => 'testing',
+               'password' => 'testing1234*',
+               'firstName' => 'Testing',
+               'lastName' => 'Testing',
+               'created' => '2023-10-29 15:37:46',
+           ]
+       ]
+   ]);
+
+   $start = microtime(true);
+   $this->get('/assessments/review/1/all');
+   $end = microtime(true);
+   $time = $end - $start;
+
+   $this->assertLessThan(0.1, $time); 
+}
+
 
     /**
      * Test add method
