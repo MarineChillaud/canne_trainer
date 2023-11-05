@@ -91,12 +91,37 @@ class AssessmentsControllerTest extends TestCase
         // $this->assertResponseOk();
     }
 
-    // public function testAddUnauthenticatedFailsReview(): void
-    // {
-    //     $this->get('/assessments/review/1/own');
-    //     $this->assertRedirectContains('/users/login');
-    // }
+    public function testNavigationFromPoints(): void
+    {
+        $this->enableCsrfToken();
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'testing',
+                    'password' => 'testing1234*',
+                    "firstName" => 'Testing',
+                    "lastName" => 'Testing',
+                    "created" => '2023-10-29 15:37:46',
+                ]
+            ]
+        ]);
 
+        $this->get('/assessments/review/1/1');
+        $this->assertResponseOk();
+
+        $this->assertResponseContains('Title test');
+        $this->assertResponseContains('red');
+        $this->assertResponseContains('blue');
+
+        $this->post('assessments/review/1/1', ['pointId' => 1]);
+
+        $this->assertResponseOk();
+        $this->assertResponseContains('Title test');
+        // $this->assertResponseContains('<div class="point-flag red" title="1:159.256" data-time="159.256"></div>');
+
+
+    }
 
     public function testVideoNotFound(): void
 {
@@ -148,10 +173,10 @@ public function testPerformance(): void
      * @return void
      * @uses \App\Controller\AssessmentsController::add()
      */
-    public function testAdd(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testAdd(): void
+    // {
+    //     $this->markTestIncomplete('Not implemented yet.');
+    // }
 
     /**
      * Test edit method
@@ -159,10 +184,10 @@ public function testPerformance(): void
      * @return void
      * @uses \App\Controller\AssessmentsController::edit()
      */
-    public function testEdit(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testEdit(): void
+    // {
+    //     $this->markTestIncomplete('Not implemented yet.');
+    // }
 
     /**
      * Test delete method
@@ -170,8 +195,8 @@ public function testPerformance(): void
      * @return void
      * @uses \App\Controller\AssessmentsController::delete()
      */
-    public function testDelete(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testDelete(): void
+    // {
+    //     $this->markTestIncomplete('Not implemented yet.');
+    // }
 }

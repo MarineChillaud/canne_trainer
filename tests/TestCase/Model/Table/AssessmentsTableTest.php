@@ -63,10 +63,10 @@ class AssessmentsTableTest extends TestCase
      * @return void
      * @uses \App\Model\Table\AssessmentsTable::validationDefault()
      */
-    public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testValidationDefault(): void
+    // {
+    //     $this->markTestIncomplete('Not implemented yet.');
+    // }
 
     /**
      * Test buildRules method
@@ -74,27 +74,23 @@ class AssessmentsTableTest extends TestCase
      * @return void
      * @uses \App\Model\Table\AssessmentsTable::buildRules()
      */
-    public function testBuildRules(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testBuildRules(): void
+    // {
+    //     $this->markTestIncomplete('Not implemented yet.');
+    // }
 
     public function testCreateAndSaveAssessmentSuccess(): void
     {
-        $data = [
-            'user_id' => 1, 
-            'video_id' => 1, 
-            'date' => '2023-10-02 12:23:23',
-        ];
+  
+        $assessmentData = $this->Assessments->find()->first();
+        $assessment = $this->Assessments->newEmptyEntity();
+        $assessment = $this->Assessments->patchEntity($assessment, $assessmentData->toArray());
 
-       $assessment = $this->Assessments->newEmptyEntity();
-       $assessment = $this->Assessments->patchEntity($assessment, $data);
+        $result = $this->Assessments->save($assessment);
 
-       $result = $this->Assessments->save($assessment);
-
-       $this->assertInstanceOf('App\Model\Entity\Assessment', $result);
-       $this->assertEquals(1, $result->user_id);
-       $this->assertEquals($data['video_id'], $result->video_id);
+        $this->assertInstanceOf('App\Model\Entity\Assessment', $result);
+        $this->assertEquals($assessmentData->user_id, $result->user_id);
+        $this->assertEquals($assessmentData->video_id, $result->video_id);
     }
 
     public function testCreateAndSaveAssessmentFail(): void
@@ -181,4 +177,6 @@ class AssessmentsTableTest extends TestCase
 
         $this->assertEquals($expected, $result);
     }
+
+
 }

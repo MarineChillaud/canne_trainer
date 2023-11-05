@@ -23,13 +23,13 @@ class PointsFixture extends TestFixture
             [
                 'id' => 1,
                 'assessment_id' => 1,
-                'color' => 'Lorem ipsum dolor sit amet',
+                'color' => 'red',
                 'timing' => 159.256,
             ],
             [
                 'id' => 2,
-                'assessment_id' => 2,
-                'color' => 'Lorem ipsum dolor sit amet',
+                'assessment_id' => 1,
+                'color' => 'blue',
                 'timing' => 205.235,
             ],
         ];
