@@ -22,13 +22,11 @@ class VideosFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => 1,
                 'event_id' => 1,
                 'title' => 'Title test',
                 'url' => 'urlVideoTest',
                 'date' => '2023-10-02 12:24:00',
             ], [
-                'id' => 2,
                 'event_id' => 1,
                 'title' => 'Title test',
                 'url' => 'urlVideoTest',

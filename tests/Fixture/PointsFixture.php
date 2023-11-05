@@ -21,13 +21,11 @@ class PointsFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => 1,
                 'assessment_id' => 1,
                 'color' => 'red',
                 'timing' => 159.256,
             ],
             [
-                'id' => 2,
                 'assessment_id' => 1,
                 'color' => 'blue',
                 'timing' => 205.235,

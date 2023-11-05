@@ -33,10 +33,10 @@ class VideosControllerTest extends TestCase
      * @return void
      * @uses \App\Controller\VideosController::beforeFilter()
      */
-    public function testBeforeFilter(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testBeforeFilter(): void
+    // {
+    //     $this->markTestIncomplete('Not implemented yet.');
+    // }
 
     
 
@@ -70,14 +70,74 @@ class VideosControllerTest extends TestCase
 
     }
 
+    public function testView(): void
+    {
+        $this->enableCsrfToken();
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'testing',
+                    'password' => 'testing1234*',
+                    "firstName" => 'Testing',
+                    "lastName" => 'Testing',
+                    "created" => '2023-10-29 15:37:46',
+                ]
+            ]
+        ]);
+
+        $this->get('videos/view/1/1');
+        $this->assertResponseOk();
+
+        $this->post('videos/view/1/1', ['color_point' => 'red', 'current_time' => 159.256]);
+        $this->assertResponseOk();
+
+        // $this->assertHeaderContains('Content-Type', 'application/json');
+        $this->assertResponseContains('<video'); 
+        $this->assertResponseContains('id="redButton"');
+        $this->assertResponseContains('id="blueButton"'); 
+        $this->assertResponseContains('id="progressBar"');
+        $this->assertResponseContains('id="flagContainer"');
+        
+
+    }
+
+    public function testAjaxRequestToViewAction(): void
+    {
+        $this->configRequest([
+            'headers' => [
+                'Accept' => "application/json",
+                'X-Requested-With' =>'XMLHttpRequest',
+            ],
+        ]);
+
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => 1,
+                    'username' => 'testing',
+                    'password' => 'testing1234*',
+                    "firstName" => 'Testing',
+                    "lastName" => 'Testing',
+                    "created" => '2023-10-29 15:37:46',
+                ]
+            ]
+        ]);
+
+        $this->get('/videos/view/1/1');
+        $this->assertNoRedirect();
+        $this->assertResponseOk();
+
+    }
+
     /**
      * Test view method
      *
      * @return void
      * @uses \App\Controller\VideosController::view()
      */
-    public function testView(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    // public function testView(): void
+    // {
+    //     $this->markTestIncomplete('Not implemented yet.');
+    // }
 }
