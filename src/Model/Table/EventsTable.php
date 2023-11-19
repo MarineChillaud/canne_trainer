@@ -69,4 +69,15 @@ class EventsTable extends Table
 
         return $validator;
     }
+
+    public function mapApiData(array $apiData): \App\Model\Entity\Event
+    {
+        $event = $this->newEmptyEntity();
+        $event = $this->patchEntity($event, [
+            'title' => $apiData['name'],
+            'date' => $apiData['startDate']
+        ]);
+
+        return $event;
+    }
 }

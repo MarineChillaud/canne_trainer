@@ -63,7 +63,6 @@ class VideosControllerTest extends TestCase
         $this->get('/videos');
 
         $this->assertResponseOk();
-        // $this->assertResponseContains('Liste des vidéos'); 
         $this->assertResponseContains('Title test'); 
         $this->assertResponseContains('urlVideoTest'); 
         $this->assertResponseContains('2023-10-02 12:24:00'); 
@@ -98,7 +97,6 @@ class VideosControllerTest extends TestCase
         $this->assertResponseContains('id="blueButton"'); 
         $this->assertResponseContains('id="progressBar"');
         $this->assertResponseContains('id="flagContainer"');
-        
 
     }
 

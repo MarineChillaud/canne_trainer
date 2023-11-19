@@ -37,6 +37,23 @@ class EventsController extends AppController
      */
     public function index()
     {
+        $url = 'http://testing.canne.tv/replay/api/competitions';
+        $apiData = json_decode(file_get_contents($url), true);
+
+        foreach ($apiData as $competitionData) {
+            $existingEvent = $this->Events->find()
+                ->where([
+                    'title' => $competitionData['name'],
+                    'date' => $competitionData['startDate'],
+                ])
+                ->first();
+            
+            if (!$existingEvent) {
+            $event = $this->Events->mapApiData($competitionData);
+            $this->Events->save($event);
+            }
+        }
+
         $events = $this->Events->find('all')->toArray();
 
         $this->set(compact('events'));
