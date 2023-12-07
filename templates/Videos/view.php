@@ -16,15 +16,15 @@
     <h1 class='mb-5'><?= h($video->title) ?></h1>
 
     <div class="row align-items-center">
-        <div class="col-md-3">
+        <div class="col-md-1">
             <div class="points-button row align-items-center">
                 <div class="col align-self-center">
-                    <div type="button" class="btn btn-danger btn-lg">
+                    <div type="button" class="btn btn-danger btn-lg p-0">
                         <?= $this->Form->create(null, ['id' => 'point_form_red']) ?>
                         <?= $this->Form->hidden('color_point', ['value' => 'red']) ?>
                         <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                         <?= $this->Form->hidden('current_time', ['id' => 'current_time_red']); ?>
-                        <?= $this->Form->button($points['red'], ['id' => 'redButton', 'class' => 'btn btn-danger']) ?>
+                        <?= $this->Form->button($points['red'], ['id' => 'redButton', 'class' => 'btn btn-danger p-4']) ?>
                         <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
                         <?= $this->Form->end() ?>
                     </div>
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-10">
             <div class="row align-items-center">
                 <video id="video" autoplay=true controls data-next-video="<?= $this->Url->build(['controller' => 'Assessments', 'action' => 'review', $video->id, $assessmentId]); ?>">
                     <source src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" style='width:100%' />
@@ -40,15 +40,15 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-1">
             <div class="points-button row align-items-center">
                 <div class="col align-self-center">
-                    <div type="button" class="btn btn-primary btn-lg">
+                    <div type="button" class="btn btn-primary btn-lg p-0">
                         <?= $this->Form->create(null, ['id' => 'point_form_blue']) ?>
                         <?= $this->Form->hidden('color_point', ['value' => 'blue']) ?>
                         <?= $this->Form->hidden('video_id', ['value' => $video->id]) ?>
                         <?= $this->Form->hidden('current_time', ['id' => 'current_time_blue']); ?>
-                        <?= $this->Form->button($points['blue'], ['id' => 'blueButton', 'class' => 'btn btn-primary']) ?>
+                        <?= $this->Form->button($points['blue'], ['id' => 'blueButton', 'class' => 'btn btn-primary p-4']) ?>
                         <?= $this->Form->hidden('_csrfToken', ['value' => $this->request->getAttribute('csrfToken')]); ?>
                         <?= $this->Form->end() ?>
                     </div>
