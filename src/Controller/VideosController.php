@@ -59,7 +59,7 @@ class VideosController extends AppController
 
         if ($assessmentId === 0) {
             $newAssessment = $this->fetchTable('Assessments')->add($userId, $id);
-            $this->Flash->success('Nouvelle évaluation (' . $newAssessment->id . ')');
+            $this->Flash->success('Nouvelle évaluation');
 
             return $this->redirect([
                 'controller' => 'Videos',
