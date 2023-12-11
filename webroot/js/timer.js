@@ -119,11 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "q") {
+        if (event.code === "KeyA") {
             redButton.click();
         }
 
-        if (event.key === "m") {
+        if (event.code === "Semicolon") {
             blueButton.click();
         }
     });

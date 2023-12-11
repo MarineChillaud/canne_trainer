@@ -1,24 +1,24 @@
-body{
+body {
     background: #000;
     color: #fff;
 }
-.navbar-dark{
-    opacity:0.8
+.navbar-dark {
+    opacity: 0.8;
 }
-body a{
-    color:#69b1ff;
+body a {
+    color: #69b1ff;
 }
-body a:hover{
-    color:#c2ddfb;
+body a:hover {
+    color: #c2ddfb;
 }
 
-main{
+main {
     min-height: 40em;
 }
 
 nav header .dropdown-menu .dropdown-item i.fas,
-nav header .dropdown-menu .dropdown-item i.far{
-    width:21px;
+nav header .dropdown-menu .dropdown-item i.far {
+    width: 21px;
 }
 
 /*pour que les ancres nommÃ©es tombent bien*/
@@ -26,78 +26,79 @@ html {
     scroll-padding-top: 60px;
 }
 
-#localnav:empty,#complinfo:empty{
-    background-image:url("../../img/fond1.jpg");
-    background-size:cover;
+#localnav:empty,
+#complinfo:empty {
+    background-image: url("../../img/fond1.jpg");
+    background-size: cover;
     background-position: right;
-    filter: hue-rotate(150deg)saturate(150%);
+    filter: hue-rotate(150deg) saturate(150%);
 }
-#complinfo:empty{
-    transform:scaleX(-1);
-    filter:saturate(150%);
+#complinfo:empty {
+    transform: scaleX(-1);
+    filter: saturate(150%);
     z-index: -100;
 }
-#localnav:empty::after,#complinfo:empty::after{
+#localnav:empty::after,
+#complinfo:empty::after {
     position: absolute;
-    content: ' ';
+    content: " ";
     z-index: -1;
     height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    background: linear-gradient(225deg, rgba(0,0,250,0.2), #889);
+    background: linear-gradient(225deg, rgba(0, 0, 250, 0.2), #889);
     box-sizing: border-box;
 }
 
-#timeProgress
-{
-    height:30px;
-    margin-top:-20px !important;
+#timeProgress {
+    height: 30px;
+    margin-top: -20px !important;
 }
-#flagContainer{
-    padding-top: 60px;
-    margin-bottom: -40px;
+#flagContainer {
+    padding-top: 40px;
+    margin-bottom: -30px;
 }
 
-#points-button{
+#points-button {
     padding-top: 20px !important;
     padding-bottom: 20px;
 }
 .point-flag {
-    width: 2px; 
-    height: 40px; 
+    width: 2px;
+    height: 30px;
     position: relative;
-    margin-top:-40px;
-  }
-  .red{
-    background-color: red;
-  }
-  .blue{
-    background-color: blue;
-  }
-  
-.flagDisplayContainer{
-    padding-top: 0px;
-    height: 10px;;
-    background-color: #333;
-    margin-top:2px;
+    margin-top: -30px;
 }
-.flagDisplayContainer:nth-of-type(2n){
+.red {
+    background-color: red;
+}
+.blue {
+    background-color: blue;
+}
+
+.flagDisplayContainer {
+    padding-top: 0px;
+    height: 10px;
+    background-color: #333;
+    margin-top: 2px;
+}
+.flagDisplayContainer:nth-of-type(2n) {
     background-color: #666;
 }
 .flagDisplayContainer .point-flag {
-    width: 2px; 
+    width: 2px;
     position: relative;
-    height: 10px; 
-    margin-top:-10px;
+    height: 10px;
+    margin-top: -10px;
     cursor: grab;
 }
 .flagDisplayContainer .point-flag:first-of-type {
-    margin-top:0px;
+    margin-top: 0px;
 }
 
-  /* flash-messages.css */
+/* flash-messages.css */
 .flash-message {
     background-color: #f0f0f0;
     color: #333;
@@ -108,7 +109,7 @@ html {
 }
 
 .flash-message.success {
-    background-color: #d4edda;;
+    background-color: #d4edda;
     color: #155724;
     border-color: #c3e6cb;
     border-radius: 4px;
