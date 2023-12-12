@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelectorAll(".point-flag").forEach((element) => {
             element.addEventListener("click", () => {
-                video.cur = Math.floor(element.dataset.time);
+                const clickedTime = parseInt(element.dataset.time, 10);
+                const newTime = Math.max(0, clickedTime - 3);
+
+                video.currentTime = newTime;
             });
         });
         console.log("ready!");
