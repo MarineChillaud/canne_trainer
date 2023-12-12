@@ -22,17 +22,19 @@ class VideosController extends AppController
         $this->Authentication->allowUnauthenticated(['view', 'index']);
     }
 
-    public function index()
+    public function index($eventId)
     {
         $assessmentsTable = $this->fetchTable('Assessments');
 
-        $videos = $this->Videos->find('all', ['contain' => 'Events']);
+        $videos = $this->Videos->find('all', ['contain' => 'Events'])
+            ->where(['Videos.event_id' => $eventId])
+            ->toList();
 
 
         if ( ! $this->Authentication->getIdentity()) {
             // si pas d'utilisateur connecté on passe en mode anonyme
             $newUser = $this->fetchTable('Users')->addAnonymous();
-            $this->Flash->success('Mode Anonnyme (' . $newUser->id  . ')');
+            $this->Flash->success('Mode Anonnyme');
             // ... et on le connecte
             $this->Authentication->setIdentity($newUser);
         }
@@ -44,7 +46,9 @@ class VideosController extends AppController
             $video->allAssessments = $assessmentsCount['allAssessments'];
         }
 
-        $this->set(compact('videos'));
+        $event = $this->Videos->Events->get($eventId);
+
+        $this->set(compact('videos', 'event'));
     }
 
     /**

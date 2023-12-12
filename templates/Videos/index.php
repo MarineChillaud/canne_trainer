@@ -2,12 +2,11 @@
     <div class="col-md-12 text-left">
         <h1>Bienvenue sur CanneTrainer</h1>
     </div>
+    
     <div class="col-md-12 text-center">
-        <?php foreach ($videos as $video) : ?>
-            <h2><?= h($video->event->title) ?></h2>
-        <?php endforeach ?>
-
+        <h2><?= h($event->title) ?></h2>
     </div>
+
     <div class="col-md-12 text-center">
         <table class="table table-dark table-hover table-striped">
             <tr class="text-white">

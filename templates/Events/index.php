@@ -17,7 +17,7 @@
             <?php foreach ($events as $event) : ?>
                 <tr class="text-white">
                     <td><?= h($event->date->format('d/m/y')) ?></td>
-                    <td><?= $this->Html->link($event->title, ['controller' => 'Videos', 'action' => 'index', $event->assessment_id]) ?></td>
+                    <td><?= $this->Html->link($event->title, ['controller' => 'Videos', 'action' => 'index', $event->id]) ?></td>
                 </tr>
             <?php endforeach ?>
         </table>
