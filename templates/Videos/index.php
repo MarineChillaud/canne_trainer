@@ -1,7 +1,4 @@
 <div container>
-    <div class="col-md-12 text-left">
-        <h1>Bienvenue sur CanneTrainer</h1>
-    </div>
     
     <div class="col-md-12 text-center">
         <h2><?= h($event->title) ?></h2>
