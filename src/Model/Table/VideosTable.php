@@ -97,4 +97,16 @@ class VideosTable extends Table
 
         return $rules;
     }
+
+    public function mapApiData(array $videoData): \App\Model\Entity\Video
+    {
+        $video = $this->newEmptyEntity();
+        $video = $this->patchEntity($video, [
+            'event_id' => $videoData['id'],
+            'title' => $videoData['name'],
+            'date' => $videoData['startTime']
+        ]);
+
+        return $video;
+    }
 }

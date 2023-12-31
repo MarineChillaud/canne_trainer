@@ -1,5 +1,6 @@
 <div container>
-    
+    <?= $this->Html->script('timer.js') ?>
+
     <div class="col-md-12 text-center">
         <h2><?= h($event->title) ?></h2>
     </div>
@@ -26,7 +27,8 @@
                             'action' => 'view',
                             $video->id
                         ], [
-                            'class' => 'btn btn-outline-primary'
+                            'class' => 'btn btn-outline-primary',
+                            'id' => 'startNewAssessment'
                         ]) ?>
                     </td>
                 </tr>

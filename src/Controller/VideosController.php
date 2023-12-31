@@ -24,12 +24,22 @@ class VideosController extends AppController
 
     public function index($eventId)
     {
-        $assessmentsTable = $this->fetchTable('Assessments');
+        $url = 'http://testing.canne.tv/replay/api/competitions/3215/encounters';
+        $videoDatas = json_decode(file_get_contents($url), true);
+       // print_r($videoDatas);
+
+        foreach ($videoDatas as $videoData) {
+            $video = $this->Videos->newEmptyEntity();
+            $video = $this->Videos->patchEntity($video, $videoData);
+            if(!$this->Videos->save($video)) {
+            }
+        }
 
         $videos = $this->Videos->find('all', ['contain' => 'Events'])
-            ->where(['Videos.event_id' => $eventId])
-            ->toList();
+        ->where(['Videos.event_id' => $eventId])
+        ->toList();
 
+        $assessmentsTable = $this->fetchTable('Assessments');
 
         if ( ! $this->Authentication->getIdentity()) {
             // si pas d'utilisateur connecté on passe en mode anonyme
