@@ -24,14 +24,17 @@ class VideosController extends AppController
 
     public function index($eventId)
     {
-        $url = 'http://testing.canne.tv/replay/api/competitions/3215/encounters';
-        $videoDatas = json_decode(file_get_contents($url), true);
-       // print_r($videoDatas);
+        $url = 'http://testing.canne.tv/replay/api/competitions/' . $eventId . '/encounters';
+        $encounterDatas = json_decode(file_get_contents($url), true);
 
-        foreach ($videoDatas as $videoData) {
-            $video = $this->Videos->newEmptyEntity();
-            $video = $this->Videos->patchEntity($video, $videoData);
+        foreach ($encounterDatas as $encounterData) {
+            $video = $this->Videos->newEntity( [
+            'event_id' => $eventId,
+            'title' => $encounterData['name'],
+            'date' => $encounterData['startTime']
+        ]);
             if(!$this->Videos->save($video)) {
+                print_r($video);
             }
         }
 
@@ -58,7 +61,7 @@ class VideosController extends AppController
 
         $event = $this->Videos->Events->get($eventId);
 
-        $this->set(compact('videos', 'event'));
+        $this->set(compact('videos', 'event', 'encounterDatas'));
     }
 
     /**

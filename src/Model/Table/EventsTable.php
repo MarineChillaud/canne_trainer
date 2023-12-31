@@ -69,16 +69,4 @@ class EventsTable extends Table
 
         return $validator;
     }
-
-    public function mapApiData(array $competitionData): \App\Model\Entity\Event
-    {
-        $event = $this->newEmptyEntity();
-        $event = $this->patchEntity($event, [
-            'id' => $competitionData['id'],
-            'title' => $competitionData['name'],
-            'date' => $competitionData['startDate']
-        ]);
-
-        return $event;
-    }
 }
