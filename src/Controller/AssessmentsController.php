@@ -61,7 +61,6 @@ class AssessmentsController extends AppController
             // display just one
             $assessementId = (int)$displayFilter;
             $assessments = $this->Assessments->findByIdAndVideoId($assessementId, $videoId);
-            // $flagPoints = $this->Assessments->getAllPointsWithTiming($assessementId);
         } elseif ($displayFilter === 'all') {
             // display all assessment
             $assessments = $this->Assessments->findByVideoId($videoId);
@@ -75,6 +74,15 @@ class AssessmentsController extends AppController
         foreach ($assessments as $assessment) {
             $pointsPerAssessments[$assessment->id] = $this->Assessments->getAllPointsWithTiming($assessment->id);
         }
-        $this->set(compact('assessments', 'video', 'pointsPerAssessments'));
+
+        $allFlagPoints = [];
+        foreach ($assessments as $assessment) {
+            $points = $this->Assessments->getAllPointsWithTiming($assessment->id);
+            foreach ($points as $point) {
+                $allFlagPoints[] = $point;
+            }
+        }
+        
+        $this->set(compact('assessments', 'video', 'pointsPerAssessments', 'allFlagPoints'));
     }
 }

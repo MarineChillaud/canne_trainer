@@ -78,25 +78,29 @@ html {
     background-color: blue;
 }
 
-.flagDisplayContainer {
+.flag-display-container {
     padding-top: 0px;
     height: 10px;
     background-color: #333;
     margin-top: 2px;
 }
-.flagDisplayContainer:nth-of-type(2n) {
+
+.flag-display-container:nth-of-type(2n) {
     background-color: #666;
 }
-.flagDisplayContainer .point-flag {
+
+.flag-display-container .point-flag {
     width: 2px;
     position: relative;
     height: 10px;
     margin-top: -10px;
     cursor: grab;
 }
-.flagDisplayContainer .point-flag:first-of-type {
+
+.flag-display-container .point-flag:first-of-type {
     margin-top: 0px;
 }
+
 
 /* flash-messages.css */
 .flash-message {
@@ -125,4 +129,17 @@ html {
     border: 1px solid transparent;
     margin-bottom: 16px;
     padding: 12px 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0, 5);
+    z-index: 1000;
 }
