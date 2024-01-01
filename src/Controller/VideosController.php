@@ -40,7 +40,7 @@ class VideosController extends AppController
 
         $videos = $this->Videos->find('all', ['contain' => 'Events'])
         ->where(['Videos.event_id' => $eventId])
-        ->toList();
+        ->all();
 
         $assessmentsTable = $this->fetchTable('Assessments');
 
