@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let video = document.querySelector("video");
+    let video = document.getElementById("video");
     let redButton = document.getElementById("redButton");
     let blueButton = document.getElementById("blueButton");
     let redCurrentTimeInput = document.getElementById("current_time_red");
     let blueCurrentTimeInput = document.getElementById("current_time_blue");
     let progressBar = document.getElementById("progressBar");
+    let startNewAssessment = document.getElementById("startNewAssessment");
 
     function updateProgressBar() {
         let progress = (video.currentTime / video.duration) * 100;
@@ -16,44 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
         blueCurrentTimeInput.value = video.currentTime;
     }
 
-    function resetLocalStorage() {
-        localStorage.removeItem("videoData");
-    }
-
-    if (!localStorage.getItem("videoData")) {
-        resetLocalStorage();
-    }
-
-    if (localStorage.getItem("videoData")) {
-        const savedVideoData = JSON.parse(localStorage.getItem("videoData"));
-        // Restaure la position de lecture
-        video.currentTime = savedVideoData.currentTime;
-    }
-
-    // Sauvegarde les données dans localStorage lorsqu'elles sont mises à jour
-    function saveDataToLocalStorage() {
-        const videoData = {
-            currentTime: video.currentTime,
-        };
-
-        localStorage.setItem("videoData", JSON.stringify(videoData));
-    }
-
     function handlePlayerEvent() {
         getCurrentTime();
-        saveDataToLocalStorage();
     }
 
     function handleTimeUpdateEvent() {
         updateProgressBar();
-        saveDataToLocalStorage();
     }
 
-    function handleEndedEvent() {
-        document.location.href = video.dataset.nextVideo;
-    }
-
-    // Écoute les événements pour mettre à jour et sauvegarder les données
     video.addEventListener("play", handlePlayerEvent);
     video.addEventListener("pause", handlePlayerEvent);
     video.addEventListener("timeupdate", handleTimeUpdateEvent);
@@ -64,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
             video.pause();
         }
     });
-    video.addEventListener("ended", handleEndedEvent);
 
     let xhr = new XMLHttpRequest();
 

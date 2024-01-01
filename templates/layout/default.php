@@ -135,7 +135,7 @@ $siteVersion = '1.0'
     <?= $this->Html->script('jquery-3.4.1.min'); ?>
     <?= $this->Html->script('popper.min'); ?>
     <?= $this->Html->script('bootstrap.min'); ?>
-    <!-- <?= $this->Html->script('scriptBottom'); ?>          -->
+    <?= $this->fetch('scriptBottom'); ?>
 
 </body>
 

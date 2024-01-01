@@ -3,13 +3,20 @@
     json_encode($this->request->getAttribute('csrfToken'))
 )) ?>
 
-<?= $this->Html->script('timer.js') ?>
+<?= $this->Html->script('modal.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('timer.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('time_keeper.js', ['block' => 'scriptBottom']) ?>
 
 <!-- Ajout du bloc pour les messages flash -->
 <div class="row">
     <div class="col">
         <?= $this->Flash->render() ?>
     </div>
+</div>
+
+<div id="modal" class="modal">
+    <p id="modal-text">Nouvelle évaluation</p>
+    <p id="countdown"></p>
 </div>
 
 <div class="container text-center">
