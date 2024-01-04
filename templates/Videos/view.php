@@ -23,7 +23,7 @@
     <h1 class='mb-3'><?= h($video->title) ?></h1>
     <div class="row align-items-center">
         <video id="video" autoplay=true controls data-next-video="<?= $this->Url->build(['controller' => 'Assessments', 'action' => 'review', $video->id, $assessmentId]); ?>">
-            <source src="https://canne.tv/replay/video/3513/A/2022-01-21_10-20-00___2022-01-21_10-34-18.mp4" type="video/mp4" style='width:100%' />
+            <source src="<?=$video->url?>" type="video/mp4" style='width:100%' />
         </video>
     </div>
 
