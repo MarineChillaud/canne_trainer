@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let redCurrentTimeInput = document.getElementById("current_time_red");
     let blueCurrentTimeInput = document.getElementById("current_time_blue");
     let progressBar = document.getElementById("progressBar");
-    let startNewAssessment = document.getElementById("startNewAssessment");
 
     function updateProgressBar() {
         let progress = (video.currentTime / video.duration) * 100;

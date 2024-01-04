@@ -11,4 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     video.addEventListener("timeupdate", () =>
         localStorage.setItem(key, video.currentTime)
     );
+    video.addEventListener("ended", () => {
+        document.location.href = video.dataset.nextVideo;
+    });
 });

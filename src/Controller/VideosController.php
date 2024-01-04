@@ -29,13 +29,12 @@ class VideosController extends AppController
 
         foreach ($encounterDatas as $encounterData) {
             $video = $this->Videos->newEntity( [
+            'id' => $encounterData['id'],
             'event_id' => $eventId,
             'title' => $encounterData['name'],
             'date' => $encounterData['startTime']
         ]);
-            if(!$this->Videos->save($video)) {
-                print_r($video);
-            }
+            if(!$this->Videos->save($video));
         }
 
         $videos = $this->Videos->find('all', ['contain' => 'Events'])
