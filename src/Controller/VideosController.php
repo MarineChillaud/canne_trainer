@@ -33,8 +33,13 @@ class VideosController extends AppController
             'event_id' => $eventId,
             'title' => $encounterData['name'],
             'date' => $encounterData['startTime']
-        ]);
-            if(!$this->Videos->save($video));
+        ], [
+            'accessibleFields'=>['id'=>true]
+            ]
+        );
+        if(!$this->Videos->save($video)){
+                pr($video);
+            }
         }
 
         $videos = $this->Videos->find('all', ['contain' => 'Events'])
