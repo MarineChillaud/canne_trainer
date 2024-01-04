@@ -41,8 +41,14 @@ class EventsController extends AppController
         $competitionDatas = json_decode(file_get_contents($url), true);
 
         foreach ($competitionDatas as $competitionData) {
-            $event = $this->Events->newEmptyEntity();
-            $event = $this->Events->patchEntity($event, $competitionData);
+            $event = $this->Events->newEntity([
+                'id' => $competitionData['id'],
+                'title' => $competitionData['name'],
+                'date' => $competitionData['startDate'],
+            ], [
+                'accessibleFields'=>['id'=>true]
+                ]);
+
             $this->Events->save($event);
         }
         $events = $this->Events->find('all')->toArray();
