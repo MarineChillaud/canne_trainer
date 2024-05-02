@@ -15,7 +15,7 @@
                 <th>Lancer une nouvelle évaluation</th>
             </tr>
 
-            <?php foreach ($videos as $video) : ?>
+            <?php foreach ($event->videos as $video) : ?>
                 <tr class="text-white">
                     <td><?= date('d/m/y H:i', strtotime($video->date)) ?></td>
                     <td><?= h($video->title) ?></td>

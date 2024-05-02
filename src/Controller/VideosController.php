@@ -24,14 +24,7 @@ class VideosController extends AppController
 
     public function index($eventId)
     {
-        $this->Videos->updateFromApi($eventId);
-
-        $videos = $this->Videos->find('all', ['contain' => 'Events'])
-        ->where(['Videos.event_id' => $eventId])
-        ->all();
-
-        $assessmentsTable = $this->fetchTable('Assessments');
-
+        // Questions de droit
         if ( ! $this->Authentication->getIdentity()) {
             // si pas d'utilisateur connecté on passe en mode anonyme
             $newUser = $this->fetchTable('Users')->addAnonymous();
@@ -41,15 +34,18 @@ class VideosController extends AppController
         }
         $userId = $this->Authentication->getIdentity()->id;
 
-        foreach ($videos as $video) {
+        // Update
+        $this->Videos->updateFromApi($eventId);
+
+        // Récupération d'information
+        $event = $this->Videos->Events->get($eventId, ['contain'=>'Videos']);
+        foreach ($event->videos as $video) {
             $assessmentsCount = $this->Videos->Assessments->getAssessmentsCount($video->id, $userId);
             $video->userAssessments = $assessmentsCount['userAssessments'];
             $video->allAssessments = $assessmentsCount['allAssessments'];
         }
 
-        $event = $this->Videos->Events->get($eventId);
-
-        $this->set(compact('videos', 'event'));
+        $this->set(compact('event'));
     }
 
     /**
