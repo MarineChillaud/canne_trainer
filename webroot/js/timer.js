@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
-                // Mettre à jour les boutons rouges et bleus avec les nouveaux points
-                redButton.textContent = response.points.red;
-                blueButton.textContent = response.points.blue;
+                // Mettre à jour les boutons rouges et bleus avec les nouveaux scores
+                redButton.textContent = response.scores.red;
+                blueButton.textContent = response.scores.blue;
 
                 const flagContainer = document.getElementById("flagContainer");
                 flagContainer.innerHTML = "";

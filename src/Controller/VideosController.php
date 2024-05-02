@@ -59,10 +59,10 @@ class VideosController extends AppController
     {
         $user = $this->Authentication->getIdentity();
 
-        $userId =  $user->id ;
+        $userId = $user->id ;
 
         if ($assessmentId === 0) {
-            $newAssessment = $this->fetchTable('Assessments')->add($userId, $id);
+            $newAssessment = $this->Videos->Assessments->add($userId, $id);
             $this->Flash->success('Nouvelle évaluation');
 
             return $this->redirect([
@@ -76,7 +76,7 @@ class VideosController extends AppController
         //@todo: sécurité : il faudra vérifier les droits du user sur l'assessemnt
 
         if ($this->request->is('post')) {
-            $this->fetchTable('Points')->addColorPoint(
+            $this->Videos->Assessments->Points->addColorPoint(
                 $this->request->getData('video_id'),
                 $assessmentId,
                 $this->request->getData('color_point'),
@@ -86,13 +86,13 @@ class VideosController extends AppController
 
         // Query the model
         $video = $this->Videos->get($id);
-        $points = $this->Videos->Assessments->getScores($assessmentId);
+        $scores = $this->Videos->Assessments->getScores($assessmentId);
         $flagPoints = $this->Videos->Assessments->getAllPointsWithTiming($assessmentId);
 
-        $this->set(compact('video', 'points', 'flagPoints', 'assessmentId'));
+        $this->set(compact('video', 'assessmentId', 'scores', 'flagPoints'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
-            $this->set(['_serialize' => ['video', 'points', 'flagPoints']]);
+            $this->set(['_serialize' => ['video', 'scores', 'flagPoints']]);
             // voir doc pour comprendre exactement 
             $this->viewBuilder()->setLayout('ajax');
         }
