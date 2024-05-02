@@ -175,7 +175,7 @@ class AssessmentsTable extends Table
             [
                 'user_id' => $userId,
                 'video_id' => $videoId,
-                'date' => FrozenTime::now(),
+                'date' => FrozenTime::now(null),
             ]
         );
         $this->save($newAssessment);

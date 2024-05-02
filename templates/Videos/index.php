@@ -19,8 +19,8 @@
                 <tr class="text-white">
                     <td><?= date('d/m/y H:i', strtotime($video->date)) ?></td>
                     <td><?= h($video->title) ?></td>
-                    <td><?= h($video->userAssessments) ?></td>
-                    <td><?= h($video->allAssessments) ?></td>
+                    <td><?= h($assessmentCounts[$video->id]['userAssessments']) ?></td>
+                    <td><?= h($assessmentCounts[$video->id]['allAssessments']) ?></td>
                     <td class='button-group'>
                         <?= $this->Html->Link(__('Lancer une nouvelle évaluation'), [
                             'controller' => 'Videos',

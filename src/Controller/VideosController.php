@@ -37,15 +37,14 @@ class VideosController extends AppController
         // Update
         $this->Videos->updateFromApi($eventId);
 
-        // Récupération d'information
+        // Récupération d'information pour l'affichage
         $event = $this->Videos->Events->get($eventId, ['contain'=>'Videos']);
+        $assessmentCounts=[];
         foreach ($event->videos as $video) {
-            $assessmentsCount = $this->Videos->Assessments->getAssessmentsCount($video->id, $userId);
-            $video->userAssessments = $assessmentsCount['userAssessments'];
-            $video->allAssessments = $assessmentsCount['allAssessments'];
+            $assessmentCounts[$video->id] = $this->Videos->Assessments->getAssessmentsCount($video->id, $userId);
         }
 
-        $this->set(compact('event'));
+        $this->set(compact('event','assessmentCounts'));
     }
 
     /**
