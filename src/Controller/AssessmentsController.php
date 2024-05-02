@@ -82,7 +82,16 @@ class AssessmentsController extends AppController
                 $allFlagPoints[] = $point;
             }
         }
+
+        $pointsPerSecond = [];
+        foreach($allFlagPoints as $point) {
+            $timingInSecond = floor($point['timing'] / 1000);
+            if (!isset($pointsPerSecond[$timingInSecond])) {
+                $pointsPerSecond[$timingInSecond] = 0;
+            }
+            $pointsPerSecond[$timingInSecond]++;
+        }
         
-        $this->set(compact('assessments', 'video', 'pointsPerAssessments', 'allFlagPoints'));
+        $this->set(compact('assessments', 'video', 'pointsPerAssessments', 'allFlagPoints', 'pointsPerSecond'));
     }
 }

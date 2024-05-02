@@ -82,7 +82,7 @@ html {
     padding-top: 0px;
     height: 10px;
     background-color: #333;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .flag-display-container:nth-of-type(2n) {
@@ -91,10 +91,17 @@ html {
 
 .flag-display-container .point-flag {
     width: 2px;
-    position: relative;
     height: 10px;
+    border-radius: 50%;
+    position: relative;
     margin-top: -10px;
     cursor: grab;
+    justify-content: center;
+}
+
+.flag-display-container .point-flag[data-count="2"] {
+    width: 30px; /* Par exemple, pour deux points */
+    height: 30px;
 }
 
 .flag-display-container .point-flag:first-of-type {

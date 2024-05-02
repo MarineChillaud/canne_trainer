@@ -31,7 +31,13 @@ class VideosController extends AppController
             //$urlDetails = 'http://testing.canne.tv/replay/api/encounters/' . $encounterData['id'];
             $urlDetails = "https://canne.tv/replay/link_provider.php?id=".$encounterData['id'];
             $encounterDetails = json_decode(file_get_contents($urlDetails), true);
-    
+
+            if(isset($encounterDetails['error']))
+            {
+                //en cas d'erreur dans l'api on integre pas la vidéo
+                continue; // le "continue" permet de court-circuiter la boucle 
+            }
+
             $video = $this->Videos->newEntity( [
             'id' => $encounterData['id'],
             'event_id' => $eventId,
