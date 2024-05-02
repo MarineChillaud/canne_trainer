@@ -28,14 +28,18 @@ class VideosController extends AppController
         if ( ! $this->Authentication->getIdentity()) {
             // si pas d'utilisateur connecté on passe en mode anonyme
             $newUser = $this->fetchTable('Users')->addAnonymous();
-            $this->Flash->success('Mode Anonnyme');
+            $this->Flash->success('Mode Anonyme');
             // ... et on le connecte
             $this->Authentication->setIdentity($newUser);
         }
         $userId = $this->Authentication->getIdentity()->id;
 
         // Update
-        $this->Videos->updateFromApi($eventId);
+        if(random_int(1,100)===1)
+        {
+            $this->Flash->info('Base mise à jour');
+            $this->Videos->updateFromApi($eventId);
+        }
 
         // Récupération d'information pour l'affichage
         $event = $this->Videos->Events->get($eventId, ['contain'=>'Videos']);
