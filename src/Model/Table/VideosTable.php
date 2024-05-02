@@ -97,4 +97,40 @@ class VideosTable extends Table
         return $rules;
     }
 
+    protected function callApi(string $url):array
+    {
+        return json_decode(file_get_contents($url), true);
+    }
+
+    public function updateFromApi(int $eventId)
+    {
+        $encounterDatas = $this->callApi('http://testing.canne.tv/replay/api/competitions/' . $eventId . '/encounters');
+
+        foreach ($encounterDatas as $encounterData) {
+            //$encounterDetails = $this->callApi('http://testing.canne.tv/replay/api/encounters/' . $encounterData['id']);
+            $encounterDetails = $this->callApi('https://canne.tv/replay/link_provider.php?id='.$encounterData['id']);
+
+            if(isset($encounterDetails['error']))
+            {
+                //en cas d'erreur dans l'api on integre pas la vidéo
+                continue; // le "continue" permet de court-circuiter la boucle 
+            }
+            $video = $this->newEntity( [
+                'id' => $encounterData['id'],
+                'event_id' => $eventId,
+                'title' => $encounterData['name'],
+                //'url' => $encounterDetails['video_urls'],
+                //'offset' => $encounterDetails['offsetInSeconds'],
+                'url' => "https://canne.tv/replay/".$encounterDetails['fileName'],
+                'date' => $encounterData['startTime'],
+            ], [
+                'accessibleFields'=>['id'=>true]
+            ]
+            );
+            if(!$this->save($video)){
+                pr($video);
+            }
+        }
+    }
+
 }

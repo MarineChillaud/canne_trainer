@@ -24,37 +24,7 @@ class VideosController extends AppController
 
     public function index($eventId)
     {
-        $url = 'http://testing.canne.tv/replay/api/competitions/' . $eventId . '/encounters';
-        $encounterDatas = json_decode(file_get_contents($url), true);
-
-        foreach ($encounterDatas as $encounterData) {
-            //$urlDetails = 'http://testing.canne.tv/replay/api/encounters/' . $encounterData['id'];
-            $urlDetails = "https://canne.tv/replay/link_provider.php?id=".$encounterData['id'];
-            $encounterDetails = json_decode(file_get_contents($urlDetails), true);
-
-            if(isset($encounterDetails['error']))
-            {
-                //en cas d'erreur dans l'api on integre pas la vidéo
-                continue; // le "continue" permet de court-circuiter la boucle 
-            }
-
-            $video = $this->Videos->newEntity( [
-            'id' => $encounterData['id'],
-            'event_id' => $eventId,
-            'title' => $encounterData['name'],
-            //'url' => $encounterDetails['video_urls'],
-            //'offset' => $encounterDetails['offset'],
-            'url' => "https://canne.tv/replay/".$encounterDetails['fileName'],
-            'date' => $encounterData['startTime'],
-        ], [
-            'accessibleFields'=>['id'=>true]
-            ]
-        );
-        if(!$this->Videos->save($video)){
-                pr($video);
-            }
-        }
-
+        $this->Videos->updateFromApi($eventId);
 
         $videos = $this->Videos->find('all', ['contain' => 'Events'])
         ->where(['Videos.event_id' => $eventId])
@@ -79,7 +49,7 @@ class VideosController extends AppController
 
         $event = $this->Videos->Events->get($eventId);
 
-        $this->set(compact('videos', 'event', 'encounterDatas'));
+        $this->set(compact('videos', 'event'));
     }
 
     /**
