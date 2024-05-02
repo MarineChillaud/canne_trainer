@@ -92,7 +92,8 @@ class VideosController extends AppController
         $this->set(compact('video', 'assessmentId', 'scores', 'flagPoints'));
         // repose sur le header 'accept' 
         if ($this->request->is('json')) {
-            $this->set(['_serialize' => ['video', 'scores', 'flagPoints']]);
+            $this->viewBuilder()->setOption('serialize', ['video', 'scores', 'flagPoints']);
+            // $this->set(['_serialize' => ['video', 'scores', 'flagPoints']]);
             // voir doc pour comprendre exactement 
             $this->viewBuilder()->setLayout('ajax');
         }
