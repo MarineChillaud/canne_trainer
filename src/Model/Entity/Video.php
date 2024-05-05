@@ -32,6 +32,7 @@ class Video extends Entity
         'event_id' => true,
         'title' => true,
         'url' => true,
+        'offset' => true,
         'date' => true,
     ];
 }

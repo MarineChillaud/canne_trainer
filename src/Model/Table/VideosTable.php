@@ -7,7 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use App\Services\ApiCaller;
+use App\API\ApiCaller;
 
 /**
  * Videos Model
@@ -110,27 +110,42 @@ class VideosTable extends Table
 
         foreach ($encounterDatas as $encounterData) {
             $encounterDetails = $apiCaller->getEncounterDetails($encounterData['id']);
-            //$encounterDetails = $this->callApi('https://canne.tv/replay/link_provider.php?id='.$encounterData['id']);
 
             if(isset($encounterDetails['error']))
             {
                 //en cas d'erreur dans l'api on integre pas la vidéo
                 continue; // le "continue" permet de court-circuiter la boucle 
             }
+            $url='';
+            $offset=0;
+            $fileList=$encounterDetails['fileInfoList'];
+            if(count($fileList)>=1)
+            {
+                //@todo: attention si plusieur vidéos, cas non traité
+                $url=$fileList[0]['filePath'];
+                $offset=$fileList[0]['offsetInSeconds'];
+            }else{
+                $oldEncounterDetails = $this->callApi('https://canne.tv/replay/link_provider.php?id='.$encounterData['id']);
+                if(!isset($oldEncounterDetails['error'])){
+                    $url=  "https://canne.tv/replay/".$oldEncounterDetails['fileName'];
+                }
+            }
             $video = $this->newEntity( [
                 'id' => $encounterData['id'],
                 'event_id' => $eventId,
                 'title' => $encounterData['name'],
-                'url' => $encounterDetails['filePath'],
-                //'offset' => $encounterDetails['offsetInSeconds'],
-                //'url' => "https://canne.tv/replay/".$encounterDetails['fileName'],
+                'url' => $url,
+                'offset' => $offset,
                 'date' => $encounterData['startTime'],
-            ], [
+                ], [
                 'accessibleFields'=>['id'=>true]
-            ]
+                ]
             );
-            if(!$this->save($video)){
-                pr($video);
+            if($url!=='')
+            {
+                if(!$this->save($video)){
+                    pr($video);
+                }
             }
         }
     }
