@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use App\Services\ApiCaller;
 
 /**
  * Videos Model
@@ -104,11 +105,12 @@ class VideosTable extends Table
 
     public function updateFromApi(int $eventId)
     {
-        $encounterDatas = $this->callApi('http://testing.canne.tv/replay/api/competitions/' . $eventId . '/encounters');
+        $apiCaller = new ApiCaller();
+        $encounterDatas = $apiCaller->getEncounterDatas($eventId);
 
         foreach ($encounterDatas as $encounterData) {
-            //$encounterDetails = $this->callApi('http://testing.canne.tv/replay/api/encounters/' . $encounterData['id']);
-            $encounterDetails = $this->callApi('https://canne.tv/replay/link_provider.php?id='.$encounterData['id']);
+            $encounterDetails = $apiCaller->getEncounterDetails($encounterData['id']);
+            //$encounterDetails = $this->callApi('https://canne.tv/replay/link_provider.php?id='.$encounterData['id']);
 
             if(isset($encounterDetails['error']))
             {
@@ -119,9 +121,9 @@ class VideosTable extends Table
                 'id' => $encounterData['id'],
                 'event_id' => $eventId,
                 'title' => $encounterData['name'],
-                //'url' => $encounterDetails['video_urls'],
+                'url' => $encounterDetails['filePath'],
                 //'offset' => $encounterDetails['offsetInSeconds'],
-                'url' => "https://canne.tv/replay/".$encounterDetails['fileName'],
+                //'url' => "https://canne.tv/replay/".$encounterDetails['fileName'],
                 'date' => $encounterData['startTime'],
             ], [
                 'accessibleFields'=>['id'=>true]
@@ -130,7 +132,9 @@ class VideosTable extends Table
             if(!$this->save($video)){
                 pr($video);
             }
+           // $offset = $encounterDetails['offsetInSecond'];
         }
+       // return $offset;
     }
 
 }

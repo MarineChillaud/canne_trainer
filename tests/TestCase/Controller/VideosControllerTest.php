@@ -60,7 +60,7 @@ class VideosControllerTest extends TestCase
                 ]
             ]
         ]);
-        $this->get('/videos');
+        $this->get('/videos/index/1');
 
         $this->assertResponseOk();
         $this->assertResponseContains('Title test'); 
