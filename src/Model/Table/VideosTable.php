@@ -132,9 +132,6 @@ class VideosTable extends Table
             if(!$this->save($video)){
                 pr($video);
             }
-           // $offset = $encounterDetails['offsetInSecond'];
         }
-       // return $offset;
     }
-
 }
