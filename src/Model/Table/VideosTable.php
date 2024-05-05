@@ -126,12 +126,12 @@ class VideosTable extends Table
             if(count($fileList)>=1)
             {
                 //@todo: attention si plusieur vidéos, cas non traité
-                $url=$fileList[0]['filePath'];
+                $url="https://canne.tv/replay/".$fileList[0]['filePath'];
                 $offset=$fileList[0]['offsetInSeconds'];
             }else{
                 $oldEncounterDetails = $this->callApi('https://canne.tv/replay/link_provider.php?id='.$encounterData['id']);
                 if(!isset($oldEncounterDetails['error'])){
-                    $url=  "https://canne.tv/replay/".$oldEncounterDetails['fileName'];
+                    $url="https://canne.tv/replay/".$oldEncounterDetails['fileName'];
                 }
             }
             $video = $this->newEntity( [

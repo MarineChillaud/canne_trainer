@@ -35,7 +35,7 @@ class VideosController extends AppController
         $userId = $this->Authentication->getIdentity()->id;
 
         // Update
-        if(random_int(1,1)===1)
+        if(random_int(1,100)===1)
         {
             $this->Flash->info('Base mise à jour');
             $this->Videos->updateFromApi($eventId);
