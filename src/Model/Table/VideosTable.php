@@ -74,7 +74,11 @@ class VideosTable extends Table
 
         $validator
             ->scalar('url')
-            ->notEmptyString('url');
+            ->allowEmptyString('url');
+
+        $validator
+            ->integer('offset')
+            ->allowEmptyString('offset');
 
         $validator
             ->dateTime('date')

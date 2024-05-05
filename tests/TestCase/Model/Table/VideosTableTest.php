@@ -74,4 +74,15 @@ class VideosTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test updateFromApi method
+     *
+     * @return void
+     * @uses \App\Model\Table\VideosTable::updateFromApi()
+     */
+    public function testUpdateFromApi(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

@@ -11,7 +11,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $event_id
  * @property string $title
- * @property string $url
+ * @property string|null $url
+ * @property int|null $offset
  * @property \Cake\I18n\FrozenTime $date
  *
  * @property \App\Model\Entity\Event $event
@@ -34,5 +35,7 @@ class Video extends Entity
         'url' => true,
         'offset' => true,
         'date' => true,
+        'event' => true,
+        'assessments' => true,
     ];
 }
