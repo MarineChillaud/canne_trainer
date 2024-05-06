@@ -1,4 +1,4 @@
-console.log("Le code modal.js est exécuté");
+//console.log("Le code modal.js est exécuté");
 
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("modal");
