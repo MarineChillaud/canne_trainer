@@ -22,7 +22,7 @@
 <div class="container text-center">
     <h1 class='mb-3'><?= h($video->title) ?></h1>
     <div class="row align-items-center">
-        <video id="video" autoplay=true controls data-next-video="<?= $this->Url->build(['controller' => 'Assessments', 'action' => 'review', $video->id, $assessmentId]); ?>">
+        <video id="video" autoplay=true controls data-offset="<?= $offset ?>" data-next-video="<?= $this->Url->build(['controller' => 'Assessments', 'action' => 'review', $video->id, $assessmentId]); ?>">
             <source src="<?=$video->url?>" type="video/mp4" style='width:100%' />
         </video>
     </div>
