@@ -25,7 +25,7 @@
         <video id="video" autoplay=true controls data-offset="<?= $offset ?>" data-next-video="<?= $this->Url->build(['controller' => 'Assessments', 'action' => 'review', $video->id, $assessmentId]); ?>">
             <source src="<?=$video->url?>" type="video/mp4" style='width:100%' />
         </video>
-        <div id='redBublle' class='bubble red'></div>
+        <div id='redBubble' class='bubble red'></div>
         <div id='blueBubble' class='bubble blue'></div>
     </div>
 

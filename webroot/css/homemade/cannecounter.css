@@ -72,11 +72,12 @@ html {
     margin-top: -30px;
 }
 .bubble {
-    position : absolute;
+    position: absolute;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 .red {
     background-color: red;
@@ -114,7 +115,6 @@ html {
 .flag-display-container .point-flag:first-of-type {
     margin-top: 0px;
 }
-
 
 /* flash-messages.css */
 .flash-message {
