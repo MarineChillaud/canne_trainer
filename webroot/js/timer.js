@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let redCurrentTimeInput = document.getElementById("current_time_red");
     let blueCurrentTimeInput = document.getElementById("current_time_blue");
     let progressBar = document.getElementById("progressBar");
-    let offset = parseInt(video.getAttribute("data-offset"));
 
     function updateProgressBar() {
         let progress = (video.currentTime / video.duration) * 100;
@@ -108,7 +107,5 @@ document.addEventListener("DOMContentLoaded", function () {
     // Récupére le currentTime lors du chargement de la vidéo
     video.addEventListener("loadedmetadata", () => {
         getCurrentTime();
-        // Définir le temps de démarrage de la vidéo à l'offset spécifié
-        video.currentTime = offset;
     });
 });
